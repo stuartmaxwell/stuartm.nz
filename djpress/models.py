@@ -4,6 +4,7 @@ from typing import ClassVar
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -28,8 +29,8 @@ class Content(models.Model):
     slug = models.SlugField(unique=True)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-    modified_date = models.DateField(auto_now=True)
+    date = models.DateTimeField(default=timezone.now)
+    modified_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     content_type = models.CharField(
         max_length=10,
@@ -44,20 +45,38 @@ class Content(models.Model):
 
     @classmethod
     def get_published_posts(cls: type["Content"]) -> models.QuerySet:
-        """Return all published posts ordered by date."""
-        return cls.objects.filter(status="published", content_type="post").order_by(
-            "-date",
-        )
+        """Return all published posts.
+
+        Must have a date less than or equal to the current date/time, ordered by date in
+        descending order.
+        """
+        return cls.objects.filter(
+            status="published",
+            content_type="post",
+            date__lte=timezone.now(),
+        ).order_by("-date")
 
     @classmethod
     def get_published_post_by_slug(cls: type["Content"], slug: str) -> "Content":
-        """Return a single published post based on its slug."""
-        return cls.objects.get(slug=slug, status="published", content_type="post")
+        """Return a single published post.
+
+        Must have a date less than or equal to the current date/time based on its slug.
+        """
+        return cls.objects.get(
+            slug=slug,
+            status="published",
+            content_type="post",
+            date__lte=timezone.now(),
+        )
 
     @classmethod
     def get_published_posts_by_category(
         cls: type["Content"],
         category: Category,
     ) -> models.QuerySet:
-        """Return all published posts for a specific category."""
+        """Return all published posts.
+
+        Must have a date less than or equal to the current date/time for a specific
+        category, ordered by date in descending order.
+        """
         return cls.get_published_posts().filter(categories=category)
