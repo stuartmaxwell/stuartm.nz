@@ -203,3 +203,35 @@ def test_slug_generation():
             author=user,
         )
     assert str(exc_info.value) == "Invalid title. Unable to generate a valid slug."
+
+
+@pytest.mark.django_db
+def test_markdown_rendering():
+    user = User.objects.create_user(username="testuser", password="testpass")
+
+    # Test case 1: Render markdown with basic formatting
+    post1 = Content.objects.create(
+        title="Post with Markdown",
+        content="# Heading\n\nThis is a paragraph with **bold** and *italic* text.",
+        author=user,
+    )
+    expected_html = "<h1>Heading</h1>\n<p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>"
+    assert post1.content_markdown == expected_html
+
+    # Test case 2: Render markdown with code block
+    post2 = Content.objects.create(
+        title="Post with Code Block",
+        content='```python\nprint("Hello, World!")\n```',
+        author=user,
+    )
+    expected_html = '<div class="codehilite"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>\n</code></pre></div>'
+    assert post2.content_markdown == expected_html
+
+    # Test case 3: Render markdown with fenced code block
+    post3 = Content.objects.create(
+        title="Post with Fenced Code Block",
+        content="```\nThis is a fenced code block.\n```",
+        author=user,
+    )
+    expected_html = '<div class="codehilite"><pre><span></span><code>This is a fenced code block.\n</code></pre></div>'
+    assert post3.content_markdown == expected_html

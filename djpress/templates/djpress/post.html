@@ -13,7 +13,7 @@
   </p>
   <hr>
   <div class="content">
-    {{ post.content|linebreaks }}
+    {{ post.content_markdown|safe }}
   </div>
   <hr>
   <a href="{% url 'djpress:home' %}" class="btn btn-secondary">Back to Home</a>

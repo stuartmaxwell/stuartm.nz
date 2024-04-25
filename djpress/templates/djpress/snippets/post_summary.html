@@ -1,7 +1,7 @@
 <div class="card my-4">
   <div class="card-body">
     <h2 class="card-title"><a href="{% url 'djpress:post_detail' post.slug %}">{{ post.title }}</a></h2>
-    <p class="card-text">{{ post.content|truncatewords:50 }}</p>
+    <p class="card-text">{{ post.content_markdown|safe|truncatewords:50 }}</p>
     <p>
       Categories:
       {% for category in post.categories.all %}

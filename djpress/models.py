@@ -2,6 +2,7 @@
 
 from typing import ClassVar
 
+import markdown
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -90,3 +91,16 @@ class Content(models.Model):
         category, ordered by date in descending order.
         """
         return cls.get_published_posts().filter(categories=category)
+
+    def render_markdown(self: "Content", markdown_text: str) -> str:
+        """Return the markdown text as HTML."""
+        return markdown.markdown(
+            markdown_text,
+            extensions=["fenced_code", "codehilite"],
+            output_format="html",
+        )
+
+    @property
+    def content_markdown(self: "Content") -> str:
+        """Return the content as HTML converted from Markdown."""
+        return self.render_markdown(self.content)

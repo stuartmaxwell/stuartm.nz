@@ -9,3 +9,4 @@ psycopg[binary]
 rich
 pytest
 pytest-django
+markdown
