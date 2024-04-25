@@ -27,10 +27,11 @@ env = environ.Env(
     DB_PORT=(str, ""),
     WHITENOISE_STATIC=(bool, False),
     ADMIN_URL=(str, "admin"),
-    APP_NAME=(str, "stuartm.nz"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
+
+APP_NAME = "stuartm.nz"
 
 SECRET_KEY = env("SECRET_KEY")
 
@@ -38,7 +39,6 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
-APP_NAME = env("APP_NAME")
 
 ADMIN_URL = env("ADMIN_URL")
 
