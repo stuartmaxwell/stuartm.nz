@@ -7,16 +7,7 @@
   <p>{{ category.description }}</p>
   <hr>
   {% for post in posts %}
-    <div class="card my-4">
-      <div class="card-body">
-        <h2 class="card-title">{{ post.title }}</h2>
-        <p class="card-text">{{ post.content|truncatewords:50 }}</p>
-        <a href="{% url 'djpress:post_detail' post.slug %}" class="btn btn-primary">Read More</a>
-      </div>
-      <div class="card-footer text-muted">
-        Posted on {{ post.date }} by {{ post.author.first_name }}
-      </div>
-    </div>
+    {% include "djpress/snippets/post_summary.html" %}
   {% empty %}
     <p>No posts available in this category.</p>
   {% endfor %}
