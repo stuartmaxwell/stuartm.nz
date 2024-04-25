@@ -5,6 +5,7 @@ from typing import ClassVar
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -26,7 +27,7 @@ class Content(models.Model):
     CONTENT_TYPE_CHOICES: ClassVar = [("post", "Post"), ("page", "Page")]
 
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now)
@@ -42,6 +43,15 @@ class Content(models.Model):
     def __str__(self: "Content") -> str:
         """Return the string representation of the content."""
         return self.title
+
+    def save(self: "Content", *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+        """Override the save method to auto-generate the slug."""
+        if not self.slug:
+            self.slug = slugify(self.title)
+            if not self.slug or self.slug.strip("-") == "":
+                msg = "Invalid title. Unable to generate a valid slug."
+                raise ValueError(msg)
+        super().save(*args, **kwargs)
 
     @classmethod
     def get_published_posts(cls: type["Content"]) -> models.QuerySet:
