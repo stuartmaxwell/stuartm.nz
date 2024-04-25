@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   app:
-    env_file: .env
     image: ghcr.io/stuartmaxwell/stuartmnz:latest
     entrypoint: /app/entrypoint.sh
     restart: always
