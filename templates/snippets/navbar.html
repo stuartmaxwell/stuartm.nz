@@ -3,6 +3,11 @@
     <a class="navbar-brand" href="{% url 'djpress:home' %}">stuartm.nz</a>
     {% comment %} Right-aligned link to the RSS feed {% endcomment %}
 
-    <a class="nav-link" href="{% url 'djpress:rss_feed' %}">RSS</a>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link icon-link" href="{% url 'djpress:rss_feed' %}">
+          {% include "svg/rss-fill.svg" %} RSS</a>
+      </li>
+    </ul>
   </div>
 </nav>
