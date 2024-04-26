@@ -235,3 +235,26 @@ def test_markdown_rendering():
     )
     expected_html = '<div class="codehilite"><pre><span></span><code>This is a fenced code block.\n</code></pre></div>'
     assert post3.content_markdown == expected_html
+
+
+@pytest.mark.django_db
+def test_truncated_content_markdown():
+    user = User.objects.create_user(username="testuser", password="testpass")
+
+    # Test case 1: Content with "read more" tag
+    post1 = Content.objects.create(
+        title="Post with Read More",
+        content="This is the intro.\n\n<!--more-->\n\nThis is the rest of the content.",
+        author=user,
+    )
+    expected_truncated_content = "<p>This is the intro.</p>"
+    assert post1.truncated_content_markdown == expected_truncated_content
+
+    # Test case 2: Content without "read more" tag
+    post2 = Content.objects.create(
+        title="Post without Read More",
+        content="This is the entire content.",
+        author=user,
+    )
+    expected_truncated_content = "<p>This is the entire content.</p>"
+    assert post2.truncated_content_markdown == expected_truncated_content
