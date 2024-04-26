@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="{% url 'djpress:home' %}">stuartm.nz</a>
+    {% comment %} Right-aligned link to the RSS feed {% endcomment %}
+
+    <a class="nav-link" href="{% url 'djpress:rss_feed' %}">RSS</a>
   </div>
 </nav>

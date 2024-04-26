@@ -104,3 +104,13 @@ class Content(models.Model):
     def content_markdown(self: "Content") -> str:
         """Return the content as HTML converted from Markdown."""
         return self.render_markdown(self.content)
+
+    @property
+    def truncated_content_markdown(self: "Content") -> str:
+        """Return the truncated content as HTML converted from Markdown."""
+        read_more_index = self.content.find("<!--more-->")
+        if read_more_index != -1:
+            truncated_content = self.content[:read_more_index]
+        else:
+            truncated_content = self.content
+        return self.render_markdown(truncated_content)
