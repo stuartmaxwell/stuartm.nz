@@ -8,6 +8,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 
+from config.settings import TRUNCATE_TAG
+
 
 class Category(models.Model):
     """Category model."""
@@ -108,9 +110,14 @@ class Content(models.Model):
     @property
     def truncated_content_markdown(self: "Content") -> str:
         """Return the truncated content as HTML converted from Markdown."""
-        read_more_index = self.content.find("<!--more-->")
+        read_more_index = self.content.find(TRUNCATE_TAG)
         if read_more_index != -1:
             truncated_content = self.content[:read_more_index]
         else:
             truncated_content = self.content
         return self.render_markdown(truncated_content)
+
+    @property
+    def is_truncated(self: "Content") -> bool:
+        """Return whether the content is truncated."""
+        return TRUNCATE_TAG in self.content
