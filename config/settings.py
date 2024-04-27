@@ -230,3 +230,6 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+# DJPress settings
+TRUNCATE_TAG = "<!--more-->"

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from djpress.models import Category, Content
 from django.utils import timezone
 
+from config.settings import TRUNCATE_TAG
+
 
 @pytest.mark.django_db
 def test_category_model():
@@ -258,3 +260,40 @@ def test_truncated_content_markdown():
     )
     expected_truncated_content = "<p>This is the entire content.</p>"
     assert post2.truncated_content_markdown == expected_truncated_content
+
+
+@pytest.mark.django_db
+def test_is_truncated_property():
+    user = User.objects.create_user(username="testuser", password="testpass")
+
+    # Test case 1: Content with truncate tag
+    post1 = Content.objects.create(
+        title="Post with Truncate Tag",
+        content=f"This is the intro.{TRUNCATE_TAG}This is the rest of the content.",
+        author=user,
+    )
+    assert post1.is_truncated is True
+
+    # Test case 2: Content without truncate tag
+    post2 = Content.objects.create(
+        title="Post without Truncate Tag",
+        content="This is the entire content.",
+        author=user,
+    )
+    assert post2.is_truncated is False
+
+    # Test case 3: Content with truncate tag at the beginning
+    post3 = Content.objects.create(
+        title="Post with Truncate Tag at the Beginning",
+        content=f"{TRUNCATE_TAG}This is the content.",
+        author=user,
+    )
+    assert post3.is_truncated is True
+
+    # Test case 4: Content with truncate tag at the end
+    post4 = Content.objects.create(
+        title="Post with Truncate Tag at the End",
+        content=f"This is the content.{TRUNCATE_TAG}",
+        author=user,
+    )
+    assert post4.is_truncated is True
