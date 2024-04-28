@@ -5,7 +5,6 @@
     <a class="navbar-brand" href="{% url 'djpress:home' %}">stuartm.nz</a>
 
     <ul class="navbar-nav me-auto">
-      {% comment %} Get categories {% endcomment %}
       {% get_categories as categories %}
 
       {% for category in categories %}
