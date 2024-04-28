@@ -8,3 +8,7 @@ class DjpressConfig(AppConfig):
 
     default_auto_field = "django.db.models.BigAutoField"
     name = "djpress"
+
+    def ready(self: "DjpressConfig") -> None:
+        """Import signals."""
+        import djpress.signals  # noqa: F401

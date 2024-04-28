@@ -231,5 +231,12 @@ LOGGING = {
     },
 }
 
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    },
+}
+
 # DJPress settings
 TRUNCATE_TAG = "<!--more-->"

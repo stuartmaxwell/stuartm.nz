@@ -1,4 +1,5 @@
 import pytest
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from djpress.models import Category, Content
 from django.utils import timezone
@@ -161,7 +162,7 @@ def test_get_published_posts_by_category_with_future_date():
 
 
 @pytest.mark.django_db
-def test_slug_generation():
+def test_post_slug_generation():
     user = User.objects.create_user(username="testuser", password="testpass")
 
     # Test case 1: Slug generated from title
@@ -297,3 +298,31 @@ def test_is_truncated_property():
         author=user,
     )
     assert post4.is_truncated is True
+
+
+@pytest.mark.django_db
+def test_category_slug_auto_generation():
+    # Test case 1: Slug auto-generated when not provided
+    category1 = Category.objects.create(name="Test Category")
+    assert category1.slug == slugify(category1.name)
+
+    # Test case 2: Slug not overridden when provided
+    category2 = Category.objects.create(name="Another Category", slug="custom-slug")
+    assert category2.slug == "custom-slug"
+
+    # Test case 3: Slug auto-generated with special characters
+    category3 = Category.objects.create(name="Special !@#$%^&*() Category")
+    assert category3.slug == "special-category"
+
+    # Test case 4: Slug auto-generated with non-ASCII characters
+    category4 = Category.objects.create(name="Non-ASCII áéíóú Category")
+    assert category4.slug == "non-ascii-aeiou-category"
+
+    # Test case 5: Slug auto-generated with leading/trailing hyphens
+    category5 = Category.objects.create(name="--Leading/Trailing Hyphens--")
+    assert category5.slug == "leadingtrailing-hyphens"
+
+    # Test case 6: Raise ValueError for invalid name
+    with pytest.raises(ValueError) as exc_info:
+        Category.objects.create(name="!@#$%^&*()")
+    assert str(exc_info.value) == "Invalid name. Unable to generate a valid slug."

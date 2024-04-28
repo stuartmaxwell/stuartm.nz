@@ -4,23 +4,49 @@ from typing import ClassVar
 
 import markdown
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 
 from config.settings import TRUNCATE_TAG
 
+CATEGORY_CACHE_KEY = "categories"
+
 
 class Category(models.Model):
     """Category model."""
 
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
 
     def __str__(self: "Category") -> str:
         """Return the string representation of the category."""
         return self.name
+
+    def save(self: "Category", *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+        """Override the save method to auto-generate the slug."""
+        if not self.slug:
+            self.slug = slugify(self.name)
+            if not self.slug or self.slug.strip("-") == "":
+                msg = "Invalid name. Unable to generate a valid slug."
+                raise ValueError(msg)
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def _get_categories(cls: type["Category"]) -> models.QuerySet:
+        """Return all categories."""
+        return cls.objects.all()
+
+    @classmethod
+    def get_cached_queryset(cls: type["Category"]) -> models.QuerySet:
+        """Return the cached categories queryset."""
+        queryset = cache.get(CATEGORY_CACHE_KEY)
+        if queryset is None:
+            queryset = cls._get_categories()
+            cache.set(CATEGORY_CACHE_KEY, queryset, timeout=None)
+        return queryset
 
 
 class Content(models.Model):
