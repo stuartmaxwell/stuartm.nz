@@ -28,7 +28,10 @@ class ContentFeed(Feed):
 
     def item_description(self: "ContentFeed", item: Content) -> str:
         """Return the description of the post."""
-        return item.truncated_content_markdown
+        description = item.truncated_content_markdown
+        if item.is_truncated:
+            description += f'<p><a href="{self.item_link(item)}">Read more</a></p>'
+        return description
 
     def item_link(self: "ContentFeed", item: Content) -> str:
         """Return the link to the post."""
