@@ -17,4 +17,10 @@ def get_categories() -> models.QuerySet[Category] | None:
 @register.simple_tag
 def get_published_content() -> models.QuerySet[Category] | None:
     """Return all published posts from the cache."""
-    return Content.get_cached_published_content()
+    return Content.post_objects.get_cached_published_content()
+
+
+@register.simple_tag
+def get_single_published_content(slug: str) -> Content | None:
+    """Return a single published post by slug."""
+    return Content.post_objects.get_published_post_by_slug(slug)

@@ -7,7 +7,7 @@
   <p>{{ category.description }}</p>
   <hr>
   {% for post in posts %}
-    {% include "djpress/snippets/post_summary.html" %}
+    {% include "djpress/snippets/content_summary.html" %}
   {% empty %}
     <p>No posts available in this category.</p>
   {% endfor %}

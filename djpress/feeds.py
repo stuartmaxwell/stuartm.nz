@@ -20,7 +20,7 @@ class ContentFeed(Feed):
 
     def items(self: "ContentFeed") -> "models.QuerySet":
         """Return the most recent posts."""
-        return Content.get_cached_published_content()
+        return Content.post_objects.get_cached_published_content()
 
     def item_title(self: "ContentFeed", item: Content) -> str:
         """Return the title of the post."""
@@ -35,4 +35,4 @@ class ContentFeed(Feed):
 
     def item_link(self: "ContentFeed", item: Content) -> str:
         """Return the link to the post."""
-        return reverse("djpress:post_detail", args=[item.slug])
+        return reverse("djpress:content_detail", args=[item.slug])

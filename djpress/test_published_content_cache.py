@@ -16,7 +16,7 @@ def clear_cache():
 def test_get_cached_content():
     user = User.objects.create_user(username="testuser", password="testpass")
     # Create some test content
-    Content.objects.create(
+    Content.post_objects.create(
         title="Content 1",
         content="This is a test post.",
         author=user,
@@ -24,7 +24,7 @@ def test_get_cached_content():
         content_type="post",
         date=timezone.now(),
     )
-    Content.objects.create(
+    Content.post_objects.create(
         title="Content 2",
         content="This is another test post.",
         author=user,
@@ -34,7 +34,7 @@ def test_get_cached_content():
     )
 
     # Call the get_cached_published_content method
-    queryset = Content.get_cached_published_content()
+    queryset = Content.post_objects.get_cached_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -43,7 +43,7 @@ def test_get_cached_content():
     assert len(cached_queryset) == 2
 
     # Assert that subsequent calls retrieve the queryset from cache
-    queryset2 = Content.get_cached_published_content()
+    queryset2 = Content.post_objects.get_cached_published_content()
     assert list(queryset2) == list(cached_queryset)
 
 
@@ -51,7 +51,7 @@ def test_get_cached_content():
 def test_cache_invalidation_on_save():
     user = User.objects.create_user(username="testuser", password="testpass")
     # Create some test content
-    content = Content.objects.create(
+    content = Content.post_objects.create(
         title="Content 1",
         content="This is a test post.",
         author=user,
@@ -61,7 +61,7 @@ def test_cache_invalidation_on_save():
     )
 
     # Call the get_cached_published_content method
-    queryset = Content.get_cached_published_content()
+    queryset = Content.post_objects.get_cached_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -77,7 +77,7 @@ def test_cache_invalidation_on_save():
     assert cached_queryset is None
 
     # Call the get_cached_published_content method again
-    queryset2 = Content.get_cached_published_content()
+    queryset2 = Content.post_objects.get_cached_published_content()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -90,7 +90,7 @@ def test_cache_invalidation_on_save():
 def test_cache_invalidation_on_delete():
     user = User.objects.create_user(username="testuser", password="testpass")
     # Create some test content
-    content = Content.objects.create(
+    content = Content.post_objects.create(
         title="Content 1",
         content="This is a test post.",
         author=user,
@@ -100,7 +100,7 @@ def test_cache_invalidation_on_delete():
     )
 
     # Call the get_cached_published_content method
-    queryset = Content.get_cached_published_content()
+    queryset = Content.post_objects.get_cached_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -115,7 +115,7 @@ def test_cache_invalidation_on_delete():
     assert cached_queryset is None
 
     # Call the get_cached_published_content method again
-    queryset2 = Content.get_cached_published_content()
+    queryset2 = Content.post_objects.get_cached_published_content()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(PUBLISHED_CONTENT_CACHE_KEY)

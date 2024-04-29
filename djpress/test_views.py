@@ -14,9 +14,9 @@ def test_index_view(client):
 
 
 @pytest.mark.django_db
-def test_post_detail_view(client):
+def test_content_detail_view(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    content = Content.objects.create(
+    content = Content.post_objects.create(
         title="Test Post",
         slug="test-post",
         content="This is a test post.",
@@ -24,10 +24,17 @@ def test_post_detail_view(client):
         status="published",
         content_type="post",
     )
-    url = reverse("djpress:post_detail", args=[content.slug])
+    url = reverse("djpress:content_detail", args=[content.slug])
     response = client.get(url)
     assert response.status_code == 200
     assert "post" in response.context
+
+
+@pytest.mark.django_db
+def test_content_detail_not_exist(client):
+    url = reverse("djpress:content_detail", args=["foobar-does-not-exist"])
+    response = client.get(url)
+    assert response.status_code == 404
 
 
 @pytest.mark.django_db
