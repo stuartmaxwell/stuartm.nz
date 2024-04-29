@@ -90,11 +90,15 @@ class Content(models.Model):
         Must have a date less than or equal to the current date/time, ordered by date in
         descending order.
         """
-        return cls.objects.filter(
-            status="published",
-            content_type="post",
-            date__lte=timezone.now(),
-        ).order_by("-date")
+        return (
+            cls.objects.filter(
+                status="published",
+                content_type="post",
+                date__lte=timezone.now(),
+            )
+            .order_by("-date")
+            .prefetch_related("categories", "author")
+        )
 
     @classmethod
     def get_cached_published_content(cls: type["Content"]) -> models.QuerySet:
