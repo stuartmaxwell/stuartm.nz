@@ -8,10 +8,10 @@ from djpress.feeds import ContentFeed
 @pytest.mark.django_db
 def test_latest_posts_feed(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.objects.create(
+    Content.post_objects.create(
         title="Post 1", content="Content of post 1.", author=user, status="published"
     )
-    Content.objects.create(
+    Content.post_objects.create(
         title="Post 2", content="Content of post 2.", author=user, status="published"
     )
 
@@ -35,7 +35,7 @@ def test_latest_posts_feed(client):
 @pytest.mark.django_db
 def test_truncated_posts_feed(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.objects.create(
+    Content.post_objects.create(
         title="Post 1",
         content="Content of post 1.<!--more-->Truncated content",
         author=user,

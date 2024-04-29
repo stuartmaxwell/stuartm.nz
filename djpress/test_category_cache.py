@@ -11,13 +11,13 @@ def clear_cache():
 
 
 @pytest.mark.django_db
-def test_get_cached_queryset():
+def test_get_cached_categories():
     # Create some test categories
     Category.objects.create(name="Category 1")
     Category.objects.create(name="Category 2")
 
-    # Call the get_cached_queryset method
-    queryset = Category.get_cached_queryset()
+    # Call the get_cached_categories method
+    queryset = Category.get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -26,7 +26,7 @@ def test_get_cached_queryset():
     assert len(cached_queryset) == 2
 
     # Assert that subsequent calls retrieve the queryset from cache
-    queryset2 = Category.get_cached_queryset()
+    queryset2 = Category.get_cached_categories()
     assert list(queryset2) == list(cached_queryset)
 
 
@@ -35,8 +35,8 @@ def test_cache_invalidation_on_save():
     # Create a test category
     category = Category.objects.create(name="Category 1")
 
-    # Call the get_cached_queryset method
-    queryset = Category.get_cached_queryset()
+    # Call the get_cached_categories method
+    queryset = Category.get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -51,8 +51,8 @@ def test_cache_invalidation_on_save():
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
     assert cached_queryset is None
 
-    # Call the get_cached_queryset method again
-    queryset2 = Category.get_cached_queryset()
+    # Call the get_cached_categories method again
+    queryset2 = Category.get_cached_categories()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(CATEGORY_CACHE_KEY)
@@ -66,8 +66,8 @@ def test_cache_invalidation_on_delete():
     # Create a test category
     category = Category.objects.create(name="Category 1")
 
-    # Call the get_cached_queryset method
-    queryset = Category.get_cached_queryset()
+    # Call the get_cached_categories method
+    queryset = Category.get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -81,8 +81,8 @@ def test_cache_invalidation_on_delete():
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
     assert cached_queryset is None
 
-    # Call the get_cached_queryset method again
-    queryset2 = Category.get_cached_queryset()
+    # Call the get_cached_categories method again
+    queryset2 = Category.get_cached_categories()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(CATEGORY_CACHE_KEY)

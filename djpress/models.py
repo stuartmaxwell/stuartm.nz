@@ -1,17 +1,22 @@
 """djpress models file."""
 
+import logging
 from typing import ClassVar
 
 import markdown
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
+from django.http import Http404
 from django.utils import timezone
 from django.utils.text import slugify
 
 from config.settings import TRUNCATE_TAG
 
+logger = logging.getLogger(__name__)
+
 CATEGORY_CACHE_KEY = "categories"
+PUBLISHED_CONTENT_CACHE_KEY = "published_content"
 
 
 class Category(models.Model):
@@ -40,13 +45,103 @@ class Category(models.Model):
         return cls.objects.all()
 
     @classmethod
-    def get_cached_queryset(cls: type["Category"]) -> models.QuerySet:
+    def get_cached_categories(cls: type["Category"]) -> models.QuerySet:
         """Return the cached categories queryset."""
         queryset = cache.get(CATEGORY_CACHE_KEY)
         if queryset is None:
             queryset = cls._get_categories()
             cache.set(CATEGORY_CACHE_KEY, queryset, timeout=None)
         return queryset
+
+
+class PublishedPostsManager(models.Manager):
+    """Content manager."""
+
+    def get_queryset(self: "PublishedPostsManager") -> models.QuerySet:
+        """Return the queryset for published posts."""
+        return super().get_queryset().filter(content_type="post").order_by("-date")
+
+    def _get_published_content(self: "PublishedPostsManager") -> models.QuerySet:
+        """Return all published posts."""
+        return self.get_queryset().filter(
+            status="published",
+            date__lte=timezone.now(),
+        )
+
+    def get_cached_published_content(self: "PublishedPostsManager") -> models.QuerySet:
+        """Return the cached published posts queryset.
+
+        If there are any future posts, we calculate the seconds until that post, then we
+        set the timeout to that number of seconds.
+        """
+        queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
+        logger.debug(f"Getting posts from cache: {queryset=}")
+
+        if queryset is None:
+            queryset = (
+                self.get_queryset()
+                .filter(
+                    status="published",
+                )
+                .prefetch_related("categories", "author")
+            )
+
+            future_posts = queryset.filter(date__gt=timezone.now())
+            if future_posts.exists():
+                future_post = future_posts[0]
+                timeout = (future_post.date - timezone.now()).total_seconds()
+                logger.debug(f"Future post found, setting timeout to {timeout} seconds")
+            else:
+                logger.debug("No future posts found, setting timeout to None")
+                timeout = None
+
+            queryset = queryset.filter(date__lte=timezone.now())
+            logger.debug(f"Setting posts in cache: {queryset=}")
+            logger.debug(f"With a timeout of: {timeout=}")
+            cache.set(
+                PUBLISHED_CONTENT_CACHE_KEY,
+                queryset,
+                timeout=timeout,
+            )
+
+            logger.debug(
+                f"Posts set in cache: {cache.get(PUBLISHED_CONTENT_CACHE_KEY)=}",
+            )
+        return queryset
+
+    def get_published_post_by_slug(
+        self: "PublishedPostsManager",
+        slug: str,
+    ) -> "Content":
+        """Return a single published post.
+
+        Must have a date less than or equal to the current date/time based on its slug.
+        """
+        logger.debug(f"Getting post by slug: {slug=}")
+        posts = self.get_cached_published_content()
+        post = next((post for post in posts if post.slug == slug), None)
+
+        if not post:
+            # If the post is not found in the cache, fetch it from the database
+            try:
+                post = self._get_published_content().get(slug=slug)
+            except Content.DoesNotExist as exc:
+                msg = "Post not found"
+                # Raise a 404 error
+                raise Http404(msg) from exc
+
+        return post
+
+    def get_published_content_by_category(
+        self: "PublishedPostsManager",
+        category: Category,
+    ) -> models.QuerySet:
+        """Return all published posts.
+
+        Must have a date less than or equal to the current date/time for a specific
+        category, ordered by date in descending order.
+        """
+        return self.get_cached_published_content().filter(categories=category)
 
 
 class Content(models.Model):
@@ -69,6 +164,9 @@ class Content(models.Model):
     )
     categories = models.ManyToManyField(Category, blank=True)
 
+    # Managers
+    post_objects = PublishedPostsManager()
+
     def __str__(self: "Content") -> str:
         """Return the string representation of the content."""
         return self.title
@@ -81,44 +179,6 @@ class Content(models.Model):
                 msg = "Invalid title. Unable to generate a valid slug."
                 raise ValueError(msg)
         super().save(*args, **kwargs)
-
-    @classmethod
-    def get_published_posts(cls: type["Content"]) -> models.QuerySet:
-        """Return all published posts.
-
-        Must have a date less than or equal to the current date/time, ordered by date in
-        descending order.
-        """
-        return cls.objects.filter(
-            status="published",
-            content_type="post",
-            date__lte=timezone.now(),
-        ).order_by("-date")
-
-    @classmethod
-    def get_published_post_by_slug(cls: type["Content"], slug: str) -> "Content":
-        """Return a single published post.
-
-        Must have a date less than or equal to the current date/time based on its slug.
-        """
-        return cls.objects.get(
-            slug=slug,
-            status="published",
-            content_type="post",
-            date__lte=timezone.now(),
-        )
-
-    @classmethod
-    def get_published_posts_by_category(
-        cls: type["Content"],
-        category: Category,
-    ) -> models.QuerySet:
-        """Return all published posts.
-
-        Must have a date less than or equal to the current date/time for a specific
-        category, ordered by date in descending order.
-        """
-        return cls.get_published_posts().filter(categories=category)
 
     def render_markdown(self: "Content", markdown_text: str) -> str:
         """Return the markdown text as HTML."""
