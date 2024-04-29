@@ -5,11 +5,12 @@ from djpress.models import Category, Content
 
 
 @pytest.mark.django_db
-def test_home_view(client):
-    url = reverse("djpress:home")
+def test_index_view(client):
+    url = reverse("djpress:index")
     response = client.get(url)
+    print(response.content)
     assert response.status_code == 200
-    assert "posts" in response.context
+    assert b"No posts available" in response.content
 
 
 @pytest.mark.django_db

@@ -166,8 +166,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = "djpress:home"
-LOGOUT_REDIRECT_URL = "djpress:home"
+LOGIN_REDIRECT_URL = "djpress:index"
+LOGOUT_REDIRECT_URL = "djpress:index"
 
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -6,10 +6,9 @@ from django.shortcuts import render
 from .models import Category, Content
 
 
-def home(request: HttpRequest) -> HttpResponse:
-    """View for the home page."""
-    posts = Content.get_published_posts()
-    return render(request, "djpress/home.html", {"posts": posts})
+def index(request: HttpRequest) -> HttpResponse:
+    """View for the index page."""
+    return render(request, "djpress/index.html")
 
 
 def post_detail(request: HttpRequest, slug: str) -> HttpResponse:
@@ -27,7 +26,7 @@ def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
     """View for posts by category."""
     try:
         category = Category.objects.get(slug=slug)
-        posts = Content.get_published_posts_by_category(category)
+        posts = Content.get_published_content_by_category(category)
     except Category.DoesNotExist as exc:
         msg = "Category not found"
         raise Http404(msg) from exc

@@ -12,6 +12,7 @@ from django.utils.text import slugify
 from config.settings import TRUNCATE_TAG
 
 CATEGORY_CACHE_KEY = "categories"
+PUBLISHED_CONTENT_CACHE_KEY = "published_content"
 
 
 class Category(models.Model):
@@ -40,7 +41,7 @@ class Category(models.Model):
         return cls.objects.all()
 
     @classmethod
-    def get_cached_queryset(cls: type["Category"]) -> models.QuerySet:
+    def get_cached_categories(cls: type["Category"]) -> models.QuerySet:
         """Return the cached categories queryset."""
         queryset = cache.get(CATEGORY_CACHE_KEY)
         if queryset is None:
@@ -83,7 +84,7 @@ class Content(models.Model):
         super().save(*args, **kwargs)
 
     @classmethod
-    def get_published_posts(cls: type["Content"]) -> models.QuerySet:
+    def _get_published_content(cls: type["Content"]) -> models.QuerySet:
         """Return all published posts.
 
         Must have a date less than or equal to the current date/time, ordered by date in
@@ -94,6 +95,15 @@ class Content(models.Model):
             content_type="post",
             date__lte=timezone.now(),
         ).order_by("-date")
+
+    @classmethod
+    def get_cached_published_content(cls: type["Content"]) -> models.QuerySet:
+        """Return the cached published posts queryset."""
+        queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
+        if queryset is None:
+            queryset = cls._get_published_content()
+            cache.set(PUBLISHED_CONTENT_CACHE_KEY, queryset, timeout=None)
+        return queryset
 
     @classmethod
     def get_published_post_by_slug(cls: type["Content"], slug: str) -> "Content":
@@ -109,7 +119,7 @@ class Content(models.Model):
         )
 
     @classmethod
-    def get_published_posts_by_category(
+    def get_published_content_by_category(
         cls: type["Content"],
         category: Category,
     ) -> models.QuerySet:
@@ -118,7 +128,7 @@ class Content(models.Model):
         Must have a date less than or equal to the current date/time for a specific
         category, ordered by date in descending order.
         """
-        return cls.get_published_posts().filter(categories=category)
+        return cls._get_published_content().filter(categories=category)
 
     def render_markdown(self: "Content", markdown_text: str) -> str:
         """Return the markdown text as HTML."""

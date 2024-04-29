@@ -1,8 +1,11 @@
 {% extends '_base.html' %}
+{% load djpress_tags %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
+  {% get_published_content as posts %}
+
   {% for post in posts %}
     {% include "djpress/snippets/post_summary.html" %}
   {% empty %}
