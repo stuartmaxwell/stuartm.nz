@@ -13,9 +13,9 @@
     {% include "djpress/snippets/content_detail.html" %}
 
   {% else %}
-  {% comment %} If there's no slug, we loop through all published content. {% endcomment %}
+  {% comment %} If there's no slug, we loop through recent published content. {% endcomment %}
 
-    {% get_published_content as posts %}
+    {% get_recent_published_content as posts %}
 
     {% for post in posts %}
 

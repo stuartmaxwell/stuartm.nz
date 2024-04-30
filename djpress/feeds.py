@@ -20,7 +20,7 @@ class ContentFeed(Feed):
 
     def items(self: "ContentFeed") -> "models.QuerySet":
         """Return the most recent posts."""
-        return Content.post_objects.get_cached_published_content()
+        return Content.post_objects.get_recent_published_content()
 
     def item_title(self: "ContentFeed", item: Content) -> str:
         """Return the title of the post."""
