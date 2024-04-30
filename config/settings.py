@@ -231,12 +231,8 @@ LOGGING = {
     },
 }
 
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-    },
-}
-
 # DJPress settings
 TRUNCATE_TAG = "<!--more-->"
+CACHE_CATEGORIES: bool = True
+CACHE_RECENT_PUBLISHED_POSTS: bool = False
+RECENT_PUBLISHED_POSTS_COUNT: int = 20

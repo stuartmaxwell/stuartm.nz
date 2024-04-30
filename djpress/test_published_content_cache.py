@@ -33,8 +33,8 @@ def test_get_cached_content():
         date=timezone.now(),
     )
 
-    # Call the get_cached_published_content method
-    queryset = Content.post_objects.get_cached_published_content()
+    # Call the _get_cached_recent_published_content method
+    queryset = Content.post_objects._get_cached_recent_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -43,7 +43,7 @@ def test_get_cached_content():
     assert len(cached_queryset) == 2
 
     # Assert that subsequent calls retrieve the queryset from cache
-    queryset2 = Content.post_objects.get_cached_published_content()
+    queryset2 = Content.post_objects._get_cached_recent_published_content()
     assert list(queryset2) == list(cached_queryset)
 
 
@@ -61,7 +61,7 @@ def test_cache_invalidation_on_save():
     )
 
     # Call the get_cached_published_content method
-    queryset = Content.post_objects.get_cached_published_content()
+    queryset = Content.post_objects._get_cached_recent_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -77,7 +77,7 @@ def test_cache_invalidation_on_save():
     assert cached_queryset is None
 
     # Call the get_cached_published_content method again
-    queryset2 = Content.post_objects.get_cached_published_content()
+    queryset2 = Content.post_objects._get_cached_recent_published_content()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -100,7 +100,7 @@ def test_cache_invalidation_on_delete():
     )
 
     # Call the get_cached_published_content method
-    queryset = Content.post_objects.get_cached_published_content()
+    queryset = Content.post_objects._get_cached_recent_published_content()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
@@ -115,7 +115,7 @@ def test_cache_invalidation_on_delete():
     assert cached_queryset is None
 
     # Call the get_cached_published_content method again
-    queryset2 = Content.post_objects.get_cached_published_content()
+    queryset2 = Content.post_objects._get_cached_recent_published_content()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(PUBLISHED_CONTENT_CACHE_KEY)

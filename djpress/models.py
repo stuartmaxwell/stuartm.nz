@@ -11,12 +11,41 @@ from django.http import Http404
 from django.utils import timezone
 from django.utils.text import slugify
 
-from config.settings import TRUNCATE_TAG
+from config.settings import (
+    CACHE_CATEGORIES,
+    CACHE_RECENT_PUBLISHED_POSTS,
+    RECENT_PUBLISHED_POSTS_COUNT,
+    TRUNCATE_TAG,
+)
 
 logger = logging.getLogger(__name__)
 
 CATEGORY_CACHE_KEY = "categories"
 PUBLISHED_CONTENT_CACHE_KEY = "published_content"
+
+
+class CategoryManager(models.Manager):
+    """Category manager."""
+
+    def get_categories(self: "CategoryManager") -> models.QuerySet:
+        """Return the queryset for categories.
+
+        If CACHE_CATEGORIES is set to True, we return the cached queryset.
+        """
+        if CACHE_CATEGORIES:
+            return self.get_cached_categories()
+
+        return Category.objects.all()
+
+    def get_cached_categories(self: "CategoryManager") -> models.QuerySet:
+        """Return the cached categories queryset."""
+        queryset = cache.get(CATEGORY_CACHE_KEY)
+
+        if queryset is None:
+            queryset = Category.objects.all()
+            cache.set(CATEGORY_CACHE_KEY, queryset, timeout=None)
+
+        return queryset
 
 
 class Category(models.Model):
@@ -25,6 +54,9 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
+
+    # Custom Manager
+    objects: "CategoryManager" = CategoryManager()
 
     def __str__(self: "Category") -> str:
         """Return the string representation of the category."""
@@ -39,37 +71,40 @@ class Category(models.Model):
                 raise ValueError(msg)
         super().save(*args, **kwargs)
 
-    @classmethod
-    def _get_categories(cls: type["Category"]) -> models.QuerySet:
-        """Return all categories."""
-        return cls.objects.all()
 
-    @classmethod
-    def get_cached_categories(cls: type["Category"]) -> models.QuerySet:
-        """Return the cached categories queryset."""
-        queryset = cache.get(CATEGORY_CACHE_KEY)
-        if queryset is None:
-            queryset = cls._get_categories()
-            cache.set(CATEGORY_CACHE_KEY, queryset, timeout=None)
-        return queryset
-
-
-class PublishedPostsManager(models.Manager):
+class PostsManager(models.Manager):
     """Content manager."""
 
-    def get_queryset(self: "PublishedPostsManager") -> models.QuerySet:
+    def get_queryset(self: "PostsManager") -> models.QuerySet:
         """Return the queryset for published posts."""
         return super().get_queryset().filter(content_type="post").order_by("-date")
 
-    def _get_published_content(self: "PublishedPostsManager") -> models.QuerySet:
-        """Return all published posts."""
+    def _get_published_content(self: "PostsManager") -> models.QuerySet:
+        """Returns all published posts.
+
+        For a post to be considered published, it must meet the following requirements:
+        - The status must be "published".
+        - The date must be less than or equal to the current date/time.
+        """
         return self.get_queryset().filter(
             status="published",
             date__lte=timezone.now(),
         )
 
-    def get_cached_published_content(self: "PublishedPostsManager") -> models.QuerySet:
-        """Return the cached published posts queryset.
+    def get_recent_published_content(self: "PostsManager") -> models.QuerySet:
+        """Return recent published posts.
+
+        If CACHE_RECENT_PUBLISHED_POSTS is set to True, we return the cached queryset.
+        """
+        if CACHE_RECENT_PUBLISHED_POSTS:
+            return self._get_cached_recent_published_content()
+
+        return self._get_published_content().prefetch_related("categories", "author")[
+            :RECENT_PUBLISHED_POSTS_COUNT
+        ]
+
+    def _get_cached_recent_published_content(self: "PostsManager") -> models.QuerySet:
+        """Return the cached recent published posts queryset.
 
         If there are any future posts, we calculate the seconds until that post, then we
         set the timeout to that number of seconds.
@@ -95,7 +130,9 @@ class PublishedPostsManager(models.Manager):
                 logger.debug("No future posts found, setting timeout to None")
                 timeout = None
 
-            queryset = queryset.filter(date__lte=timezone.now())
+            queryset = queryset.filter(date__lte=timezone.now())[
+                :RECENT_PUBLISHED_POSTS_COUNT
+            ]
             logger.debug(f"Setting posts in cache: {queryset=}")
             logger.debug(f"With a timeout of: {timeout=}")
             cache.set(
@@ -110,7 +147,7 @@ class PublishedPostsManager(models.Manager):
         return queryset
 
     def get_published_post_by_slug(
-        self: "PublishedPostsManager",
+        self: "PostsManager",
         slug: str,
     ) -> "Content":
         """Return a single published post.
@@ -118,11 +155,13 @@ class PublishedPostsManager(models.Manager):
         Must have a date less than or equal to the current date/time based on its slug.
         """
         logger.debug(f"Getting post by slug: {slug=}")
-        posts = self.get_cached_published_content()
+
+        # First, try to get the post from the cache
+        posts = self.get_recent_published_content()
         post = next((post for post in posts if post.slug == slug), None)
 
+        # If the post is not found in the cache, fetch it from the database
         if not post:
-            # If the post is not found in the cache, fetch it from the database
             try:
                 post = self._get_published_content().get(slug=slug)
             except Content.DoesNotExist as exc:
@@ -133,7 +172,7 @@ class PublishedPostsManager(models.Manager):
         return post
 
     def get_published_content_by_category(
-        self: "PublishedPostsManager",
+        self: "PostsManager",
         category: Category,
     ) -> models.QuerySet:
         """Return all published posts.
@@ -141,7 +180,7 @@ class PublishedPostsManager(models.Manager):
         Must have a date less than or equal to the current date/time for a specific
         category, ordered by date in descending order.
         """
-        return self.get_cached_published_content().filter(categories=category)
+        return self._get_published_content().filter(categories=category)
 
 
 class Content(models.Model):
@@ -165,7 +204,8 @@ class Content(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
 
     # Managers
-    post_objects = PublishedPostsManager()
+    objects = models.Manager()
+    post_objects: "PostsManager" = PostsManager()
 
     def __str__(self: "Content") -> str:
         """Return the string representation of the content."""
