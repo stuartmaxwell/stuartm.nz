@@ -3,7 +3,7 @@
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from .models import Category, Content
+from djpress.models import Category, Content
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -19,7 +19,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def content_detail(request: HttpRequest, slug: str) -> HttpResponse:
     """View for a single content page."""
-    post = Content.post_objects.get_published_post_by_slug(slug)
+    try:
+        post = Content.post_objects.get_published_post_by_slug(slug)
+    except ValueError as exc:
+        msg = "Post not found"
+        raise Http404(msg) from exc
 
     return render(
         request,
@@ -32,7 +36,7 @@ def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
     """View for posts by category."""
     try:
         category: Category = Category.objects.get_category_by_slug(slug=slug)
-    except Category.DoesNotExist as exc:
+    except ValueError as exc:
         msg = "Category not found"
         raise Http404(msg) from exc
 

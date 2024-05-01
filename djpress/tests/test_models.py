@@ -136,7 +136,7 @@ def test_get_published_post_by_slug_with_future_date():
         content_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     )
-    with pytest.raises(Http404):
+    with pytest.raises(ValueError):
         Content.post_objects.get_published_post_by_slug("future-post")
 
 
@@ -210,6 +210,43 @@ def test_post_slug_generation():
             author=user,
         )
     assert str(exc_info.value) == "Invalid title. Unable to generate a valid slug."
+
+
+@pytest.mark.django_db
+def test_category_save_slug_generation():
+    """Test that the slug is correctly generated when saving a Category."""
+    category = Category(name="Test Category")
+    category.save()
+
+    assert category.slug == slugify("Test Category")
+
+
+@pytest.mark.django_db
+def test_category_save_slug_uniqueness():
+    """Test that an error is raised when trying to save a Category with a duplicate slug."""
+    category1 = Category(name="Test Category")
+    category1.save()
+
+    category2 = Category(name="Test Category")
+
+    with pytest.raises(ValueError) as excinfo:
+        category2.save()
+
+    assert (
+        str(excinfo.value)
+        == f"A category with the slug {category2.slug} already exists."
+    )
+
+
+@pytest.mark.django_db
+def test_category_save_invalid_name():
+    """Test that an error is raised when trying to save a Category with an invalid name."""
+    category = Category(name="-")
+
+    with pytest.raises(ValueError) as excinfo:
+        category.save()
+
+    assert str(excinfo.value) == "Invalid name. Unable to generate a valid slug."
 
 
 @pytest.mark.django_db

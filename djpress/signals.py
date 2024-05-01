@@ -4,10 +4,12 @@ from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
-from djpress.models import (
+from djpress.models.category import (
     CATEGORY_CACHE_KEY,
-    PUBLISHED_CONTENT_CACHE_KEY,
     Category,
+)
+from djpress.models.content import (
+    PUBLISHED_CONTENT_CACHE_KEY,
     Content,
 )
 

@@ -2,7 +2,8 @@
 
 import pytest
 from django.core.cache import cache
-from djpress.models import Category, CATEGORY_CACHE_KEY
+from djpress.models import Category
+from djpress.models.category import CATEGORY_CACHE_KEY
 
 
 @pytest.fixture(autouse=True)

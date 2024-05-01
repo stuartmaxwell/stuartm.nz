@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.utils import timezone
 
-from djpress.models import Content, PUBLISHED_CONTENT_CACHE_KEY
+from djpress.models import Content
+from djpress.models.content import PUBLISHED_CONTENT_CACHE_KEY
 
 
 @pytest.fixture(autouse=True)
