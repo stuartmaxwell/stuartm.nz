@@ -1,32 +1,89 @@
-{% extends '_base.html' %}
 {% load djpress_tags %}
 
-{% block title %}Home{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% get_blog_title %}</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="{% url "djpress:index" %}">{% get_blog_title %}</a></h1>
+    </header>
 
-{% block content %}
+    <main>
 
-  {% if slug %}
-  {% comment %} If there's a slug, we only display a single post. {% endcomment %}
+      {% if slug %}
+    {% comment %} If there's a slug, we only display a single post. {% endcomment %}
 
-    {% get_single_published_content slug as post %}
+        {% get_single_published_content slug as post %}
 
-    {% include "djpress/snippets/content_detail.html" %}
+        <article>
+          <header>
+            <h1>{{ post.title }}</h1>
+            <p>By <span rel="author">{{ post.author.first_name }}</span></p>
+            <p><time datetime="2023-05-01">{{ post.date }}</time></p>
+          </header>
+          <section>
+            {{ post.content_markdown|safe }}
+          </section>
+          <footer>
+            <p>Categories:</p>
+            <ul>
+              {% for category in post.categories.all %}
+                <li><a href="{% url 'djpress:category_posts' category.slug %}">{{ category.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </footer>
+        </article>
 
-  {% else %}
-  {% comment %} If there's no slug, we loop through recent published content. {% endcomment %}
+      {% else %}
+    {% comment %} If there's no slug, we loop through recent published content. {% endcomment %}
 
-    {% get_recent_published_content as posts %}
+        {% get_recent_published_content as posts %}
 
-    {% for post in posts %}
+        {% for post in posts %}
 
-      {% include "djpress/snippets/content_summary.html" %}
+          <article>
+            <header>
+              <h1><a href="{% url 'djpress:content_detail' post.slug %}">{{ post.title }}</a></h1>
+              <p>By <span rel="author">{{ post.author.first_name }}</span></p>
+              <p><time datetime="2023-05-01">{{ post.date }}</time></p>
+            </header>
+            <section>
+              {{ post.truncated_content_markdown|safe }}
 
-    {% empty %}
+              {% if post.is_truncated %}
+                <p><a href="{% url 'djpress:content_detail' post.slug %}">Read more</a></p>
+              {% endif %}
+            </section>
+            <footer>
+              <p>Categories:</p>
+              <ul>
+                {% for category in post.categories.all %}
+                  <li><a href="{% url 'djpress:category_posts' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </footer>
+          </article>
 
-      <p>No posts available.</p>
+        {% empty %}
 
-    {% endfor %}
+          <p>No posts available.</p>
 
-  {% endif %}
+        {% endfor %}
 
-{% endblock %}
+      {% endif %}
+
+    </main>
+
+    <footer>
+      <p>Powered by
+        <a href="https://www.djangoproject.com/" title="The web framework for perfectionists with deadlines">Django</a>
+        and
+        <a href="#">DJPress</a>
+      </p>
+    </footer>
+  </body>
+</html>
