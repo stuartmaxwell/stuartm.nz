@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load djpress_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+  {% if slug %}
+  {% comment %} If there's a slug, we only display a single post. {% endcomment %}
+
+    {% get_single_published_content slug as post %}
+
+    {% include "djpress/snippets/content_detail.html" %}
+
+  {% else %}
+  {% comment %} If there's no slug, we loop through recent published content. {% endcomment %}
+
+    {% get_recent_published_content as posts %}
+
+    {% for post in posts %}
+
+      {% include "djpress/snippets/content_summary.html" %}
+
+    {% empty %}
+
+      <p>No posts available.</p>
+
+    {% endfor %}
+
+  {% endif %}
+
+{% endblock %}
