@@ -1,7 +1,7 @@
 import pytest
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from djpress.models import Category, Content
+from djpress.models import Category, Post
 from django.utils import timezone
 from django.http import Http404
 
@@ -21,7 +21,7 @@ def test_category_model():
 def test_content_model():
     user = User.objects.create_user(username="testuser", password="testpass")
     category = Category.objects.create(name="Test Category", slug="test-category")
-    content = Content.post_objects.create(
+    content = Post.post_objects.create(
         title="Test Content",
         slug="test-content",
         content="This is a test content.",
@@ -44,7 +44,7 @@ def test_content_methods():
     user = User.objects.create_user(username="testuser", password="testpass")
     category1 = Category.objects.create(name="Category 1", slug="category-1")
     category2 = Category.objects.create(name="Category 2", slug="category-2")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Test Post 1",
         slug="test-post-1",
         content="This is test post 1.",
@@ -52,7 +52,7 @@ def test_content_methods():
         status="published",
         content_type="post",
     ).categories.add(category1)
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Test Post 2",
         slug="test-post-2",
         content="This is test post 2.",
@@ -60,23 +60,19 @@ def test_content_methods():
         status="draft",
         content_type="post",
     )
-    assert Content.post_objects.all().count() == 2
+    assert Post.post_objects.all().count() == 2
     assert (
-        Content.post_objects.get_published_post_by_slug("test-post-1").title
+        Post.post_objects.get_published_post_by_slug("test-post-1").title
         == "Test Post 1"
     )
-    assert (
-        Content.post_objects.get_published_content_by_category(category1).count() == 1
-    )
-    assert (
-        Content.post_objects.get_published_content_by_category(category2).count() == 0
-    )
+    assert Post.post_objects.get_published_content_by_category(category1).count() == 1
+    assert Post.post_objects.get_published_content_by_category(category2).count() == 0
 
 
 @pytest.mark.django_db
 def test_get_published_content_with_future_date():
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Past Post",
         slug="past-post",
         content="This is a past post.",
@@ -85,7 +81,7 @@ def test_get_published_content_with_future_date():
         content_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     )
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Future Post",
         slug="future-post",
         content="This is a future post.",
@@ -94,14 +90,14 @@ def test_get_published_content_with_future_date():
         content_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     )
-    assert Content.post_objects.all().count() == 2
-    assert Content.post_objects._get_published_content().count() == 1
+    assert Post.post_objects.all().count() == 2
+    assert Post.post_objects._get_published_content().count() == 1
 
 
 @pytest.mark.django_db
 def test_get_published_content_ordering():
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Older Post",
         slug="older-post",
         content="This is an older post.",
@@ -110,7 +106,7 @@ def test_get_published_content_ordering():
         content_type="post",
         date=timezone.now() - timezone.timedelta(days=2),
     )
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Newer Post",
         slug="newer-post",
         content="This is a newer post.",
@@ -119,7 +115,7 @@ def test_get_published_content_ordering():
         content_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     )
-    posts = Content.post_objects.all()
+    posts = Post.post_objects.all()
     assert posts[0].title == "Newer Post"
     assert posts[1].title == "Older Post"
 
@@ -127,7 +123,7 @@ def test_get_published_content_ordering():
 @pytest.mark.django_db
 def test_get_published_post_by_slug_with_future_date():
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Future Post",
         slug="future-post",
         content="This is a future post.",
@@ -137,14 +133,14 @@ def test_get_published_post_by_slug_with_future_date():
         date=timezone.now() + timezone.timedelta(days=1),
     )
     with pytest.raises(ValueError):
-        Content.post_objects.get_published_post_by_slug("future-post")
+        Post.post_objects.get_published_post_by_slug("future-post")
 
 
 @pytest.mark.django_db
 def test_get_published_content_by_category_with_future_date():
     user = User.objects.create_user(username="testuser", password="testpass")
     category = Category.objects.create(name="Test Category", slug="test-category")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Past Post",
         slug="past-post",
         content="This is a past post.",
@@ -153,7 +149,7 @@ def test_get_published_content_by_category_with_future_date():
         content_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     ).categories.add(category)
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Future Post",
         slug="future-post",
         content="This is a future post.",
@@ -162,7 +158,7 @@ def test_get_published_content_by_category_with_future_date():
         content_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     ).categories.add(category)
-    assert Content.post_objects.get_published_content_by_category(category).count() == 1
+    assert Post.post_objects.get_published_content_by_category(category).count() == 1
 
 
 @pytest.mark.django_db
@@ -170,7 +166,7 @@ def test_post_slug_generation():
     user = User.objects.create_user(username="testuser", password="testpass")
 
     # Test case 1: Slug generated from title
-    post1 = Content.post_objects.create(
+    post1 = Post.post_objects.create(
         title="My First Blog Post",
         content="This is the content of my first blog post.",
         author=user,
@@ -178,7 +174,7 @@ def test_post_slug_generation():
     assert post1.slug == "my-first-blog-post"
 
     # Test case 2: Slug not overridden when provided
-    post2 = Content.post_objects.create(
+    post2 = Post.post_objects.create(
         title="My Second Blog Post",
         slug="custom-slug",
         content="This is the content of my second blog post.",
@@ -187,7 +183,7 @@ def test_post_slug_generation():
     assert post2.slug == "custom-slug"
 
     # Test case 3: Slug generated with special characters
-    post3 = Content.post_objects.create(
+    post3 = Post.post_objects.create(
         title="My Third Blog Post!",
         content="This is the content of my third blog post.",
         author=user,
@@ -195,7 +191,7 @@ def test_post_slug_generation():
     assert post3.slug == "my-third-blog-post"
 
     # Test case 4: Slug generated with non-ASCII characters
-    post4 = Content.post_objects.create(
+    post4 = Post.post_objects.create(
         title="My Post with 😊 Emoji",
         content="This is the content of the post with an emoji in the title.",
         author=user,
@@ -204,7 +200,7 @@ def test_post_slug_generation():
 
     # Test case 5: Raise error for invalid title
     with pytest.raises(ValueError) as exc_info:
-        Content.post_objects.create(
+        Post.post_objects.create(
             title="!@#$%^&*()",
             content="This is the content of the post with an invalid title.",
             author=user,
@@ -254,7 +250,7 @@ def test_markdown_rendering():
     user = User.objects.create_user(username="testuser", password="testpass")
 
     # Test case 1: Render markdown with basic formatting
-    post1 = Content.post_objects.create(
+    post1 = Post.post_objects.create(
         title="Post with Markdown",
         content="# Heading\n\nThis is a paragraph with **bold** and *italic* text.",
         author=user,
@@ -263,7 +259,7 @@ def test_markdown_rendering():
     assert post1.content_markdown == expected_html
 
     # Test case 2: Render markdown with code block
-    post2 = Content.post_objects.create(
+    post2 = Post.post_objects.create(
         title="Post with Code Block",
         content='```python\nprint("Hello, World!")\n```',
         author=user,
@@ -272,7 +268,7 @@ def test_markdown_rendering():
     assert post2.content_markdown == expected_html
 
     # Test case 3: Render markdown with fenced code block
-    post3 = Content.post_objects.create(
+    post3 = Post.post_objects.create(
         title="Post with Fenced Code Block",
         content="```\nThis is a fenced code block.\n```",
         author=user,
@@ -286,7 +282,7 @@ def test_truncated_content_markdown():
     user = User.objects.create_user(username="testuser", password="testpass")
 
     # Test case 1: Content with "read more" tag
-    post1 = Content.post_objects.create(
+    post1 = Post.post_objects.create(
         title="Post with Read More",
         content="This is the intro.\n\n<!--more-->\n\nThis is the rest of the content.",
         author=user,
@@ -295,7 +291,7 @@ def test_truncated_content_markdown():
     assert post1.truncated_content_markdown == expected_truncated_content
 
     # Test case 2: Content without "read more" tag
-    post2 = Content.post_objects.create(
+    post2 = Post.post_objects.create(
         title="Post without Read More",
         content="This is the entire content.",
         author=user,
@@ -309,7 +305,7 @@ def test_is_truncated_property():
     user = User.objects.create_user(username="testuser", password="testpass")
 
     # Test case 1: Content with truncate tag
-    post1 = Content.post_objects.create(
+    post1 = Post.post_objects.create(
         title="Post with Truncate Tag",
         content=f"This is the intro.{TRUNCATE_TAG}This is the rest of the content.",
         author=user,
@@ -317,7 +313,7 @@ def test_is_truncated_property():
     assert post1.is_truncated is True
 
     # Test case 2: Content without truncate tag
-    post2 = Content.post_objects.create(
+    post2 = Post.post_objects.create(
         title="Post without Truncate Tag",
         content="This is the entire content.",
         author=user,
@@ -325,7 +321,7 @@ def test_is_truncated_property():
     assert post2.is_truncated is False
 
     # Test case 3: Content with truncate tag at the beginning
-    post3 = Content.post_objects.create(
+    post3 = Post.post_objects.create(
         title="Post with Truncate Tag at the Beginning",
         content=f"{TRUNCATE_TAG}This is the content.",
         author=user,
@@ -333,7 +329,7 @@ def test_is_truncated_property():
     assert post3.is_truncated is True
 
     # Test case 4: Content with truncate tag at the end
-    post4 = Content.post_objects.create(
+    post4 = Post.post_objects.create(
         title="Post with Truncate Tag at the End",
         content=f"This is the content.{TRUNCATE_TAG}",
         author=user,

@@ -1,4 +1,4 @@
-"""Content model."""
+"""Post model."""
 
 import logging
 from typing import ClassVar
@@ -26,7 +26,7 @@ PUBLISHED_CONTENT_CACHE_KEY = "published_content"
 
 
 class PostsManager(models.Manager):
-    """Content manager."""
+    """Post custom manager."""
 
     def get_queryset(self: "PostsManager") -> models.QuerySet:
         """Return the queryset for published posts."""
@@ -102,7 +102,7 @@ class PostsManager(models.Manager):
     def get_published_post_by_slug(
         self: "PostsManager",
         slug: str,
-    ) -> "Content":
+    ) -> "Post":
         """Return a single published post.
 
         Must have a date less than or equal to the current date/time based on its slug.
@@ -117,7 +117,7 @@ class PostsManager(models.Manager):
         if not post:
             try:
                 post = self._get_published_content().get(slug=slug)
-            except Content.DoesNotExist as exc:
+            except Post.DoesNotExist as exc:
                 msg = "Post not found"
                 raise ValueError(msg) from exc
 
@@ -139,8 +139,8 @@ class PostsManager(models.Manager):
         )
 
 
-class Content(models.Model):
-    """Content model."""
+class Post(models.Model):
+    """Post model."""
 
     STATUS_CHOICES: ClassVar = [("draft", "Draft"), ("published", "Published")]
     CONTENT_TYPE_CHOICES: ClassVar = [("post", "Post"), ("page", "Page")]
@@ -169,11 +169,11 @@ class Content(models.Model):
         verbose_name = "content"
         verbose_name_plural = "contents"
 
-    def __str__(self: "Content") -> str:
+    def __str__(self: "Post") -> str:
         """Return the string representation of the content."""
         return self.title
 
-    def save(self: "Content", *args, **kwargs) -> None:  # noqa: ANN002, ANN003
+    def save(self: "Post", *args, **kwargs) -> None:  # noqa: ANN002, ANN003
         """Override the save method to auto-generate the slug."""
         if not self.slug:
             self.slug = slugify(self.title)
@@ -182,7 +182,7 @@ class Content(models.Model):
                 raise ValueError(msg)
         super().save(*args, **kwargs)
 
-    def render_markdown(self: "Content", markdown_text: str) -> str:
+    def render_markdown(self: "Post", markdown_text: str) -> str:
         """Return the markdown text as HTML."""
         html = md.convert(markdown_text)
         logger.debug(f"Converted markdown to HTML: {html=}")
@@ -191,12 +191,12 @@ class Content(models.Model):
         return html
 
     @property
-    def content_markdown(self: "Content") -> str:
+    def content_markdown(self: "Post") -> str:
         """Return the content as HTML converted from Markdown."""
         return self.render_markdown(self.content)
 
     @property
-    def truncated_content_markdown(self: "Content") -> str:
+    def truncated_content_markdown(self: "Post") -> str:
         """Return the truncated content as HTML converted from Markdown."""
         read_more_index = self.content.find(TRUNCATE_TAG)
         if read_more_index != -1:
@@ -206,6 +206,6 @@ class Content(models.Model):
         return self.render_markdown(truncated_content)
 
     @property
-    def is_truncated(self: "Content") -> bool:
+    def is_truncated(self: "Post") -> bool:
         """Return whether the content is truncated."""
         return TRUNCATE_TAG in self.content

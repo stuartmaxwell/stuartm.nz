@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
-from djpress.models import Category, Content
+from djpress.models import Category, Post
 
 
 @pytest.mark.django_db
@@ -16,7 +16,7 @@ def test_index_view(client):
 @pytest.mark.django_db
 def test_content_detail_view(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    content = Content.post_objects.create(
+    content = Post.post_objects.create(
         title="Test Post",
         slug="test-post",
         content="This is a test post.",

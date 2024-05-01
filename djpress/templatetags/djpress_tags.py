@@ -4,7 +4,7 @@ from django import template
 from django.db import models
 
 from config.settings import BLOG_TITLE
-from djpress.models import Category, Content
+from djpress.models import Category, Post
 
 register = template.Library()
 
@@ -18,13 +18,13 @@ def get_categories() -> models.QuerySet[Category] | None:
 @register.simple_tag
 def get_recent_published_content() -> models.QuerySet[Category] | None:
     """Return recent published posts from the cache."""
-    return Content.post_objects.get_recent_published_content()
+    return Post.post_objects.get_recent_published_content()
 
 
 @register.simple_tag
-def get_single_published_content(slug: str) -> Content | None:
+def get_single_published_content(slug: str) -> Post | None:
     """Return a single published post by slug."""
-    return Content.post_objects.get_published_post_by_slug(slug)
+    return Post.post_objects.get_published_post_by_slug(slug)
 
 
 @register.simple_tag
