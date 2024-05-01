@@ -14,10 +14,8 @@
 
     <main>
 
-      {% if slug %}
-    {% comment %} If there's a slug, we only display a single post. {% endcomment %}
-
-        {% get_single_published_content slug as post %}
+      {% comment %}If we get a single post, then show the full content.{% endcomment %}
+      {% if post %}
 
         <article>
           <header>
@@ -38,10 +36,15 @@
           </footer>
         </article>
 
-      {% else %}
-    {% comment %} If there's no slug, we loop through recent published content. {% endcomment %}
+      {% comment %}If we get multiple posts, then show the truncated content.{% endcomment %}
+      {% elif posts %}
 
-        {% get_recent_published_content as posts %}
+        {% comment %}If we get posts for a category, then we can show the category header.{% endcomment %}
+        {% if category %}
+
+          <h1>{{ category.name }}</h1>
+
+        {% endif %}
 
         {% for post in posts %}
 
@@ -68,11 +71,11 @@
             </footer>
           </article>
 
-        {% empty %}
-
-          <p>No posts available.</p>
-
         {% endfor %}
+
+      {% else %}
+
+        <p>No posts available.</p>
 
       {% endif %}
 

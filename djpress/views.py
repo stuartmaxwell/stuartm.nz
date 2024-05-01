@@ -8,25 +8,38 @@ from .models import Category, Content
 
 def index(request: HttpRequest) -> HttpResponse:
     """View for the index page."""
-    return render(request, "djpress/index.html")
+    posts = Content.post_objects.get_recent_published_content()
+
+    return render(
+        request,
+        "djpress/index.html",
+        {"posts": posts},
+    )
 
 
 def content_detail(request: HttpRequest, slug: str) -> HttpResponse:
     """View for a single content page."""
-    return render(request, "djpress/index.html", {"slug": slug})
+    post = Content.post_objects.get_published_post_by_slug(slug)
+
+    return render(
+        request,
+        "djpress/index.html",
+        {"post": post},
+    )
 
 
 def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
     """View for posts by category."""
     try:
-        category = Category.objects.get(slug=slug)
-        posts = Content.post_objects.get_published_content_by_category(category)
+        category: Category = Category.objects.get_category_by_slug(slug=slug)
     except Category.DoesNotExist as exc:
         msg = "Category not found"
         raise Http404(msg) from exc
 
+    posts = Content.post_objects.get_published_content_by_category(category)
+
     return render(
         request,
-        "djpress/category_posts.html",
-        {"category": category, "posts": posts},
+        "djpress/index.html",
+        {"posts": posts, "category": category},
     )
