@@ -17,7 +17,7 @@ def test_get_cached_categories():
     Category.objects.create(name="Category 2")
 
     # Call the get_cached_categories method
-    queryset = Category.objects.get_cached_categories()
+    queryset = Category.objects._get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -26,7 +26,7 @@ def test_get_cached_categories():
     assert len(cached_queryset) == 2
 
     # Assert that subsequent calls retrieve the queryset from cache
-    queryset2 = Category.objects.get_cached_categories()
+    queryset2 = Category.objects._get_cached_categories()
     assert list(queryset2) == list(cached_queryset)
 
 
@@ -36,7 +36,7 @@ def test_cache_invalidation_on_save():
     category = Category.objects.create(name="Category 1")
 
     # Call the get_cached_categories method
-    queryset = Category.objects.get_cached_categories()
+    queryset = Category.objects._get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -52,7 +52,7 @@ def test_cache_invalidation_on_save():
     assert cached_queryset is None
 
     # Call the get_cached_categories method again
-    queryset2 = Category.objects.get_cached_categories()
+    queryset2 = Category.objects._get_cached_categories()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(CATEGORY_CACHE_KEY)
@@ -67,7 +67,7 @@ def test_cache_invalidation_on_delete():
     category = Category.objects.create(name="Category 1")
 
     # Call the get_cached_categories method
-    queryset = Category.objects.get_cached_categories()
+    queryset = Category.objects._get_cached_categories()
 
     # Assert that the queryset is cached
     cached_queryset = cache.get(CATEGORY_CACHE_KEY)
@@ -82,7 +82,7 @@ def test_cache_invalidation_on_delete():
     assert cached_queryset is None
 
     # Call the get_cached_categories method again
-    queryset2 = Category.objects.get_cached_categories()
+    queryset2 = Category.objects._get_cached_categories()
 
     # Assert that the queryset is cached again with the updated data
     cached_queryset2 = cache.get(CATEGORY_CACHE_KEY)

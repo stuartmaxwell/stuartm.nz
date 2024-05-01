@@ -36,10 +36,8 @@
           </footer>
         </article>
 
-      {% endif %}
-
       {% comment %}If we get multiple posts, then show the truncated content.{% endcomment %}
-      {% if posts %}
+      {% elif posts %}
 
         {% comment %}If we get posts for a category, then we can show the category header.{% endcomment %}
         {% if category %}
@@ -73,11 +71,11 @@
             </footer>
           </article>
 
-        {% empty %}
-
-          <p>No posts available.</p>
-
         {% endfor %}
+
+      {% else %}
+
+        <p>No posts available.</p>
 
       {% endif %}
 
