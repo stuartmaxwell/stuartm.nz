@@ -1,17 +1,17 @@
 import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
-from djpress.models import Content
-from djpress.feeds import ContentFeed
+from djpress.models import Post
+from djpress.feeds import PostFeed
 
 
 @pytest.mark.django_db
 def test_latest_posts_feed(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Post 1", content="Content of post 1.", author=user, status="published"
     )
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Post 2", content="Content of post 2.", author=user, status="published"
     )
 
@@ -35,7 +35,7 @@ def test_latest_posts_feed(client):
 @pytest.mark.django_db
 def test_truncated_posts_feed(client):
     user = User.objects.create_user(username="testuser", password="testpass")
-    Content.post_objects.create(
+    Post.post_objects.create(
         title="Post 1",
         content="Content of post 1.<!--more-->Truncated content",
         author=user,
