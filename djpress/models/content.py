@@ -163,6 +163,12 @@ class Content(models.Model):
     objects = models.Manager()
     post_objects: "PostsManager" = PostsManager()
 
+    class Meta:
+        """Meta options for the content model."""
+
+        verbose_name = "content"
+        verbose_name_plural = "contents"
+
     def __str__(self: "Content") -> str:
         """Return the string representation of the content."""
         return self.title

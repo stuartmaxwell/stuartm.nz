@@ -65,6 +65,12 @@ class Category(models.Model):
     # Custom Manager
     objects: "CategoryManager" = CategoryManager()
 
+    class Meta:
+        """Meta options for the category model."""
+
+        verbose_name = "category"
+        verbose_name_plural = "catregories"
+
     def __str__(self: "Category") -> str:
         """Return the string representation of the category."""
         return self.name
