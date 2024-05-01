@@ -2,8 +2,8 @@
 
 from django.urls import path
 
-from .feeds import ContentFeed
-from .views import category_posts, content_detail, index
+from djpress.feeds import ContentFeed
+from djpress.views import category_posts, content_detail, index
 
 app_name = "djpress"
 urlpatterns = [
