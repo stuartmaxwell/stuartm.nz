@@ -23,6 +23,9 @@ logger = logging.getLogger(__name__)
 CATEGORY_CACHE_KEY = "categories"
 PUBLISHED_CONTENT_CACHE_KEY = "published_content"
 
+markdown_extensions = ["fenced_code", "codehilite"]
+md = markdown.Markdown(extensions=markdown_extensions, output_format="html")
+
 
 class CategoryManager(models.Manager):
     """Category manager."""
@@ -33,11 +36,11 @@ class CategoryManager(models.Manager):
         If CACHE_CATEGORIES is set to True, we return the cached queryset.
         """
         if CACHE_CATEGORIES:
-            return self.get_cached_categories()
+            return self._get_cached_categories()
 
         return Category.objects.all()
 
-    def get_cached_categories(self: "CategoryManager") -> models.QuerySet:
+    def _get_cached_categories(self: "CategoryManager") -> models.QuerySet:
         """Return the cached categories queryset."""
         queryset = cache.get(CATEGORY_CACHE_KEY)
 
@@ -46,6 +49,25 @@ class CategoryManager(models.Manager):
             cache.set(CATEGORY_CACHE_KEY, queryset, timeout=None)
 
         return queryset
+
+    def get_category_by_slug(self: "CategoryManager", slug: str) -> "Category":
+        """Return a single category by its slug."""
+        # First, try to get the category from the cache
+        categories = self.get_categories()
+        category = next(
+            (category for category in categories if category.slug == slug), None,
+        )
+
+        # If the category is not found in the cache, fetch it from the database
+        if not category:
+            try:
+                category = Category.objects.get(slug=slug)
+            except Category.DoesNotExist as exc:
+                msg = "Category not found"
+                # Raise a 404 error
+                raise Http404(msg) from exc
+
+        return category
 
 
 class Category(models.Model):
@@ -180,7 +202,11 @@ class PostsManager(models.Manager):
         Must have a date less than or equal to the current date/time for a specific
         category, ordered by date in descending order.
         """
-        return self._get_published_content().filter(categories=category)
+        return (
+            self._get_published_content()
+            .filter(categories=category)
+            .prefetch_related("categories", "author")
+        )
 
 
 class Content(models.Model):
@@ -222,11 +248,11 @@ class Content(models.Model):
 
     def render_markdown(self: "Content", markdown_text: str) -> str:
         """Return the markdown text as HTML."""
-        return markdown.markdown(
-            markdown_text,
-            extensions=["fenced_code", "codehilite"],
-            output_format="html",
-        )
+        html = md.convert(markdown_text)
+        logger.debug(f"Converted markdown to HTML: {html=}")
+        md.reset()
+
+        return html
 
     @property
     def content_markdown(self: "Content") -> str:
