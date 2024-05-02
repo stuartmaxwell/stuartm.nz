@@ -166,8 +166,8 @@ class Post(models.Model):
     class Meta:
         """Meta options for the content model."""
 
-        verbose_name = "content"
-        verbose_name_plural = "contents"
+        verbose_name = "post"
+        verbose_name_plural = "posts"
 
     def __str__(self: "Post") -> str:
         """Return the string representation of the content."""
