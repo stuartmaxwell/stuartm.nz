@@ -69,7 +69,7 @@ class Category(models.Model):
         """Meta options for the category model."""
 
         verbose_name = "category"
-        verbose_name_plural = "catregories"
+        verbose_name_plural = "categories"
 
     def __str__(self: "Category") -> str:
         """Return the string representation of the category."""
