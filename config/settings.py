@@ -237,4 +237,4 @@ CACHE_CATEGORIES: bool = True
 CACHE_RECENT_PUBLISHED_POSTS: bool = False
 RECENT_PUBLISHED_POSTS_COUNT: int = 20
 BLOG_TITLE = "stuartm.nz"
-MARKDOWN_EXTENSIONS = ["fenced_code", "codehilite"]
+MARKDOWN_EXTENSIONS = ["fenced_code", "codehilite", "tables"]
