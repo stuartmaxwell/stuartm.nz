@@ -1,6 +1,5 @@
 """Post model."""
 
-import logging
 from typing import ClassVar
 
 import markdown
@@ -17,8 +16,6 @@ from config.settings import (
     TRUNCATE_TAG,
 )
 from djpress.models import Category
-
-logger = logging.getLogger(__name__)
 
 md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS, output_format="html")
 
@@ -89,9 +86,6 @@ class PostsManager(models.Manager):
                 timeout=timeout,
             )
 
-            logger.debug(
-                f"Posts set in cache: {cache.get(PUBLISHED_POSTS_CACHE_KEY)=}",
-            )
         return queryset
 
     def get_published_post_by_slug(
@@ -178,7 +172,6 @@ class Post(models.Model):
     def render_markdown(self: "Post", markdown_text: str) -> str:
         """Return the markdown text as HTML."""
         html = md.convert(markdown_text)
-        logger.debug(f"Converted markdown to HTML: {html=}")
         md.reset()
 
         return html
@@ -202,3 +195,11 @@ class Post(models.Model):
     def is_truncated(self: "Post") -> bool:
         """Return whether the content is truncated."""
         return TRUNCATE_TAG in self.content
+
+    @property
+    def author_display_name(self: "Post") -> str:
+        """Return the author's display name.
+
+        If the author has a first name, return that. Otherwise, return the username.
+        """
+        return self.author.first_name or self.author.username
