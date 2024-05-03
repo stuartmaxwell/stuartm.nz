@@ -12,6 +12,7 @@ from django.utils.text import slugify
 
 from config.settings import (
     CACHE_RECENT_PUBLISHED_POSTS,
+    MARKDOWN_EXTENSIONS,
     RECENT_PUBLISHED_POSTS_COUNT,
     TRUNCATE_TAG,
 )
@@ -19,8 +20,7 @@ from djpress.models import Category
 
 logger = logging.getLogger(__name__)
 
-markdown_extensions = ["fenced_code", "codehilite"]
-md = markdown.Markdown(extensions=markdown_extensions, output_format="html")
+md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS, output_format="html")
 
 PUBLISHED_CONTENT_CACHE_KEY = "published_content"
 
