@@ -16,13 +16,13 @@ def get_categories() -> models.QuerySet[Category] | None:
 
 
 @register.simple_tag
-def get_recent_published_content() -> models.QuerySet[Category] | None:
+def get_recent_published_posts() -> models.QuerySet[Category] | None:
     """Return recent published posts from the cache."""
-    return Post.post_objects.get_recent_published_content()
+    return Post.post_objects.get_recent_published_posts()
 
 
 @register.simple_tag
-def get_single_published_content(slug: str) -> Post | None:
+def get_single_published_post(slug: str) -> Post | None:
     """Return a single published post by slug."""
     return Post.post_objects.get_published_post_by_slug(slug)
 

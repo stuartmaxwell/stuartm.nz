@@ -22,7 +22,7 @@
         <article>
           <header>
             <h1>{{ post.title }}</h1>
-            <p>By <span rel="author">{{ post.author.first_name }}</span></p>
+            <p>By <span rel="author">{{ post.author_display_name }}</span></p>
             <p><time datetime="2023-05-01">{{ post.date }}</time></p>
           </header>
           <section>
@@ -52,15 +52,15 @@
 
           <article>
             <header>
-              <h1><a href="{% url 'djpress:content_detail' post.slug %}">{{ post.title }}</a></h1>
-              <p>By <span rel="author">{{ post.author.first_name }}</span></p>
+              <h1><a href="{% url 'djpress:post_detail' post.slug %}">{{ post.title }}</a></h1>
+              <p>By <span rel="author">{{ post.author_display_name }}</span></p>
               <p><time datetime="2023-05-01">{{ post.date }}</time></p>
             </header>
             <section>
               {{ post.truncated_content_markdown|safe }}
 
               {% if post.is_truncated %}
-                <p><a href="{% url 'djpress:content_detail' post.slug %}">Read more</a></p>
+                <p><a href="{% url 'djpress:post_detail' post.slug %}">Read more</a></p>
               {% endif %}
             </section>
             <footer>

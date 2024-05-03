@@ -25,13 +25,13 @@
 
   {% if post %}
 
-    {% include "djpress/snippets/content_detail.html" %}
+    {% include "djpress/snippets/post_detail.html" %}
 
   {% elif posts %}
 
     {% for post in posts %}
 
-      {% include "djpress/snippets/content_summary.html" %}
+      {% include "djpress/snippets/post_summary.html" %}
 
     {% endfor %}
 
