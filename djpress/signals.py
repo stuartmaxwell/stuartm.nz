@@ -9,7 +9,7 @@ from djpress.models.category import (
     Category,
 )
 from djpress.models.post import (
-    PUBLISHED_CONTENT_CACHE_KEY,
+    PUBLISHED_POSTS_CACHE_KEY,
     Post,
 )
 
@@ -25,4 +25,4 @@ def invalidate_category_cache(**kwargs) -> None:  # noqa: ARG001, ANN003
 @receiver(post_delete, sender=Post)
 def invalidate_published_content_cache(**kwargs) -> None:  # noqa: ARG001, ANN003
     """Invalidate the published posts cache."""
-    cache.delete(PUBLISHED_CONTENT_CACHE_KEY)
+    cache.delete(PUBLISHED_POSTS_CACHE_KEY)

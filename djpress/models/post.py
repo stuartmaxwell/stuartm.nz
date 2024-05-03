@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS, output_format="html")
 
-PUBLISHED_CONTENT_CACHE_KEY = "published_content"
+PUBLISHED_POSTS_CACHE_KEY = "published_posts"
 
 
 class PostsManager(models.Manager):
@@ -30,9 +30,9 @@ class PostsManager(models.Manager):
 
     def get_queryset(self: "PostsManager") -> models.QuerySet:
         """Return the queryset for published posts."""
-        return super().get_queryset().filter(content_type="post").order_by("-date")
+        return super().get_queryset().filter(post_type="post").order_by("-date")
 
-    def _get_published_content(self: "PostsManager") -> models.QuerySet:
+    def _get_published_posts(self: "PostsManager") -> models.QuerySet:
         """Returns all published posts.
 
         For a post to be considered published, it must meet the following requirements:
@@ -44,26 +44,25 @@ class PostsManager(models.Manager):
             date__lte=timezone.now(),
         )
 
-    def get_recent_published_content(self: "PostsManager") -> models.QuerySet:
+    def get_recent_published_posts(self: "PostsManager") -> models.QuerySet:
         """Return recent published posts.
 
         If CACHE_RECENT_PUBLISHED_POSTS is set to True, we return the cached queryset.
         """
         if CACHE_RECENT_PUBLISHED_POSTS:
-            return self._get_cached_recent_published_content()
+            return self._get_cached_recent_published_posts()
 
-        return self._get_published_content().prefetch_related("categories", "author")[
+        return self._get_published_posts().prefetch_related("categories", "author")[
             :RECENT_PUBLISHED_POSTS_COUNT
         ]
 
-    def _get_cached_recent_published_content(self: "PostsManager") -> models.QuerySet:
+    def _get_cached_recent_published_posts(self: "PostsManager") -> models.QuerySet:
         """Return the cached recent published posts queryset.
 
         If there are any future posts, we calculate the seconds until that post, then we
         set the timeout to that number of seconds.
         """
-        queryset = cache.get(PUBLISHED_CONTENT_CACHE_KEY)
-        logger.debug(f"Getting posts from cache: {queryset=}")
+        queryset = cache.get(PUBLISHED_POSTS_CACHE_KEY)
 
         if queryset is None:
             queryset = (
@@ -78,24 +77,20 @@ class PostsManager(models.Manager):
             if future_posts.exists():
                 future_post = future_posts[0]
                 timeout = (future_post.date - timezone.now()).total_seconds()
-                logger.debug(f"Future post found, setting timeout to {timeout} seconds")
             else:
-                logger.debug("No future posts found, setting timeout to None")
                 timeout = None
 
             queryset = queryset.filter(date__lte=timezone.now())[
                 :RECENT_PUBLISHED_POSTS_COUNT
             ]
-            logger.debug(f"Setting posts in cache: {queryset=}")
-            logger.debug(f"With a timeout of: {timeout=}")
             cache.set(
-                PUBLISHED_CONTENT_CACHE_KEY,
+                PUBLISHED_POSTS_CACHE_KEY,
                 queryset,
                 timeout=timeout,
             )
 
             logger.debug(
-                f"Posts set in cache: {cache.get(PUBLISHED_CONTENT_CACHE_KEY)=}",
+                f"Posts set in cache: {cache.get(PUBLISHED_POSTS_CACHE_KEY)=}",
             )
         return queryset
 
@@ -107,33 +102,31 @@ class PostsManager(models.Manager):
 
         Must have a date less than or equal to the current date/time based on its slug.
         """
-        logger.debug(f"Getting post by slug: {slug=}")
-
         # First, try to get the post from the cache
-        posts = self.get_recent_published_content()
+        posts = self.get_recent_published_posts()
         post = next((post for post in posts if post.slug == slug), None)
 
         # If the post is not found in the cache, fetch it from the database
         if not post:
             try:
-                post = self._get_published_content().get(slug=slug)
+                post = self._get_published_posts().get(slug=slug)
             except Post.DoesNotExist as exc:
                 msg = "Post not found"
                 raise ValueError(msg) from exc
 
         return post
 
-    def get_published_content_by_category(
+    def get_published_posts_by_category(
         self: "PostsManager",
         category: Category,
     ) -> models.QuerySet:
-        """Return all published posts.
+        """Return all published posts for a given category.
 
         Must have a date less than or equal to the current date/time for a specific
         category, ordered by date in descending order.
         """
         return (
-            self._get_published_content()
+            self._get_published_posts()
             .filter(categories=category)
             .prefetch_related("categories", "author")
         )
@@ -152,7 +145,7 @@ class Post(models.Model):
     date = models.DateTimeField(default=timezone.now)
     modified_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
-    content_type = models.CharField(
+    post_type = models.CharField(
         max_length=10,
         choices=CONTENT_TYPE_CHOICES,
         default="post",
@@ -164,13 +157,13 @@ class Post(models.Model):
     post_objects: "PostsManager" = PostsManager()
 
     class Meta:
-        """Meta options for the content model."""
+        """Meta options for the Post model."""
 
         verbose_name = "post"
         verbose_name_plural = "posts"
 
     def __str__(self: "Post") -> str:
-        """Return the string representation of the content."""
+        """Return the string representation of the post."""
         return self.title
 
     def save(self: "Post", *args, **kwargs) -> None:  # noqa: ANN002, ANN003

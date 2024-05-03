@@ -27,14 +27,14 @@ def test_content_model():
         content="This is a test content.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
     )
     content.categories.add(category)
     assert content.title == "Test Content"
     assert content.slug == "test-content"
     assert content.author == user
     assert content.status == "published"
-    assert content.content_type == "post"
+    assert content.post_type == "post"
     assert content.categories.count() == 1
     assert str(content) == "Test Content"
 
@@ -50,7 +50,7 @@ def test_content_methods():
         content="This is test post 1.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
     ).categories.add(category1)
     Post.post_objects.create(
         title="Test Post 2",
@@ -58,15 +58,15 @@ def test_content_methods():
         content="This is test post 2.",
         author=user,
         status="draft",
-        content_type="post",
+        post_type="post",
     )
     assert Post.post_objects.all().count() == 2
     assert (
         Post.post_objects.get_published_post_by_slug("test-post-1").title
         == "Test Post 1"
     )
-    assert Post.post_objects.get_published_content_by_category(category1).count() == 1
-    assert Post.post_objects.get_published_content_by_category(category2).count() == 0
+    assert Post.post_objects.get_published_posts_by_category(category1).count() == 1
+    assert Post.post_objects.get_published_posts_by_category(category2).count() == 0
 
 
 @pytest.mark.django_db
@@ -78,7 +78,7 @@ def test_get_published_content_with_future_date():
         content="This is a past post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     )
     Post.post_objects.create(
@@ -87,11 +87,11 @@ def test_get_published_content_with_future_date():
         content="This is a future post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     )
     assert Post.post_objects.all().count() == 2
-    assert Post.post_objects._get_published_content().count() == 1
+    assert Post.post_objects._get_published_posts().count() == 1
 
 
 @pytest.mark.django_db
@@ -103,7 +103,7 @@ def test_get_published_content_ordering():
         content="This is an older post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() - timezone.timedelta(days=2),
     )
     Post.post_objects.create(
@@ -112,7 +112,7 @@ def test_get_published_content_ordering():
         content="This is a newer post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     )
     posts = Post.post_objects.all()
@@ -129,7 +129,7 @@ def test_get_published_post_by_slug_with_future_date():
         content="This is a future post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     )
     with pytest.raises(ValueError):
@@ -146,7 +146,7 @@ def test_get_published_content_by_category_with_future_date():
         content="This is a past post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() - timezone.timedelta(days=1),
     ).categories.add(category)
     Post.post_objects.create(
@@ -155,10 +155,10 @@ def test_get_published_content_by_category_with_future_date():
         content="This is a future post.",
         author=user,
         status="published",
-        content_type="post",
+        post_type="post",
         date=timezone.now() + timezone.timedelta(days=1),
     ).categories.add(category)
-    assert Post.post_objects.get_published_content_by_category(category).count() == 1
+    assert Post.post_objects.get_published_posts_by_category(category).count() == 1
 
 
 @pytest.mark.django_db

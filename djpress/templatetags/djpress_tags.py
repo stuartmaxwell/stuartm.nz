@@ -18,7 +18,7 @@ def get_categories() -> models.QuerySet[Category] | None:
 @register.simple_tag
 def get_recent_published_content() -> models.QuerySet[Category] | None:
     """Return recent published posts from the cache."""
-    return Post.post_objects.get_recent_published_content()
+    return Post.post_objects.get_recent_published_posts()
 
 
 @register.simple_tag

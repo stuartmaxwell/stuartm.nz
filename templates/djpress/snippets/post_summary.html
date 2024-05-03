@@ -1,9 +1,9 @@
 <div class="card my-4">
   <div class="card-body">
-    <h2 class="card-title"><a href="{% url 'djpress:content_detail' post.slug %}">{{ post.title }}</a></h2>
+    <h2 class="card-title"><a href="{% url 'djpress:post_detail' post.slug %}">{{ post.title }}</a></h2>
     <p class="card-text">{{ post.truncated_content_markdown|safe }}</p>
     {% if post.is_truncated %}
-      <p><a href="{% url 'djpress:content_detail' post.slug %}">Read more</a></p>
+      <p><a href="{% url 'djpress:post_detail' post.slug %}">Read more</a></p>
     {% endif %}
     <p>
       Categories:

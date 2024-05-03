@@ -8,7 +8,7 @@ from djpress.models import Category, Post
 
 def index(request: HttpRequest) -> HttpResponse:
     """View for the index page."""
-    posts = Post.post_objects.get_recent_published_content()
+    posts = Post.post_objects.get_recent_published_posts()
 
     return render(
         request,
@@ -17,8 +17,8 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-def content_detail(request: HttpRequest, slug: str) -> HttpResponse:
-    """View for a single content page."""
+def post_detail(request: HttpRequest, slug: str) -> HttpResponse:
+    """View for a single post."""
     try:
         post = Post.post_objects.get_published_post_by_slug(slug)
     except ValueError as exc:
@@ -40,7 +40,7 @@ def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
         msg = "Category not found"
         raise Http404(msg) from exc
 
-    posts = Post.post_objects.get_published_content_by_category(category)
+    posts = Post.post_objects.get_published_posts_by_category(category)
 
     return render(
         request,
