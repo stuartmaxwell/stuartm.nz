@@ -1,12 +1,17 @@
-<h1>{{ post.title }}</h1>
-<p class="text-muted">Posted on {{ post.date }} by {{ post.author_display_name }}</p>
-<p>
-  Categories:
-  {% for category in post.categories.all %}
-    <a href="{% url 'djpress:category_posts' category.slug %}" class="badge bg-primary">{{ category.name }}</a>
-  {% endfor %}
-</p>
-<hr>
-<div class="content">
-  {{ post.content_markdown|safe }}
+<div class="card my-4 shadow">
+  <div class="card-body">
+    <h1>{{ post.title }}</h1>
+    <div class="content">
+      {{ post.content_markdown|safe }}
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    <p>Posted on {{ post.date }} by {{ post.author_display_name }}</p>
+    <p>
+      Categories:
+      {% for category in post.categories.all %}
+        <a href="{% url 'djpress:category_posts' category.slug %}" class="badge bg-primary">{{ category.name }}</a>
+      {% endfor %}
+    </p>
+  </div>
 </div>
