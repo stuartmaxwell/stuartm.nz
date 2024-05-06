@@ -1,9 +1,9 @@
 """Template tags for djpress."""
 
 from django import template
+from django.conf import settings
 from django.db import models
 
-from config.settings import BLOG_TITLE
 from djpress.models import Category, Post
 
 register = template.Library()
@@ -30,4 +30,4 @@ def get_single_published_post(slug: str) -> Post | None:
 @register.simple_tag
 def get_blog_title() -> str:
     """Return the blog title."""
-    return BLOG_TITLE
+    return settings.BLOG_TITLE

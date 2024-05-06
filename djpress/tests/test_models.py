@@ -5,8 +5,7 @@ from djpress.models import Category, Post
 from django.utils import timezone
 from django.http import Http404
 
-
-from config.settings import TRUNCATE_TAG
+from django.conf import settings
 
 
 @pytest.mark.django_db
@@ -307,7 +306,7 @@ def test_is_truncated_property():
     # Test case 1: Content with truncate tag
     post1 = Post.post_objects.create(
         title="Post with Truncate Tag",
-        content=f"This is the intro.{TRUNCATE_TAG}This is the rest of the content.",
+        content=f"This is the intro.{settings.TRUNCATE_TAG}This is the rest of the content.",
         author=user,
     )
     assert post1.is_truncated is True
@@ -323,7 +322,7 @@ def test_is_truncated_property():
     # Test case 3: Content with truncate tag at the beginning
     post3 = Post.post_objects.create(
         title="Post with Truncate Tag at the Beginning",
-        content=f"{TRUNCATE_TAG}This is the content.",
+        content=f"{settings.TRUNCATE_TAG}This is the content.",
         author=user,
     )
     assert post3.is_truncated is True
@@ -331,7 +330,7 @@ def test_is_truncated_property():
     # Test case 4: Content with truncate tag at the end
     post4 = Post.post_objects.create(
         title="Post with Truncate Tag at the End",
-        content=f"This is the content.{TRUNCATE_TAG}",
+        content=f"This is the content.{settings.TRUNCATE_TAG}",
         author=user,
     )
     assert post4.is_truncated is True
