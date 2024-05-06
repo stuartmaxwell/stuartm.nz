@@ -1,23 +1,21 @@
 """Post model."""
 
+import logging
 from typing import ClassVar
 
 import markdown
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 
-from config.settings import (
-    CACHE_RECENT_PUBLISHED_POSTS,
-    MARKDOWN_EXTENSIONS,
-    RECENT_PUBLISHED_POSTS_COUNT,
-    TRUNCATE_TAG,
-)
 from djpress.models import Category
 
-md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS, output_format="html")
+logger = logging.getLogger(__name__)
+
+md = markdown.Markdown(extensions=settings.MARKDOWN_EXTENSIONS, output_format="html")
 
 PUBLISHED_POSTS_CACHE_KEY = "published_posts"
 
@@ -46,11 +44,11 @@ class PostsManager(models.Manager):
 
         If CACHE_RECENT_PUBLISHED_POSTS is set to True, we return the cached queryset.
         """
-        if CACHE_RECENT_PUBLISHED_POSTS:
+        if settings.CACHE_RECENT_PUBLISHED_POSTS:
             return self._get_cached_recent_published_posts()
 
         return self._get_published_posts().prefetch_related("categories", "author")[
-            :RECENT_PUBLISHED_POSTS_COUNT
+            : settings.RECENT_PUBLISHED_POSTS_COUNT
         ]
 
     def _get_cached_recent_published_posts(self: "PostsManager") -> models.QuerySet:
@@ -78,7 +76,7 @@ class PostsManager(models.Manager):
                 timeout = None
 
             queryset = queryset.filter(date__lte=timezone.now())[
-                :RECENT_PUBLISHED_POSTS_COUNT
+                : settings.RECENT_PUBLISHED_POSTS_COUNT
             ]
             cache.set(
                 PUBLISHED_POSTS_CACHE_KEY,
@@ -122,6 +120,21 @@ class PostsManager(models.Manager):
         return (
             self._get_published_posts()
             .filter(categories=category)
+            .prefetch_related("categories", "author")
+        )
+
+    def get_published_posts_by_author(
+        self: "PostsManager",
+        author: User,
+    ) -> models.QuerySet:
+        """Return all published posts for a given author.
+
+        Must have a date less than or equal to the current date/time for a specific
+        author, ordered by date in descending order.
+        """
+        return (
+            self._get_published_posts()
+            .filter(author=author)
             .prefetch_related("categories", "author")
         )
 
@@ -184,7 +197,7 @@ class Post(models.Model):
     @property
     def truncated_content_markdown(self: "Post") -> str:
         """Return the truncated content as HTML converted from Markdown."""
-        read_more_index = self.content.find(TRUNCATE_TAG)
+        read_more_index = self.content.find(settings.TRUNCATE_TAG)
         if read_more_index != -1:
             truncated_content = self.content[:read_more_index]
         else:
@@ -194,7 +207,7 @@ class Post(models.Model):
     @property
     def is_truncated(self: "Post") -> bool:
         """Return whether the content is truncated."""
-        return TRUNCATE_TAG in self.content
+        return settings.TRUNCATE_TAG in self.content
 
     @property
     def author_display_name(self: "Post") -> str:
@@ -203,3 +216,14 @@ class Post(models.Model):
         If the author has a first name, return that. Otherwise, return the username.
         """
         return self.author.first_name or self.author.username
+
+    @property
+    def permalink(self: "Post") -> str:
+        """Return the post's permalink."""
+        if self.post_type == "post":
+            if settings.POST_PATH:
+                return f"{settings.POST_PATH}/{self.slug}"
+
+            return f"{self.slug}"
+
+        return f"{self.slug}"

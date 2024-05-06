@@ -45,3 +45,29 @@ def test_category_posts_view(client):
     assert response.status_code == 200
     assert "category" in response.context
     assert "posts" in response.context
+
+
+@pytest.mark.django_db
+def test_date_archives_year(client):
+    url = reverse("djpress:year_archive", kwargs={"year": "2022"})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert "posts" in response.context
+
+
+@pytest.mark.django_db
+def test_date_archives_month(client):
+    url = reverse("djpress:month_archive", kwargs={"year": "2022", "month": "01"})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert "posts" in response.context
+
+
+@pytest.mark.django_db
+def test_date_archives_day(client):
+    url = reverse(
+        "djpress:day_archive", kwargs={"year": "2022", "month": "01", "day": "01"}
+    )
+    response = client.get(url)
+    assert response.status_code == 200
+    assert "posts" in response.context

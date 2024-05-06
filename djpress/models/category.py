@@ -1,12 +1,9 @@
 """Category model."""
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db import IntegrityError, models, transaction
 from django.utils.text import slugify
-
-from config.settings import (
-    CACHE_CATEGORIES,
-)
 
 CATEGORY_CACHE_KEY = "categories"
 
@@ -19,7 +16,7 @@ class CategoryManager(models.Manager):
 
         If CACHE_CATEGORIES is set to True, we return the cached queryset.
         """
-        if CACHE_CATEGORIES:
+        if settings.CACHE_CATEGORIES:
             return self._get_cached_categories()
 
         return self.all()
@@ -89,3 +86,11 @@ class Category(models.Model):
         except IntegrityError as exc:
             msg = f"A category with the slug {self.slug} already exists."
             raise ValueError(msg) from exc
+
+    @property
+    def permalink(self: "Category") -> str:
+        """Return the category's permalink."""
+        if settings.CATEGORY_PATH:
+            return f"{settings.POST_CATEGORY_PATHPATH}/{self.slug}"
+
+        return f"{self.slug}"
