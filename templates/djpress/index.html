@@ -12,6 +12,10 @@
 
     {{ category.name }} - {% get_blog_title %}
 
+  {% elif author %}
+
+    {{ author_display_name }} - {% get_blog_title %}
+
   {% else %}
 
     {% get_blog_title %}
@@ -31,7 +35,15 @@
 
     {% for post in posts %}
 
-      {% include "djpress/snippets/post_summary.html" %}
+      {% if author or category %}
+
+        {% include "djpress/snippets/post_title.html" %}
+
+      {% else %}
+
+        {% include "djpress/snippets/post_summary.html" %}
+
+      {% endif %}
 
     {% endfor %}
 

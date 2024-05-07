@@ -108,6 +108,50 @@ class PostsManager(models.Manager):
 
         return post
 
+    def get_published_post_by_path(
+        self: "PostsManager",
+        path: str,
+    ) -> "Post":
+        """Return a single published post from a path.
+
+        This is a complex piece of logic...
+
+        Here are all the different valid paths that we need to check:
+        - /blog/2021/01/01/post-slug
+        - /blog/2021/01/post-slug
+        - /blog/2021/post-slug
+        - /blog/post-slug
+        - /2021/01/01/post-slug
+        - /2021/01/post-slug
+        - /2021/post-slug
+        - /post-slug
+
+        But we could be getting any invalid path too, e.g.
+        - /blog/2021/01/01/post-slug/extra
+        - /blog/2021/01/post-slug/extra
+        - etc.
+
+        This is what we need to do...
+
+        First, we need to know the following:
+        - Is there a POST_PREFIX defined?
+        - Are DATE_ARCHIVES enabled?
+        - If DATE_ARCHIVES are enabled, what is the POST_PERMALINK set to?
+
+        I don't think I can avoid regex matching here...
+
+        For now we'll just look at the POST_PREFIX.
+        """
+        if settings.POST_PREFIX and path.startswith(settings.POST_PREFIX):
+            slug = path.split(settings.POST_PREFIX + "/")[1]
+            return self.get_published_post_by_slug(slug)
+
+        if settings.POST_PREFIX and not path.startswith(settings.POST_PREFIX):
+            msg = "Invalid path"
+            raise ValueError(msg)
+
+        return self.get_published_post_by_slug(path)
+
     def get_published_posts_by_category(
         self: "PostsManager",
         category: Category,
@@ -183,7 +227,7 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     def render_markdown(self: "Post", markdown_text: str) -> str:
-        """Return the markdown text as HTML."""
+        """Return the Markdown text as HTML."""
         html = md.convert(markdown_text)
         md.reset()
 
@@ -219,11 +263,31 @@ class Post(models.Model):
 
     @property
     def permalink(self: "Post") -> str:
-        """Return the post's permalink."""
-        if self.post_type == "post":
-            if settings.POST_PATH:
-                return f"{settings.POST_PATH}/{self.slug}"
+        """Return the post's permalink.
 
-            return f"{self.slug}"
+        The posts permalink is constructed of the following elements:
+        - The post prefix - this is configured in POST_PREFIX and could be an empty
+          string or a custom string, e.g. `blog` or `posts`.
+        - The post date structure - this is configured in POST_PERMALINK and is a
+          `strftime` value, e.g. `%Y/%m/%d` or `%Y/%m`. Or it could be an empty string
+          to indicate that no date structure is used.
+        - The post slug - this is a unique identifier for the post. TODO: should this be
+          a database unique constraint, or should we handle it in software instead?
+        """
+        # We start the permalink with just the slug
+        permalink = self.slug
 
-        return f"{self.slug}"
+        # If the post type is a page, we return just the slug
+        if self.post_type == "page":
+            return permalink
+
+        # The only other post type is a post so we don't need to check for that
+        # If there's a permalink structure defined, we add that to the permalink
+        if settings.POST_PERMALINK:
+            permalink = f"{self.date.strftime(settings.POST_PERMALINK)}/{self.slug}"
+
+        # If there's a post prefix defined, we add that to the permalink
+        if settings.POST_PREFIX:
+            permalink = f"{settings.POST_PREFIX}/{permalink}"
+
+        return permalink

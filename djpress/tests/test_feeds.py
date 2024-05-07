@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from djpress.models import Post
 from djpress.feeds import PostFeed
+from django.conf import settings
 
 
 @pytest.mark.django_db
@@ -42,6 +43,10 @@ def test_truncated_posts_feed(client):
         status="published",
     )
 
+    # Disable any permalinks
+    settings.POST_PERMALINK = ""
+    settings.POST_PREFIX = ""
+
     url = reverse("djpress:rss_feed")
     response = client.get(url)
 
@@ -55,4 +60,5 @@ def test_truncated_posts_feed(client):
     assert "<item>" in feed
     assert "<title>Post 1</title>" in feed
     assert "Truncated content" not in feed
-    assert '&lt;a href="/post/post-1/"&gt;Read more&lt;/a&gt;&lt;/p&gt;' in feed
+    print(feed)
+    assert '&lt;a href="/post-1/"&gt;Read more&lt;/a&gt;&lt;/p&gt;' in feed

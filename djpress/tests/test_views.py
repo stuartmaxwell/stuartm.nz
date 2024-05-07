@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
 from djpress.models import Category, Post
+from django.conf import settings
 
 
 @pytest.mark.django_db
@@ -24,6 +25,7 @@ def test_content_detail_view(client):
         status="published",
         post_type="post",
     )
+    settings.POST_PREFIX = ""
     url = reverse("djpress:post_detail", args=[content.slug])
     response = client.get(url)
     assert response.status_code == 200
@@ -50,6 +52,7 @@ def test_category_posts_view(client):
 @pytest.mark.django_db
 def test_date_archives_year(client):
     url = reverse("djpress:year_archive", kwargs={"year": "2022"})
+    settings.POST_PREFIX = ""
     response = client.get(url)
     assert response.status_code == 200
     assert "posts" in response.context

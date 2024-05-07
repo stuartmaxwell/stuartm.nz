@@ -2,7 +2,6 @@
 
 import logging
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -67,9 +66,8 @@ def post_detail(request: HttpRequest, path: str) -> HttpResponse:
         request (HttpRequest): The request object.
         path (str): The path to the post.
     """
-    slug = get_slug_from_path(path)
     try:
-        post = Post.post_objects.get_published_post_by_slug(slug)
+        post = Post.post_objects.get_published_post_by_path(path)
     except ValueError as exc:
         msg = "Post not found"
         raise Http404(msg) from exc
@@ -79,17 +77,6 @@ def post_detail(request: HttpRequest, path: str) -> HttpResponse:
         "djpress/index.html",
         {"post": post},
     )
-
-
-def get_slug_from_path(path: str) -> str:
-    """Get the slug from the path.
-
-    Check to see if the `POST_PATH` is set and if it matches the start of the path.
-    If not, return the path.
-    """
-    if settings.POST_PATH and path.startswith(settings.POST_PATH):
-        return path.split(settings.POST_PATH + "/")[1]
-    return path
 
 
 def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
