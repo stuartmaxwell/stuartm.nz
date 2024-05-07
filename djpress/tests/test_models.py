@@ -362,3 +362,50 @@ def test_category_slug_auto_generation():
     with pytest.raises(ValueError) as exc_info:
         Category.objects.create(name="!@#$%^&*()")
     assert str(exc_info.value) == "Invalid name. Unable to generate a valid slug."
+
+
+@pytest.mark.django_db
+def test_post_permalink():
+    post = Post(
+        title="Test Post",
+        slug="test-post",
+        content="This is a test post.",
+        author=User.objects.create_user(username="testuser", password="testpass"),
+        date=timezone.datetime(2024, 1, 1),
+        status="published",
+        post_type="post",
+    )
+    settings.POST_PREFIX = ""
+    settings.POST_PERMALINK = ""
+    assert post.permalink == "test-post"
+    settings.POST_PERMALINK = settings.DAY_SLUG
+    assert post.permalink == "2024/01/01/test-post"
+    settings.POST_PERMALINK = settings.MONTH_SLUG
+    assert post.permalink == "2024/01/test-post"
+    settings.POST_PERMALINK = settings.YEAR_SLUG
+    assert post.permalink == "2024/test-post"
+
+    settings.POST_PREFIX = "posts"
+    settings.POST_PERMALINK = ""
+    assert post.permalink == "posts/test-post"
+    settings.POST_PERMALINK = settings.DAY_SLUG
+    assert post.permalink == "posts/2024/01/01/test-post"
+    settings.POST_PERMALINK = settings.MONTH_SLUG
+    assert post.permalink == "posts/2024/01/test-post"
+    settings.POST_PERMALINK = settings.YEAR_SLUG
+    assert post.permalink == "posts/2024/test-post"
+
+
+@pytest.mark.django_db
+def test_page_permalink():
+    page = Post(
+        title="Test Page",
+        slug="test-page",
+        content="This is a test page.",
+        author=User.objects.create_user(username="testuser", password="testpass"),
+        date=timezone.now(),
+        status="published",
+        post_type="page",
+    )
+
+    assert page.permalink == "test-page"
