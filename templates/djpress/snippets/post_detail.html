@@ -8,9 +8,9 @@
   <div class="card-footer text-muted">
     <p>
       Posted on
-      <a href="{% url "djpress:month_archive" post.date.year post.date|date:"m" %}" title="View all posts in this month">{{ post.date|date:"M" }}</a>
-      <a href="{% url "djpress:day_archive" post.date.year post.date|date:"m" post.date|date:"d" %}" title="View all posts on this day">{{ post.date|date:"j" }}</a>,
-      <a href="{% url "djpress:year_archive" post.date.year %}" title="View all posts in this year">{{ post.date|date:"Y" }}</a>,
+      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" post.date.month|stringformat:"02d" %}" title="View all posts in this month">{{ post.date|date:"M" }}</a>
+      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" post.date.month|stringformat:"02d" post.date.day|stringformat:"02d" %}" title="View all posts on this day">{{ post.date|date:"j" }}</a>,
+      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" %}" title="View all posts in this year">{{ post.date|date:"Y" }}</a>,
       {{ post.date|date:"g:i a" }}
       by <a href="{% url "djpress:author_posts" post.author %}" title="View all posts by {{ post.author_display_name }}">
         {{ post.author_display_name }}

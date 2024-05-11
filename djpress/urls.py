@@ -5,23 +5,25 @@ from django.urls import path, re_path
 
 from djpress.feeds import PostFeed
 from djpress.views import (
+    archives_posts,
     author_posts,
     category_posts,
-    date_archives,
     index,
     post_detail,
 )
 
-regex_path = r"^(?P<path>[0-9A-Za-z_.//-]*)/$"
-regex_year = r"^(?P<year>\d{4})/$"
-regex_month = r"^(?P<year>\d{4})/(?P<month>\d{2})/$"
-regex_day = r"^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$"
+regex_path = r"^(?P<path>[0-9A-Za-z/_-]*)$"
+regex_archives = r"(?P<year>\d{4})(?:/(?P<month>\d{2})(?:/(?P<day>\d{2}))?)?$"
+
+if settings.APPEND_SLASH:
+    regex_path = regex_path[:-1] + "/$"
+    regex_archives = regex_archives[:-1] + "/$"
 
 app_name = "djpress"
 
 urlpatterns = []
 
-if settings.CATEGORY_PATH:
+if settings.CATEGORY_PATH_ENABLED and settings.CATEGORY_PATH:
     urlpatterns += [
         path(
             f"{settings.CATEGORY_PATH}/<slug:slug>/",
@@ -30,7 +32,7 @@ if settings.CATEGORY_PATH:
         ),
     ]
 
-if settings.AUTHOR_PATH:
+if settings.AUTHOR_PATH_ENABLED and settings.AUTHOR_PATH:
     urlpatterns += [
         path(
             f"{settings.AUTHOR_PATH}/<str:author>/",
@@ -39,31 +41,29 @@ if settings.AUTHOR_PATH:
         ),
     ]
 
-if settings.RSS_PATH:
+if settings.ARCHIVES_PATH_ENABLED and settings.ARCHIVES_PATH:
     urlpatterns += [
-        path(f"{settings.RSS_PATH}/", PostFeed(), name="rss_feed"),
+        re_path(
+            settings.ARCHIVES_PATH + "/" + regex_archives,
+            archives_posts,
+            name="archives_posts",
+        ),
     ]
 
-if settings.DATE_ARCHIVES:
+if settings.RSS_ENABLED and settings.RSS_PATH:
     urlpatterns += [
-        re_path(
-            regex_day,
-            date_archives,
-            name="day_archive",
-        ),
-        re_path(
-            regex_month,
-            date_archives,
-            name="month_archive",
-        ),
-        re_path(
-            regex_year,
-            date_archives,
-            name="year_archive",
+        path(
+            f"{settings.RSS_PATH}/",
+            PostFeed(),
+            name="rss_feed",
         ),
     ]
 
 urlpatterns += [
     path("", index, name="index"),
-    re_path(regex_path, post_detail, name="post_detail"),
+    re_path(
+        regex_path,
+        post_detail,
+        name="post_detail",
+    ),
 ]

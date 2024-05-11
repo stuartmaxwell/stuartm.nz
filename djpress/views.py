@@ -5,6 +5,7 @@ import logging
 from django.contrib.auth.models import User
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.utils.timezone import datetime
 
 from djpress.models import Category, Post
 
@@ -24,25 +25,37 @@ def index(
     )
 
 
-def date_archives(
+def archives_posts(
     request: HttpRequest,
-    year: str = "",
+    year: str,
     month: str = "",
     day: str = "",
 ) -> HttpResponse:
-    """View for the date archives pages.
+    """View for the date-based archives pages.
 
     Args:
         request (HttpRequest): The request object.
-        year (int): The year to filter by.
-        month (int): The month to filter by.
-        day (int): The day to filter by.
+        year (str): The year.
+        month (str): The month.
+        day (str): The day.
     """
+    try:
+        test_dates(year, month, day)
+
+    except ValueError as exc:
+        msg = "Invalid date"
+        raise Http404(msg) from exc
+
     posts = Post.post_objects._get_published_posts()  # noqa: SLF001
 
+    # Django converts strings to integers when they are passed to the filter
     if day:
         logger.debug(f"{year}/{month}/{day}")
-        posts = posts.filter(date__year=year, date__month=month, date__day=day)
+        posts = posts.filter(
+            date__year=year,
+            date__month=month,
+            date__day=day,
+        )
 
     elif month:
         logger.debug(f"{year}/{month}")
@@ -57,6 +70,35 @@ def date_archives(
         "djpress/index.html",
         {"posts": posts},
     )
+
+
+def test_dates(year: str, month: str | None, day: str | None) -> None:
+    """Test the date values.
+
+    Convert the date values to integers and test if they are valid dates.
+
+    Args:
+        year (str): The year.
+        month (str | None): The month.
+        day (str | None): The day.
+    """
+    try:
+        int_year = int(year)
+        int_month = int(month) if month else None
+        int_day = int(day) if day else None
+
+        if int_month and int_day:
+            datetime(int_year, int_month, int_day)
+
+        elif int_month:
+            datetime(int_year, int_month, 1)
+
+        else:
+            datetime(int_year, 1, 1)
+
+    except ValueError as exc:
+        msg = "Invalid date"
+        raise ValueError(msg) from exc
 
 
 def post_detail(request: HttpRequest, path: str) -> HttpResponse:
