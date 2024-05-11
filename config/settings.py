@@ -238,10 +238,19 @@ CACHE_RECENT_PUBLISHED_POSTS: bool = False
 RECENT_PUBLISHED_POSTS_COUNT: int = 20
 BLOG_TITLE: str = "stuartm.nz"
 MARKDOWN_EXTENSIONS: list = ["fenced_code", "codehilite", "tables"]
+
+# DJPress URL settings
+CATEGORY_PATH_ENABLED: bool = True
 CATEGORY_PATH: str = "category"
+AUTHOR_PATH_ENABLED: bool = True
 AUTHOR_PATH: str = "author"
-RSS_PATH: str = "rss"
+ARCHIVES_PATH_ENABLED: bool = True
+ARCHIVES_PATH: str = "archives"
+DATE_ARCHIVES_ENABLED: bool = True
 DATE_ARCHIVES: bool = True
+RSS_ENABLED: bool = True
+RSS_PATH: str = "rss"
+
 DAY_SLUG: str = "%Y/%m/%d"
 MONTH_SLUG: str = "%Y/%m"
 YEAR_SLUG: str = "%Y"
