@@ -28,7 +28,7 @@ def category():
 
 
 @pytest.fixture
-def create_test_post(user):
+def create_test_post(user, category):
     post = Post.post_objects.create(
         title="Test Post",
         slug="test-post",
@@ -63,6 +63,33 @@ def test_post_author_link_with_author_path(create_test_post):
         f'{ create_test_post.author_display_name }">{ create_test_post.author_display_name }</a>'
     )
     assert djpress_tags.post_author_link(create_test_post) == expected_output
+
+
+@pytest.mark.django_db
+def test_post_author_link_with_author_path_with_one_link_class(create_test_post):
+    settings.AUTHOR_PATH_ENABLED = True
+    author_url = reverse("djpress:author_posts", args=[create_test_post.author])
+    expected_output = (
+        f'<a href="{author_url}" title="View all posts by '
+        f'{ create_test_post.author_display_name }" class="class1">'
+        f"{ create_test_post.author_display_name }</a>"
+    )
+    assert djpress_tags.post_author_link(create_test_post, "class1") == expected_output
+
+
+@pytest.mark.django_db
+def test_post_author_link_with_author_path_with_two_link_class(create_test_post):
+    settings.AUTHOR_PATH_ENABLED = True
+    author_url = reverse("djpress:author_posts", args=[create_test_post.author])
+    expected_output = (
+        f'<a href="{author_url}" title="View all posts by '
+        f'{ create_test_post.author_display_name }" class="class1 class2">'
+        f"{ create_test_post.author_display_name }</a>"
+    )
+    assert (
+        djpress_tags.post_author_link(create_test_post, "class1 class2")
+        == expected_output
+    )
 
 
 @pytest.mark.django_db
