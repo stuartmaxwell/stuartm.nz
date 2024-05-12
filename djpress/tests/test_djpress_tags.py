@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
-from djpress.models import Post
+from djpress.models import Post, Category
 from django.conf import settings
 
 from djpress.templatetags import djpress_tags
@@ -19,6 +19,15 @@ def user():
 
 
 @pytest.fixture
+def category():
+    category = Category.objects.create(
+        name="Test Category",
+        slug="test-category",
+    )
+    return category
+
+
+@pytest.fixture
 def create_test_post(user):
     post = Post.post_objects.create(
         title="Test Post",
@@ -28,6 +37,7 @@ def create_test_post(user):
         status="published",
         post_type="post",
     )
+    post.categories.set([category])
     return post
 
 
@@ -53,3 +63,33 @@ def test_post_author_link_with_author_path(create_test_post):
         f'{ create_test_post.author_display_name }">{ create_test_post.author_display_name }</a>'
     )
     assert djpress_tags.post_author_link(create_test_post) == expected_output
+
+
+@pytest.mark.django_db
+def test_post_category_link_without_category_path(category):
+    settings.CATEGORY_PATH_ENABLED = False
+    assert djpress_tags.post_category_link(category) == category.name
+
+
+@pytest.mark.django_db
+def test_post_category_link_with_category_path(category):
+    settings.CATEGORY_PATH_ENABLED = True
+    category_url = reverse("djpress:category_posts", args=[category.slug])
+    expected_output = f'<a href="{category_url}" title="View all posts in the Test Category category">{category.name}</a>'
+    assert djpress_tags.post_category_link(category) == expected_output
+
+
+@pytest.mark.django_db
+def test_post_category_link_with_category_path_with_one_link_class(category):
+    settings.CATEGORY_PATH_ENABLED = True
+    category_url = reverse("djpress:category_posts", args=[category.slug])
+    expected_output = f'<a href="{category_url}" title="View all posts in the Test Category category" class="class1">{category.name}</a>'
+    assert djpress_tags.post_category_link(category, "class1") == expected_output
+
+
+@pytest.mark.django_db
+def test_post_category_link_with_category_path_with_two_link_classes(category):
+    settings.CATEGORY_PATH_ENABLED = True
+    category_url = reverse("djpress:category_posts", args=[category.slug])
+    expected_output = f'<a href="{category_url}" title="View all posts in the Test Category category" class="class1 class2">{category.name}</a>'
+    assert djpress_tags.post_category_link(category, "class1 class2") == expected_output
