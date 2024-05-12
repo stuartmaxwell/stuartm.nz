@@ -49,3 +49,21 @@ def post_author_link(post: Post) -> str:
     )
 
     return mark_safe(output)
+
+
+@register.simple_tag
+def post_category_link(category: Category, link_class: str = "") -> str:
+    """Return the category links for a post."""
+    if not settings.CATEGORY_PATH_ENABLED:
+        return category.name
+
+    category_url = reverse("djpress:category_posts", args=[category.slug])
+
+    link_class_html = f' class="{link_class}"' if link_class else ""
+
+    output = (
+        f'<a href="{category_url}" title="View all posts in the {category.name} '
+        f'category"{link_class_html}>{ category.name }</a>'
+    )
+
+    return mark_safe(output)

@@ -19,7 +19,7 @@
     <p>
       Categories:
       {% for category in post.categories.all %}
-        <a href="{% url 'djpress:category_posts' category.slug %}" class="badge bg-primary">{{ category.name }}</a>
+        {% post_category_link category "badge bg-primary" %}
       {% endfor %}
     </p>
   </div>
