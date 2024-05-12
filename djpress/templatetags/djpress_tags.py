@@ -36,16 +36,19 @@ def get_blog_title() -> str:
 
 
 @register.simple_tag
-def post_author_link(post: Post) -> str:
+def post_author_link(post: Post, link_class: str = "") -> str:
     """Return the author link for a post."""
     if not settings.AUTHOR_PATH_ENABLED:
         return post.author_display_name
 
     author_url = reverse("djpress:author_posts", args=[post.author])
 
+    link_class_html = f' class="{link_class}"' if link_class else ""
+
     output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ post.author_display_name }">{ post.author_display_name }</a>'
+        f'{ post.author_display_name }"{link_class_html}>'
+        f"{ post.author_display_name }</a>"
     )
 
     return mark_safe(output)
