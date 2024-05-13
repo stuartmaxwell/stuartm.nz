@@ -15,31 +15,58 @@ register = template.Library()
 
 @register.simple_tag
 def get_categories() -> models.QuerySet[Category] | None:
-    """Return all categories."""
+    """Return all categories.
+
+    Returns:
+        models.QuerySet[Category]: All categories.
+    """
     return Category.objects.get_categories()
 
 
 @register.simple_tag
 def get_recent_published_posts() -> models.QuerySet[Category] | None:
-    """Return recent published posts from the cache."""
+    """Return recent published posts from the cache.
+
+    Returns:
+        models.QuerySet[Category]: Recent published posts.
+    """
     return Post.post_objects.get_recent_published_posts()
 
 
 @register.simple_tag
 def get_single_published_post(slug: str) -> Post | None:
-    """Return a single published post by slug."""
+    """Return a single published post by slug.
+
+    Args:
+        slug: The slug of the post.
+
+    Returns:
+        Post: A single published post.
+    """
     return Post.post_objects.get_published_post_by_slug(slug)
 
 
 @register.simple_tag
 def get_blog_title() -> str:
-    """Return the blog title."""
+    """Return the blog title.
+
+    Returns:
+        str: The blog title.
+    """
     return settings.BLOG_TITLE
 
 
 @register.simple_tag
 def post_author_link(post: Post, link_class: str = "") -> str:
-    """Return the author link for a post."""
+    """Return the author link for a post.
+
+    Args:
+        post: The post.
+        link_class: The CSS class(es) for the link.
+
+    Returns:
+        str: The author link.
+    """
     if not settings.AUTHOR_PATH_ENABLED:
         return post.author_display_name
 
@@ -58,7 +85,12 @@ def post_author_link(post: Post, link_class: str = "") -> str:
 
 @register.simple_tag
 def post_category_link(category: Category, link_class: str = "") -> str:
-    """Return the category links for a post."""
+    """Return the category links for a post.
+
+    Args:
+        category: The category of the post.
+        link_class: The CSS class(es) for the link.
+    """
     if not settings.CATEGORY_PATH_ENABLED:
         return category.name
 
