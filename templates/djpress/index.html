@@ -14,7 +14,7 @@
 
   {% elif author %}
 
-    {{ author_display_name }} - {% get_blog_title %}
+    {% post_author author %} - {% get_blog_title %}
 
   {% else %}
 
