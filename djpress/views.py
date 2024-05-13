@@ -141,7 +141,7 @@ def category_posts(request: HttpRequest, slug: str) -> HttpResponse:
 def author_posts(request: HttpRequest, author: str) -> HttpResponse:
     """View for posts by author."""
     try:
-        user = User.objects.get(username=author)
+        user: User = User.objects.get(username=author)
     except User.DoesNotExist as exc:
         msg = "Author not found"
         raise Http404(msg) from exc
@@ -151,5 +151,5 @@ def author_posts(request: HttpRequest, author: str) -> HttpResponse:
     return render(
         request,
         "djpress/index.html",
-        {"posts": posts, "author": author},
+        {"posts": posts, "author": user},
     )
