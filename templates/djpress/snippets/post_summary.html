@@ -1,3 +1,5 @@
+{% load djpress_tags %}
+
 <div class="card my-4 shadow">
   <div class="card-body">
     <h2 class="card-title"><a href="{% url 'djpress:post_detail' post.permalink %}">{{ post.title }}</a></h2>
@@ -11,7 +13,7 @@
     <p>
       Categories:
       {% for category in post.categories.all %}
-        <a href="{% url 'djpress:category_posts' category.slug %}" class="badge bg-primary">{{ category.name }}</a>
+        {% post_category_link category "badge bg-primary" %}
       {% endfor %}
     </p>
   </div>
