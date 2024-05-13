@@ -247,10 +247,10 @@ AUTHOR_PATH: str = "author"
 ARCHIVES_PATH_ENABLED: bool = True
 ARCHIVES_PATH: str = "archives"
 DATE_ARCHIVES_ENABLED: bool = True
-DATE_ARCHIVES: bool = True
 RSS_ENABLED: bool = True
 RSS_PATH: str = "rss"
 
+# The following are used to generate the post permalink
 DAY_SLUG: str = "%Y/%m/%d"
 MONTH_SLUG: str = "%Y/%m"
 YEAR_SLUG: str = "%Y"
