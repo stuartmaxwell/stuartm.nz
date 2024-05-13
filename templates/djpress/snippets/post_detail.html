@@ -9,12 +9,8 @@
   </div>
   <div class="card-footer text-muted">
     <p>
-      Posted on
-      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" post.date.month|stringformat:"02d" %}" title="View all posts in this month">{{ post.date|date:"M" }}</a>
-      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" post.date.month|stringformat:"02d" post.date.day|stringformat:"02d" %}" title="View all posts on this day">{{ post.date|date:"j" }}</a>,
-      <a href="{% url "djpress:archives_posts" post.date.year|stringformat:"04d" %}" title="View all posts in this year">{{ post.date|date:"Y" }}</a>,
-      {{ post.date|date:"g:i a" }}
-      by {% post_author_link post %}
+      Posted on {% post_date_link post.date %}
+      by {% post_author_link post.author %}
     </p>
     <p>
       Categories:

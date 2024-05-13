@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from djpress.models import Post, Category
 from django.conf import settings
+from django.utils import timezone
+from djpress.models.user import get_author_display_name
 
 from djpress.templatetags import djpress_tags
 
@@ -46,12 +48,18 @@ def test_get_blog_title():
 
 
 @pytest.mark.django_db
+def test_post_author(create_test_post):
+    assert djpress_tags.post_author(create_test_post.author) == get_author_display_name(
+        create_test_post.author
+    )
+
+
+@pytest.mark.django_db
 def test_post_author_link_without_author_path(create_test_post):
     settings.AUTHOR_PATH_ENABLED = False
-    assert (
-        djpress_tags.post_author_link(create_test_post)
-        == create_test_post.author_display_name
-    )
+    assert djpress_tags.post_author_link(
+        create_test_post.author
+    ) == get_author_display_name(create_test_post.author)
 
 
 @pytest.mark.django_db
@@ -60,9 +68,9 @@ def test_post_author_link_with_author_path(create_test_post):
     author_url = reverse("djpress:author_posts", args=[create_test_post.author])
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ create_test_post.author_display_name }">{ create_test_post.author_display_name }</a>'
+        f'{ get_author_display_name(create_test_post.author) }">{ get_author_display_name(create_test_post.author) }</a>'
     )
-    assert djpress_tags.post_author_link(create_test_post) == expected_output
+    assert djpress_tags.post_author_link(create_test_post.author) == expected_output
 
 
 @pytest.mark.django_db
@@ -71,10 +79,13 @@ def test_post_author_link_with_author_path_with_one_link_class(create_test_post)
     author_url = reverse("djpress:author_posts", args=[create_test_post.author])
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ create_test_post.author_display_name }" class="class1">'
-        f"{ create_test_post.author_display_name }</a>"
+        f'{ get_author_display_name(create_test_post.author) }" class="class1">'
+        f"{ get_author_display_name(create_test_post.author) }</a>"
     )
-    assert djpress_tags.post_author_link(create_test_post, "class1") == expected_output
+    assert (
+        djpress_tags.post_author_link(create_test_post.author, "class1")
+        == expected_output
+    )
 
 
 @pytest.mark.django_db
@@ -83,11 +94,11 @@ def test_post_author_link_with_author_path_with_two_link_class(create_test_post)
     author_url = reverse("djpress:author_posts", args=[create_test_post.author])
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ create_test_post.author_display_name }" class="class1 class2">'
-        f"{ create_test_post.author_display_name }</a>"
+        f'{ get_author_display_name(create_test_post.author) }" class="class1 class2">'
+        f"{ get_author_display_name(create_test_post.author) }</a>"
     )
     assert (
-        djpress_tags.post_author_link(create_test_post, "class1 class2")
+        djpress_tags.post_author_link(create_test_post.author, "class1 class2")
         == expected_output
     )
 
@@ -120,3 +131,80 @@ def test_post_category_link_with_category_path_with_two_link_classes(category):
     category_url = reverse("djpress:category_posts", args=[category.slug])
     expected_output = f'<a href="{category_url}" title="View all posts in the Test Category category" class="class1 class2">{category.name}</a>'
     assert djpress_tags.post_category_link(category, "class1 class2") == expected_output
+
+
+@pytest.mark.django_db
+def test_post_date_link_without_date_archives_enabled(create_test_post):
+    settings.DATE_ARCHIVES_ENABLED = False
+    output = create_test_post.date.strftime("%b %-d, %Y")
+    assert djpress_tags.post_date_link(create_test_post.date) == output
+
+
+@pytest.mark.django_db
+def test_post_date_link_with_date_archives_enabled(create_test_post):
+    settings.DATE_ARCHIVES_ENABLED = True
+
+    post_date = create_test_post.date
+    post_year = post_date.strftime("%Y")
+    post_month = post_date.strftime("%m")
+    post_month_name = post_date.strftime("%b")
+    post_day = post_date.strftime("%d")
+    post_day_name = post_date.strftime("%-d")
+    post_time = post_date.strftime("%-I:%M %p")
+
+    output = (
+        f'<a href="/archives/{post_year}/{post_month}/" title="View all posts in {post_month_name} {post_year}">{post_month_name}</a> '
+        f'<a href="/archives/{post_year}/{post_month}/{post_day}/" title="View all posts on {post_day_name} {post_month_name} {post_year}">{post_day_name}</a>, '
+        f'<a href="/archives/{post_year}/" title="View all posts in {post_year}">{post_year}</a>, '
+        f"{post_time}."
+    )
+
+    assert djpress_tags.post_date_link(create_test_post.date) == output
+
+
+@pytest.mark.django_db
+def test_post_date_link_with_date_archives_enabled_with_one_link_class(
+    create_test_post,
+):
+    settings.DATE_ARCHIVES_ENABLED = True
+
+    post_date = create_test_post.date
+    post_year = post_date.strftime("%Y")
+    post_month = post_date.strftime("%m")
+    post_month_name = post_date.strftime("%b")
+    post_day = post_date.strftime("%d")
+    post_day_name = post_date.strftime("%-d")
+    post_time = post_date.strftime("%-I:%M %p")
+
+    output = (
+        f'<a href="/archives/{post_year}/{post_month}/" title="View all posts in {post_month_name} {post_year}" class="class1">{post_month_name}</a> '
+        f'<a href="/archives/{post_year}/{post_month}/{post_day}/" title="View all posts on {post_day_name} {post_month_name} {post_year}" class="class1">{post_day_name}</a>, '
+        f'<a href="/archives/{post_year}/" title="View all posts in {post_year}" class="class1">{post_year}</a>, '
+        f"{post_time}."
+    )
+
+    assert djpress_tags.post_date_link(create_test_post.date, "class1") == output
+
+
+@pytest.mark.django_db
+def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
+    create_test_post,
+):
+    settings.DATE_ARCHIVES_ENABLED = True
+
+    post_date = create_test_post.date
+    post_year = post_date.strftime("%Y")
+    post_month = post_date.strftime("%m")
+    post_month_name = post_date.strftime("%b")
+    post_day = post_date.strftime("%d")
+    post_day_name = post_date.strftime("%-d")
+    post_time = post_date.strftime("%-I:%M %p")
+
+    output = (
+        f'<a href="/archives/{post_year}/{post_month}/" title="View all posts in {post_month_name} {post_year}" class="class1 class2">{post_month_name}</a> '
+        f'<a href="/archives/{post_year}/{post_month}/{post_day}/" title="View all posts on {post_day_name} {post_month_name} {post_year}" class="class1 class2">{post_day_name}</a>, '
+        f'<a href="/archives/{post_year}/" title="View all posts in {post_year}" class="class1 class2">{post_year}</a>, '
+        f"{post_time}."
+    )
+
+    assert djpress_tags.post_date_link(create_test_post.date, "class1 class2") == output
