@@ -4,11 +4,13 @@ from datetime import datetime
 
 from django import template
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from djpress.models import Category, Post
+from djpress.models.user import get_author_display_name
 
 register = template.Library()
 
@@ -57,27 +59,45 @@ def get_blog_title() -> str:
 
 
 @register.simple_tag
-def post_author_link(post: Post, link_class: str = "") -> str:
+def post_author(user: User) -> str:
+    """Return the author display name.
+
+    Tries to display the first name and last name if available, otherwise falls back to
+    the username.
+
+    Args:
+        user: The user.
+
+    Returns:
+        str: The author display name.
+    """
+    return get_author_display_name(user)
+
+
+@register.simple_tag
+def post_author_link(author: User, link_class: str = "") -> str:
     """Return the author link for a post.
 
     Args:
-        post: The post.
+        author: The author of the post.
         link_class: The CSS class(es) for the link.
 
     Returns:
         str: The author link.
     """
-    if not settings.AUTHOR_PATH_ENABLED:
-        return post.author_display_name
+    author_display_name = get_author_display_name(author)
 
-    author_url = reverse("djpress:author_posts", args=[post.author])
+    if not settings.AUTHOR_PATH_ENABLED:
+        return author_display_name
+
+    author_url = reverse("djpress:author_posts", args=[author])
 
     link_class_html = f' class="{link_class}"' if link_class else ""
 
     output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ post.author_display_name }"{link_class_html}>'
-        f"{ post.author_display_name }</a>"
+        f'{ author_display_name }"{link_class_html}>'
+        f"{ author_display_name }</a>"
     )
 
     return mark_safe(output)
