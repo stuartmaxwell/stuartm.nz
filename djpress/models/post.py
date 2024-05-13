@@ -254,14 +254,6 @@ class Post(models.Model):
         return settings.TRUNCATE_TAG in self.content
 
     @property
-    def author_display_name(self: "Post") -> str:
-        """Return the author's display name.
-
-        If the author has a first name, return that. Otherwise, return the username.
-        """
-        return self.author.first_name or self.author.username
-
-    @property
     def permalink(self: "Post") -> str:
         """Return the post's permalink.
 
