@@ -71,7 +71,7 @@ def post_author(user: User) -> str:
     Returns:
         str: The author display name.
     """
-    return f'<span rel="author">{get_author_display_name(user)}</span>'
+    return mark_safe(f'<span rel="author">{get_author_display_name(user)}</span>')
 
 
 @register.simple_tag
@@ -133,7 +133,7 @@ def post_date(post_date: datetime) -> str:
     Args:
         post_date: The date of the post.
     """
-    return post_date.strftime("%b %-d, %Y")
+    return mark_safe(post_date.strftime("%b %-d, %Y"))
 
 
 @register.simple_tag
@@ -145,7 +145,7 @@ def post_date_link(post_date: datetime, link_class: str = "") -> str:
         link_class: The CSS class(es) for the link.
     """
     if not settings.DATE_ARCHIVES_ENABLED:
-        return post_date.strftime("%b %-d, %Y")
+        return mark_safe(post_date.strftime("%b %-d, %Y"))
 
     post_year = post_date.strftime("%Y")
     post_month = post_date.strftime("%m")
