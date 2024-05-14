@@ -22,8 +22,8 @@
         <article>
           <header>
             <h1>{{ post.title }}</h1>
-            <p>By <span rel="author">{% post_author post.author %}</span></p>
-            <p><time datetime="2023-05-01">{{ post.date }}</time></p>
+            <p>By {% post_author post.author %}</p>
+            <p>{% post_date post.date %}</p>
           </header>
           <section>
             {{ post.content_markdown|safe }}
@@ -32,7 +32,7 @@
             <p>Categories:</p>
             <ul>
               {% for category in post.categories.all %}
-                <li><a href="{% url 'djpress:category_posts' category.slug %}">{{ category.name }}</a></li>
+                <li>{% post_category_link category "badge bg-primary" %}</li>
               {% endfor %}
             </ul>
           </footer>
@@ -53,8 +53,8 @@
           <article>
             <header>
               <h1><a href="{% url 'djpress:post_detail' post.permalink %}">{{ post.title }}</a></h1>
-              <p>By <span rel="author">{% post_author post.author %}</span></p>
-              <p><time datetime="2023-05-01">{{ post.date }}</time></p>
+              <p>By {% post_author post.author %}</p>
+              <p>{% post_date post.date %}</p>
             </header>
             <section>
               {{ post.truncated_content_markdown|safe }}
@@ -67,7 +67,7 @@
               <p>Categories:</p>
               <ul>
                 {% for category in post.categories.all %}
-                  <li><a href="{% url 'djpress:category_posts' category.slug %}">{{ category.name }}</a></li>
+                  <li>{% post_category_link category "badge bg-primary" %}</li>
                 {% endfor %}
               </ul>
             </footer>
