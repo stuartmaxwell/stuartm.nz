@@ -71,7 +71,7 @@ def post_author(user: User) -> str:
     Returns:
         str: The author display name.
     """
-    return get_author_display_name(user)
+    return f'<span rel="author">{get_author_display_name(user)}</span>'
 
 
 @register.simple_tag
@@ -88,7 +88,7 @@ def post_author_link(author: User, link_class: str = "") -> str:
     author_display_name = get_author_display_name(author)
 
     if not settings.AUTHOR_PATH_ENABLED:
-        return author_display_name
+        return f'<span rel="author">{author_display_name}</span>'
 
     author_url = reverse("djpress:author_posts", args=[author])
 
@@ -97,7 +97,7 @@ def post_author_link(author: User, link_class: str = "") -> str:
     output = (
         f'<a href="{author_url}" title="View all posts by '
         f'{ author_display_name }"{link_class_html}>'
-        f"{ author_display_name }</a>"
+        f'<span rel="author">{ author_display_name }</span></a>'
     )
 
     return mark_safe(output)
@@ -124,6 +124,16 @@ def post_category_link(category: Category, link_class: str = "") -> str:
     )
 
     return mark_safe(output)
+
+
+@register.simple_tag
+def post_date(post_date: datetime) -> str:
+    """Return the date of a post.
+
+    Args:
+        post_date: The date of the post.
+    """
+    return post_date.strftime("%b %-d, %Y")
 
 
 @register.simple_tag

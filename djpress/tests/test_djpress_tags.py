@@ -49,17 +49,19 @@ def test_get_blog_title():
 
 @pytest.mark.django_db
 def test_post_author(create_test_post):
-    assert djpress_tags.post_author(create_test_post.author) == get_author_display_name(
-        create_test_post.author
+    output = (
+        f'<span rel="author">{get_author_display_name(create_test_post.author)}</span>'
     )
+    assert djpress_tags.post_author(create_test_post.author) == output
 
 
 @pytest.mark.django_db
 def test_post_author_link_without_author_path(create_test_post):
     settings.AUTHOR_PATH_ENABLED = False
-    assert djpress_tags.post_author_link(
-        create_test_post.author
-    ) == get_author_display_name(create_test_post.author)
+    output = (
+        f'<span rel="author">{get_author_display_name(create_test_post.author)}</span>'
+    )
+    assert djpress_tags.post_author_link(create_test_post.author) == output
 
 
 @pytest.mark.django_db
@@ -68,7 +70,8 @@ def test_post_author_link_with_author_path(create_test_post):
     author_url = reverse("djpress:author_posts", args=[create_test_post.author])
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ get_author_display_name(create_test_post.author) }">{ get_author_display_name(create_test_post.author) }</a>'
+        f'{ get_author_display_name(create_test_post.author) }"><span rel="author">'
+        f"{ get_author_display_name(create_test_post.author) }</span></a>"
     )
     assert djpress_tags.post_author_link(create_test_post.author) == expected_output
 
@@ -80,7 +83,7 @@ def test_post_author_link_with_author_path_with_one_link_class(create_test_post)
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
         f'{ get_author_display_name(create_test_post.author) }" class="class1">'
-        f"{ get_author_display_name(create_test_post.author) }</a>"
+        f'<span rel="author">{ get_author_display_name(create_test_post.author) }</span></a>'
     )
     assert (
         djpress_tags.post_author_link(create_test_post.author, "class1")
@@ -95,7 +98,7 @@ def test_post_author_link_with_author_path_with_two_link_class(create_test_post)
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
         f'{ get_author_display_name(create_test_post.author) }" class="class1 class2">'
-        f"{ get_author_display_name(create_test_post.author) }</a>"
+        f'<span rel="author">{ get_author_display_name(create_test_post.author) }</span></a>'
     )
     assert (
         djpress_tags.post_author_link(create_test_post.author, "class1 class2")
