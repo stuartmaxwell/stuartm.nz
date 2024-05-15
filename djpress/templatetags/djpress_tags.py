@@ -184,3 +184,13 @@ def post_date_link(post_date: datetime, link_class: str = "") -> str:
     )
 
     return mark_safe(output)
+
+
+@register.simple_tag
+def post_content(post: Post) -> str:
+    """Return the content of a post.
+
+    Args:
+        post: The post.
+    """
+    return mark_safe(post.content_markdown)

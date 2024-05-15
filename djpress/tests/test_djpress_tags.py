@@ -211,3 +211,9 @@ def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
     )
 
     assert djpress_tags.post_date_link(create_test_post.date, "class1 class2") == output
+
+
+@pytest.mark.django_db
+def test_post_content(create_test_post):
+    output = f"<p>{create_test_post.content}</p>"
+    assert djpress_tags.post_content(create_test_post) == output
