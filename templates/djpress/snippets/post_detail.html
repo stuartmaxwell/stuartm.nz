@@ -4,7 +4,7 @@
   <div class="card-body">
     <h1>{{ post.title }}</h1>
     <div class="content">
-      {{ post.content_markdown|safe }}
+      {% post_content post %}
     </div>
   </div>
   <div class="card-footer text-muted">
