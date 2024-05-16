@@ -81,7 +81,7 @@ def post_author(context: Context) -> str:
     return mark_safe(f'<span rel="author">{author_display_name}</span>')
 
 
-@register.simple_tag
+@register.simple_tag(takes_context=True)
 def post_author_link(context: Context, link_class: str = "") -> str:
     """Return the author link for a post.
 
