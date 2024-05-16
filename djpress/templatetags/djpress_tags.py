@@ -4,7 +4,6 @@ from datetime import datetime
 
 from django import template
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 from django.template import Context
 from django.urls import reverse
@@ -76,22 +75,28 @@ def post_author(context: Context) -> str:
     if not post:
         return ""
 
-    author_display_name = get_author_display_name(post.author)
+    author = post.author
+    author_display_name = get_author_display_name(author)
 
     return mark_safe(f'<span rel="author">{author_display_name}</span>')
 
 
 @register.simple_tag
-def post_author_link(author: User, link_class: str = "") -> str:
+def post_author_link(context: Context, link_class: str = "") -> str:
     """Return the author link for a post.
 
     Args:
-        author: The author of the post.
+        context: The context.
         link_class: The CSS class(es) for the link.
 
     Returns:
         str: The author link.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    author = post.author
     author_display_name = get_author_display_name(author)
 
     if not settings.AUTHOR_PATH_ENABLED:
