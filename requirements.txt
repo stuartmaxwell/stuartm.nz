@@ -3,7 +3,7 @@
 asgiref==3.8.1
     # via django
 crispy-bootstrap5==2024.2
-django==5.0.4
+django==5.0.6
     # via
     #   crispy-bootstrap5
     #   django-crispy-forms
@@ -26,12 +26,12 @@ packaging==24.0
     #   pytest
 pluggy==1.5.0
     # via pytest
-psycopg==3.1.18
-psycopg-binary==3.1.18
+psycopg==3.1.19
+psycopg-binary==3.1.19
     # via psycopg
-pygments==2.17.2
+pygments==2.18.0
     # via rich
-pytest==8.1.1
+pytest==8.2.0
     # via pytest-django
 pytest-django==4.8.0
 rich==13.7.1
