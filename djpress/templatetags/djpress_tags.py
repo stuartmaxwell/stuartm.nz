@@ -1,6 +1,5 @@
 """Template tags for djpress."""
 
-from datetime import datetime
 
 from django import template
 from django.conf import settings
@@ -138,24 +137,40 @@ def post_category_link(category: Category, link_class: str = "") -> str:
     return mark_safe(output)
 
 
-@register.simple_tag
-def post_date(post_date: datetime) -> str:
+@register.simple_tag(takes_context=True)
+def post_date(context: Context) -> str:
     """Return the date of a post.
 
     Args:
-        post_date: The date of the post.
+        context: The context.
+
+    Returns:
+        str: The date of the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    post_date = post.date
     return mark_safe(post_date.strftime("%b %-d, %Y"))
 
 
-@register.simple_tag
-def post_date_link(post_date: datetime, link_class: str = "") -> str:
+@register.simple_tag(takes_context=True)
+def post_date_link(context: Context, link_class: str = "") -> str:
     """Return the date link for a post.
 
     Args:
-        post_date: The date of the post.
+        context: The context.
         link_class: The CSS class(es) for the link.
+
+    Returns:
+        str: The date link for the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+    post_date = post.date
+
     if not settings.DATE_ARCHIVES_ENABLED:
         return mark_safe(post_date.strftime("%b %-d, %Y"))
 

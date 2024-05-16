@@ -148,13 +148,16 @@ def test_post_category_link_with_category_path_with_two_link_classes(category):
 
 @pytest.mark.django_db
 def test_post_date_link_without_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = False
+
     output = create_test_post.date.strftime("%b %-d, %Y")
-    assert djpress_tags.post_date_link(create_test_post.date) == output
+    assert djpress_tags.post_date_link(context) == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -172,13 +175,14 @@ def test_post_date_link_with_date_archives_enabled(create_test_post):
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date) == output
+    assert djpress_tags.post_date_link(context) == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled_with_one_link_class(
     create_test_post,
 ):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -196,13 +200,14 @@ def test_post_date_link_with_date_archives_enabled_with_one_link_class(
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date, "class1") == output
+    assert djpress_tags.post_date_link(context, "class1") == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
     create_test_post,
 ):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -220,7 +225,7 @@ def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date, "class1 class2") == output
+    assert djpress_tags.post_date_link(context, "class1 class2") == output
 
 
 @pytest.mark.django_db
