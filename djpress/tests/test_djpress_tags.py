@@ -1,10 +1,12 @@
 import pytest
+
 from django.urls import reverse
 from django.contrib.auth.models import User
 from djpress.models import Post, Category
 from django.conf import settings
 from django.utils import timezone
 from djpress.models.user import get_author_display_name
+from django.template import Context
 
 from djpress.templatetags import djpress_tags
 
@@ -49,61 +51,69 @@ def test_get_blog_title():
 
 @pytest.mark.django_db
 def test_post_author(create_test_post):
-    output = (
-        f'<span rel="author">{get_author_display_name(create_test_post.author)}</span>'
-    )
-    assert djpress_tags.post_author(create_test_post.author) == output
+    context = Context({"post": create_test_post})
+
+    author = create_test_post.author
+    output = f'<span rel="author">{ get_author_display_name(author) }</span>'
+    assert djpress_tags.post_author(context) == output
 
 
 @pytest.mark.django_db
 def test_post_author_link_without_author_path(create_test_post):
+    context = Context({"post": create_test_post})
     settings.AUTHOR_PATH_ENABLED = False
-    output = (
-        f'<span rel="author">{get_author_display_name(create_test_post.author)}</span>'
-    )
-    assert djpress_tags.post_author_link(create_test_post.author) == output
+
+    author = create_test_post.author
+    output = f'<span rel="author">{ get_author_display_name(author) }</span>'
+    assert djpress_tags.post_author_link(context) == output
 
 
 @pytest.mark.django_db
 def test_post_author_link_with_author_path(create_test_post):
+    context = Context({"post": create_test_post})
     settings.AUTHOR_PATH_ENABLED = True
-    author_url = reverse("djpress:author_posts", args=[create_test_post.author])
+
+    author = create_test_post.author
+    author_url = reverse("djpress:author_posts", args=[author])
+
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ get_author_display_name(create_test_post.author) }"><span rel="author">'
-        f"{ get_author_display_name(create_test_post.author) }</span></a>"
+        f'{ get_author_display_name(author) }"><span rel="author">'
+        f"{ get_author_display_name(author) }</span></a>"
     )
-    assert djpress_tags.post_author_link(create_test_post.author) == expected_output
+    assert djpress_tags.post_author_link(context) == expected_output
 
 
 @pytest.mark.django_db
 def test_post_author_link_with_author_path_with_one_link_class(create_test_post):
+    context = Context({"post": create_test_post})
     settings.AUTHOR_PATH_ENABLED = True
-    author_url = reverse("djpress:author_posts", args=[create_test_post.author])
+
+    author = create_test_post.author
+    author_url = reverse("djpress:author_posts", args=[author])
+
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ get_author_display_name(create_test_post.author) }" class="class1">'
-        f'<span rel="author">{ get_author_display_name(create_test_post.author) }</span></a>'
+        f'{ get_author_display_name(author) }" class="class1">'
+        f'<span rel="author">{ get_author_display_name(author) }</span></a>'
     )
-    assert (
-        djpress_tags.post_author_link(create_test_post.author, "class1")
-        == expected_output
-    )
+    assert djpress_tags.post_author_link(context, "class1") == expected_output
 
 
 @pytest.mark.django_db
 def test_post_author_link_with_author_path_with_two_link_class(create_test_post):
+    context = Context({"post": create_test_post})
     settings.AUTHOR_PATH_ENABLED = True
-    author_url = reverse("djpress:author_posts", args=[create_test_post.author])
+
+    author = create_test_post.author
+    author_url = reverse("djpress:author_posts", args=[author])
+
     expected_output = (
         f'<a href="{author_url}" title="View all posts by '
-        f'{ get_author_display_name(create_test_post.author) }" class="class1 class2">'
-        f'<span rel="author">{ get_author_display_name(create_test_post.author) }</span></a>'
+        f'{ get_author_display_name(author) }" class="class1 class2">'
+        f'<span rel="author">{ get_author_display_name(author) }</span></a>'
     )
-    assert (
-        djpress_tags.post_author_link(create_test_post.author, "class1 class2")
-        == expected_output
-    )
+    assert djpress_tags.post_author_link(context, "class1 class2") == expected_output
 
 
 @pytest.mark.django_db
@@ -138,13 +148,16 @@ def test_post_category_link_with_category_path_with_two_link_classes(category):
 
 @pytest.mark.django_db
 def test_post_date_link_without_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = False
+
     output = create_test_post.date.strftime("%b %-d, %Y")
-    assert djpress_tags.post_date_link(create_test_post.date) == output
+    assert djpress_tags.post_date_link(context) == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -162,13 +175,14 @@ def test_post_date_link_with_date_archives_enabled(create_test_post):
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date) == output
+    assert djpress_tags.post_date_link(context) == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled_with_one_link_class(
     create_test_post,
 ):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -186,13 +200,14 @@ def test_post_date_link_with_date_archives_enabled_with_one_link_class(
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date, "class1") == output
+    assert djpress_tags.post_date_link(context, "class1") == output
 
 
 @pytest.mark.django_db
 def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
     create_test_post,
 ):
+    context = Context({"post": create_test_post})
     settings.DATE_ARCHIVES_ENABLED = True
 
     post_date = create_test_post.date
@@ -210,10 +225,12 @@ def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
         f"{post_time}."
     )
 
-    assert djpress_tags.post_date_link(create_test_post.date, "class1 class2") == output
+    assert djpress_tags.post_date_link(context, "class1 class2") == output
 
 
 @pytest.mark.django_db
 def test_post_content(create_test_post):
+    context = Context({"post": create_test_post})
+
     output = f"<p>{create_test_post.content}</p>"
-    assert djpress_tags.post_content(create_test_post) == output
+    assert djpress_tags.post_content(context) == output

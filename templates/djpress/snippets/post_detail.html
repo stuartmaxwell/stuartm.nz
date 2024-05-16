@@ -4,13 +4,13 @@
   <div class="card-body">
     <h1>{{ post.title }}</h1>
     <div class="content">
-      {% post_content post %}
+      {% post_content %}
     </div>
   </div>
   <div class="card-footer text-muted">
     <p>
-      Posted on {% post_date_link post.date %}
-      by {% post_author_link post.author %}
+      Posted on {% post_date_link %}
+      by {% post_author_link %}
     </p>
     <p>
       Categories:

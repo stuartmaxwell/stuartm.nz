@@ -1,11 +1,9 @@
 """Template tags for djpress."""
 
-from datetime import datetime
-
 from django import template
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
+from django.template import Context
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
@@ -58,33 +56,45 @@ def get_blog_title() -> str:
     return settings.BLOG_TITLE
 
 
-@register.simple_tag
-def post_author(user: User) -> str:
+@register.simple_tag(takes_context=True)
+def post_author(context: Context) -> str:
     """Return the author display name.
 
     Tries to display the first name and last name if available, otherwise falls back to
     the username.
 
     Args:
-        user: The user.
+        context: The context.
 
     Returns:
         str: The author display name.
     """
-    return mark_safe(f'<span rel="author">{get_author_display_name(user)}</span>')
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    author = post.author
+    author_display_name = get_author_display_name(author)
+
+    return mark_safe(f'<span rel="author">{author_display_name}</span>')
 
 
-@register.simple_tag
-def post_author_link(author: User, link_class: str = "") -> str:
+@register.simple_tag(takes_context=True)
+def post_author_link(context: Context, link_class: str = "") -> str:
     """Return the author link for a post.
 
     Args:
-        author: The author of the post.
+        context: The context.
         link_class: The CSS class(es) for the link.
 
     Returns:
         str: The author link.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    author = post.author
     author_display_name = get_author_display_name(author)
 
     if not settings.AUTHOR_PATH_ENABLED:
@@ -126,24 +136,40 @@ def post_category_link(category: Category, link_class: str = "") -> str:
     return mark_safe(output)
 
 
-@register.simple_tag
-def post_date(post_date: datetime) -> str:
+@register.simple_tag(takes_context=True)
+def post_date(context: Context) -> str:
     """Return the date of a post.
 
     Args:
-        post_date: The date of the post.
+        context: The context.
+
+    Returns:
+        str: The date of the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    post_date = post.date
     return mark_safe(post_date.strftime("%b %-d, %Y"))
 
 
-@register.simple_tag
-def post_date_link(post_date: datetime, link_class: str = "") -> str:
+@register.simple_tag(takes_context=True)
+def post_date_link(context: Context, link_class: str = "") -> str:
     """Return the date link for a post.
 
     Args:
-        post_date: The date of the post.
+        context: The context.
         link_class: The CSS class(es) for the link.
+
+    Returns:
+        str: The date link for the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+    post_date = post.date
+
     if not settings.DATE_ARCHIVES_ENABLED:
         return mark_safe(post_date.strftime("%b %-d, %Y"))
 
@@ -186,11 +212,18 @@ def post_date_link(post_date: datetime, link_class: str = "") -> str:
     return mark_safe(output)
 
 
-@register.simple_tag
-def post_content(post: Post) -> str:
+@register.simple_tag(takes_context=True)
+def post_content(context: Context) -> str:
     """Return the content of a post.
 
     Args:
-        post: The post.
+        context: The context.
+
+    Returns:
+        str: The content of the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
     return mark_safe(post.content_markdown)
