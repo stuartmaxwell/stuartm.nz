@@ -9,7 +9,7 @@
     {% endif %}
   </div>
   <div class="card-footer text-muted">
-    <p>Posted on {{ post.date }} by {% post_author post.author %}</p>
+    <p>Posted on {{ post.date }} by {% post_author %}</p>
     <p>
       Categories:
       {% for category in post.categories.all %}

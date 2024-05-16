@@ -22,7 +22,7 @@
         <article>
           <header>
             <h1>{{ post.title }}</h1>
-            <p>By {% post_author post.author %}</p>
+            <p>By {% post_author %}</p>
             <p>{% post_date post.date %}</p>
           </header>
           <section>
@@ -53,7 +53,7 @@
           <article>
             <header>
               <h1><a href="{% url 'djpress:post_detail' post.permalink %}">{{ post.title }}</a></h1>
-              <p>By {% post_author post.author %}</p>
+              <p>By {% post_author %}</p>
               <p>{% post_date post.date %}</p>
             </header>
             <section>

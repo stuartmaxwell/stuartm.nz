@@ -6,6 +6,7 @@ from django import template
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.template import Context
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
@@ -58,20 +59,26 @@ def get_blog_title() -> str:
     return settings.BLOG_TITLE
 
 
-@register.simple_tag
-def post_author(user: User) -> str:
+@register.simple_tag(takes_context=True)
+def post_author(context: Context) -> str:
     """Return the author display name.
 
     Tries to display the first name and last name if available, otherwise falls back to
     the username.
 
     Args:
-        user: The user.
+        context: The context.
 
     Returns:
         str: The author display name.
     """
-    return mark_safe(f'<span rel="author">{get_author_display_name(user)}</span>')
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    author_display_name = get_author_display_name(post.author)
+
+    return mark_safe(f'<span rel="author">{author_display_name}</span>')
 
 
 @register.simple_tag
