@@ -1,6 +1,5 @@
 """Template tags for djpress."""
 
-
 from django import template
 from django.conf import settings
 from django.db import models
@@ -213,11 +212,18 @@ def post_date_link(context: Context, link_class: str = "") -> str:
     return mark_safe(output)
 
 
-@register.simple_tag
-def post_content(post: Post) -> str:
+@register.simple_tag(takes_context=True)
+def post_content(context: Context) -> str:
     """Return the content of a post.
 
     Args:
-        post: The post.
+        context: The context.
+
+    Returns:
+        str: The content of the post.
     """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
     return mark_safe(post.content_markdown)
