@@ -6,7 +6,7 @@
 
   {% if post %}
 
-    {{ post.title }} - {% get_blog_title %}
+    {% post_title %} - {% get_blog_title %}
 
   {% elif category %}
 
