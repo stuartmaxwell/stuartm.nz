@@ -70,6 +70,18 @@ def test_post_author(create_test_post):
     assert djpress_tags.post_author(context) == output
 
 
+def test_post_author_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_author(context) == ""
+    assert type(djpress_tags.post_author(context)) == str
+
+
+def test_post_author_link_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_author_link(context) == ""
+    assert type(djpress_tags.post_author_link(context)) == str
+
+
 @pytest.mark.django_db
 def test_post_author_link_without_author_path(create_test_post):
     context = Context({"post": create_test_post})
@@ -158,6 +170,36 @@ def test_post_category_link_with_category_path_with_two_link_classes(category):
     assert djpress_tags.post_category_link(category, "class1 class2") == expected_output
 
 
+def test_post_date_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_date(context) == ""
+    assert type(djpress_tags.post_date(context)) == str
+
+
+@pytest.mark.django_db
+def test_post_date_without_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
+    settings.DATE_ARCHIVES_ENABLED = False
+
+    output = create_test_post.date.strftime("%b %-d, %Y")
+    assert djpress_tags.post_date(context) == output
+
+
+@pytest.mark.django_db
+def test_post_date_with_date_archives_enabled(create_test_post):
+    context = Context({"post": create_test_post})
+    settings.DATE_ARCHIVES_ENABLED = True
+
+    output = create_test_post.date.strftime("%b %-d, %Y")
+    assert djpress_tags.post_date(context) == output
+
+
+def test_post_date_link_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_date_link(context) == ""
+    assert type(djpress_tags.post_date_link(context)) == str
+
+
 @pytest.mark.django_db
 def test_post_date_link_without_date_archives_enabled(create_test_post):
     context = Context({"post": create_test_post})
@@ -238,6 +280,12 @@ def test_post_date_link_with_date_archives_enabled_with_two_link_classes(
     )
 
     assert djpress_tags.post_date_link(context, "class1 class2") == output
+
+
+def test_post_content_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_content(context) == ""
+    assert type(djpress_tags.post_content(context)) == str
 
 
 @pytest.mark.django_db
