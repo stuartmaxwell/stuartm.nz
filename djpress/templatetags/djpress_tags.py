@@ -57,6 +57,23 @@ def get_blog_title() -> str:
 
 
 @register.simple_tag(takes_context=True)
+def post_title(context: Context) -> str:
+    """Return the title of a post.
+
+    Args:
+        context: The context.
+
+    Returns:
+        str: The title of the post.
+    """
+    post: Post | None = context.get("post")
+    if not post:
+        return ""
+
+    return post.title
+
+
+@register.simple_tag(takes_context=True)
 def post_author(context: Context) -> str:
     """Return the author display name.
 

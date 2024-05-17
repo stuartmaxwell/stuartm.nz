@@ -2,7 +2,7 @@
 
 <div class="card my-4 shadow">
   <div class="card-body">
-    <h2 class="card-title"><a href="{% url 'djpress:post_detail' post.permalink %}">{{ post.title }}</a></h2>
+    <h2 class="card-title"><a href="{% url 'djpress:post_detail' post.permalink %}">{% post_title %}</a></h2>
   </div>
   <div class="card-footer text-muted">
     <p>Posted on {{ post_date }} by {% post_author post.author %}</p>

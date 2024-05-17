@@ -50,6 +50,18 @@ def test_get_blog_title():
 
 
 @pytest.mark.django_db
+def test_post_title(create_test_post):
+    context = Context({"post": create_test_post})
+    assert djpress_tags.post_title(context) == create_test_post.title
+
+
+def test_post_title_no_post():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.post_title(context) == ""
+    assert type(djpress_tags.post_title(context)) == str
+
+
+@pytest.mark.django_db
 def test_post_author(create_test_post):
     context = Context({"post": create_test_post})
 
