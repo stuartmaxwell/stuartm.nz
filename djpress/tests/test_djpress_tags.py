@@ -294,3 +294,15 @@ def test_post_content(create_test_post):
 
     output = f"<p>{create_test_post.content}</p>"
     assert djpress_tags.post_content(context) == output
+
+
+@pytest.mark.django_db
+def test_category_name(category):
+    context = Context({"category": category})
+    assert djpress_tags.category_name(context) == category.name
+
+
+def test_category_name_no_category():
+    context = Context({"foo": "bar"})
+    assert djpress_tags.category_name(context) == ""
+    assert type(djpress_tags.category_name(context)) == str
