@@ -244,3 +244,20 @@ def post_content(context: Context) -> str:
         return ""
 
     return mark_safe(post.content_markdown)
+
+
+@register.simple_tag(takes_context=True)
+def category_name(context: Context) -> str:
+    """Return the name of a category.
+
+    Args:
+        context: The context.
+
+    Returns:
+        str: The name of the category.
+    """
+    category: Category | None = context.get("category")
+    if not category:
+        return ""
+
+    return category.name

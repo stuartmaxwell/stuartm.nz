@@ -44,7 +44,7 @@
         {% comment %}If we get posts for a category, then we can show the category header.{% endcomment %}
         {% if category %}
 
-          <h1>{{ category.name }}</h1>
+          <h1>{% category_name %}</h1>
 
         {% endif %}
 
