@@ -11,10 +11,7 @@
   <div class="card-footer text-muted">
     <p>Posted on {% post_date %} by {% post_author %}</p>
     <p>
-      Categories:
-      {% for category in post.categories.all %}
-        {% post_category_link category "badge bg-primary" %}
-      {% endfor %}
+      Categories: {% post_categories "span" "badge bg-primary" %}
     </p>
   </div>
 </div>

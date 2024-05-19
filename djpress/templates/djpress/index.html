@@ -30,11 +30,7 @@
           </section>
           <footer>
             <p>Categories:</p>
-            <ul>
-              {% for category in post.categories.all %}
-                <li>{% post_category_link category "badge bg-primary" %}</li>
-              {% endfor %}
-            </ul>
+            {% post_categories %}
           </footer>
         </article>
 
