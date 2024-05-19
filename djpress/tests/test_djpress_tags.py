@@ -306,3 +306,101 @@ def test_category_name_no_category():
     context = Context({"foo": "bar"})
     assert djpress_tags.category_name(context) == ""
     assert type(djpress_tags.category_name(context)) == str
+
+
+@pytest.mark.django_db
+def test_post_categories(create_test_post):
+    context = Context({"post": create_test_post})
+
+    categories = create_test_post.categories.all()
+    output = '<ul><li><a href="/category/test-category/" title="View all posts in the Test Category category">Test Category</a></li></ul>'
+    assert djpress_tags.post_categories(context) == output
+
+
+@pytest.mark.django_db
+def test_post_categories_ul(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<ul><li><a href="/category/test-category/" title="View all posts in the Test Category category">Test Category</a></li></ul>'
+    assert djpress_tags.post_categories(context, "ul") == output
+
+
+@pytest.mark.django_db
+def test_post_categories_ul_class1(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<ul><li><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1">Test Category</a></li></ul>'
+    assert (
+        djpress_tags.post_categories(context, outer="ul", link_class="class1") == output
+    )
+
+
+@pytest.mark.django_db
+def test_post_categories_ul_class1_class2(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<ul><li><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1 class2">Test Category</a></li></ul>'
+    assert (
+        djpress_tags.post_categories(context, outer="ul", link_class="class1 class2")
+        == output
+    )
+
+
+@pytest.mark.django_db
+def test_post_categories_div(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<div><a href="/category/test-category/" title="View all posts in the Test Category category">Test Category</a></div>'
+    assert djpress_tags.post_categories(context, outer="div") == output
+
+
+@pytest.mark.django_db
+def test_post_categories_div_class1(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<div><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1">Test Category</a></div>'
+    assert (
+        djpress_tags.post_categories(context, outer="div", link_class="class1")
+        == output
+    )
+
+
+@pytest.mark.django_db
+def test_post_categories_div_class1_class2(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<div><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1 class2">Test Category</a></div>'
+    assert (
+        djpress_tags.post_categories(context, outer="div", link_class="class1 class2")
+        == output
+    )
+
+
+@pytest.mark.django_db
+def test_post_categories_span(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<span><a href="/category/test-category/" title="View all posts in the Test Category category">Test Category</a></span>'
+    assert djpress_tags.post_categories(context, outer="span") == output
+
+
+@pytest.mark.django_db
+def test_post_categories_span_class1(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<span><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1">Test Category</a></span>'
+    assert (
+        djpress_tags.post_categories(context, outer="span", link_class="class1")
+        == output
+    )
+
+
+@pytest.mark.django_db
+def test_post_categories_span_class1_class2(create_test_post):
+    context = Context({"post": create_test_post})
+
+    output = '<span><a href="/category/test-category/" title="View all posts in the Test Category category" class="class1 class2">Test Category</a></span>'
+    assert (
+        djpress_tags.post_categories(context, outer="span", link_class="class1 class2")
+        == output
+    )

@@ -13,10 +13,7 @@
       by {% post_author_link %}
     </p>
     <p>
-      Categories:
-      {% for category in post.categories.all %}
-        {% post_category_link category "badge bg-primary" %}
-      {% endfor %}
+      Categories: {% post_categories "span" "badge bg-primary" %}
     </p>
   </div>
 </div>
