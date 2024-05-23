@@ -1,6 +1,10 @@
-"""Functions related to the User model."""
+"""Utility functions that are used in the project."""
 
+import markdown
+from django.conf import settings
 from django.contrib.auth.models import User
+
+md = markdown.Markdown(extensions=settings.MARKDOWN_EXTENSIONS, output_format="html")
 
 
 def get_author_display_name(user: User) -> str:
@@ -22,3 +26,11 @@ def get_author_display_name(user: User) -> str:
         return user.first_name
 
     return user.username
+
+
+def render_markdown(markdown_text: str) -> str:
+    """Return the Markdown text as HTML."""
+    html = md.convert(markdown_text)
+    md.reset()
+
+    return html
