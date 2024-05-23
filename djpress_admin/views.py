@@ -3,7 +3,8 @@
 import logging
 
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from djpress.utils import render_markdown
 
@@ -14,6 +15,9 @@ def index(
     request: HttpRequest,
 ) -> HttpResponse:
     """View for the index page."""
+    if not request.user.is_authenticated:
+        return redirect(f"{reverse('djpress:index')}")
+
     return render(
         request,
         "djpress_admin/index.html",
@@ -22,6 +26,9 @@ def index(
 
 def preview_markdown(request: HttpRequest) -> HttpResponse:
     """View for the preview markdown page."""
+    if not request.user.is_authenticated:
+        return redirect(f"{reverse('djpress:index')}")
+
     html = ""
     error = ""
 
