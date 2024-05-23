@@ -13,5 +13,6 @@ if settings.DEBUG:
 
 urlpatterns += [
     path(f"{settings.ADMIN_URL}/", admin.site.urls),
+    path(f"{settings.DJPRESS_ADMIN_PATH}/", include("djpress_admin.urls")),
     path("", include("djpress.urls")),
 ]

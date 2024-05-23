@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "crispy_forms",  # Required for django-crispy-forms
     "crispy_bootstrap5",  # Required for django-crispy-forms bootstrap5
     "djpress",
+    "djpress_admin",
 ]
 
 if DEBUG:
@@ -269,3 +270,6 @@ MONTH_SLUG: str = "%Y/%m"
 YEAR_SLUG: str = "%Y"
 POST_PREFIX: str = "post"
 POST_PERMALINK: str = ""
+
+# DJPress Admin settings
+DJPRESS_ADMIN_PATH: str = "djpress-admin"
