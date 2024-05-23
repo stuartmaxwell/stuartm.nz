@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from djpress.models import Category, Post
-from djpress.models.user import get_author_display_name
+from djpress.utils import get_author_display_name
 
 register = template.Library()
 

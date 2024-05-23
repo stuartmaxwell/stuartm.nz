@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from djpress.models import Post, Category
 from django.conf import settings
 from django.utils import timezone
-from djpress.models.user import get_author_display_name
+from djpress.utils import get_author_display_name
 from django.template import Context
 
 from djpress.templatetags import djpress_tags

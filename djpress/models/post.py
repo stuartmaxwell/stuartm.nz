@@ -3,7 +3,6 @@
 import logging
 from typing import ClassVar
 
-import markdown
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.cache import cache
@@ -12,10 +11,10 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 from djpress.models import Category
+from djpress.utils import render_markdown
 
 logger = logging.getLogger(__name__)
 
-md = markdown.Markdown(extensions=settings.MARKDOWN_EXTENSIONS, output_format="html")
 
 PUBLISHED_POSTS_CACHE_KEY = "published_posts"
 
@@ -226,17 +225,10 @@ class Post(models.Model):
                 raise ValueError(msg)
         super().save(*args, **kwargs)
 
-    def render_markdown(self: "Post", markdown_text: str) -> str:
-        """Return the Markdown text as HTML."""
-        html = md.convert(markdown_text)
-        md.reset()
-
-        return html
-
     @property
     def content_markdown(self: "Post") -> str:
         """Return the content as HTML converted from Markdown."""
-        return self.render_markdown(self.content)
+        return render_markdown(self.content)
 
     @property
     def truncated_content_markdown(self: "Post") -> str:
@@ -246,7 +238,7 @@ class Post(models.Model):
             truncated_content = self.content[:read_more_index]
         else:
             truncated_content = self.content
-        return self.render_markdown(truncated_content)
+        return render_markdown(truncated_content)
 
     @property
     def is_truncated(self: "Post") -> bool:
