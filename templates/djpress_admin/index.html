@@ -28,7 +28,18 @@
 
     <div class="row gx-1 mt-3">
       <div class="col">
-        <textarea class="form-control" rows="24" placeholder="Markdown content" id="content" name="content"></textarea>
+        <textarea
+          class="form-control"
+          rows="24"
+          placeholder="Markdown content"
+          id="content"
+          name="content"
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+          hx-post="{% url "djpress_admin:preview_markdown" %}"
+          hx-params="content"
+          hx-target="#preview"
+          hx-trigger="keyup changed delay:250ms"
+        ></textarea>
       </div>
       <div class="col bg-light rounded-3">
         <span class="bg-body" id="preview"></span>
