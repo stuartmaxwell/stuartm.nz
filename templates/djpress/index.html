@@ -6,19 +6,19 @@
 
   {% if post %}
 
-    {% post_title %} - {% get_blog_title %}
+    {% post_title %} - {% blog_title %}
 
   {% elif category %}
 
-    {% category_name %} - {% get_blog_title %}
+    {% category_name %} - {% blog_title %}
 
   {% elif author %}
 
-    {% post_author %} - {% get_blog_title %}
+    {% post_author %} - {% blog_title %}
 
   {% else %}
 
-    {% get_blog_title %}
+    {% blog_title %}
 
   {% endif %}
 
