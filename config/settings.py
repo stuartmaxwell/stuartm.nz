@@ -64,9 +64,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",  # Required for django-crispy-forms
-    "crispy_bootstrap5",  # Required for django-crispy-forms bootstrap5
-    "djpress",
+    "djpress.apps.DjpressConfig",
     "djpress_admin",
 ]
 
@@ -208,10 +206,6 @@ MESSAGE_TAGS = {
 MEDIA_ROOT = "media"
 MEDIA_URL = "/media/"
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -246,30 +240,7 @@ LOGGING = {
 }
 
 # DJPress settings
-TRUNCATE_TAG = "<!--more-->"
-CACHE_CATEGORIES: bool = True
-CACHE_RECENT_PUBLISHED_POSTS: bool = False
-RECENT_PUBLISHED_POSTS_COUNT: int = 20
 BLOG_TITLE: str = "stuartm.nz"
-MARKDOWN_EXTENSIONS: list = ["fenced_code", "codehilite", "tables"]
-
-# DJPress URL settings
-CATEGORY_PATH_ENABLED: bool = True
-CATEGORY_PATH: str = "category"
-AUTHOR_PATH_ENABLED: bool = True
-AUTHOR_PATH: str = "author"
-ARCHIVES_PATH_ENABLED: bool = True
-ARCHIVES_PATH: str = "archives"
-DATE_ARCHIVES_ENABLED: bool = True
-RSS_ENABLED: bool = True
-RSS_PATH: str = "rss"
-
-# The following are used to generate the post permalink
-DAY_SLUG: str = "%Y/%m/%d"
-MONTH_SLUG: str = "%Y/%m"
-YEAR_SLUG: str = "%Y"
-POST_PREFIX: str = "post"
-POST_PERMALINK: str = ""
 
 # DJPress Admin settings
 DJPRESS_ADMIN_PATH: str = "djpress-admin"
