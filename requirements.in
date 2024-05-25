@@ -1,13 +1,11 @@
 django>=5.0,<5.1
+djpress
 django-environ
 django-debug-toolbar
 whitenoise
-django-crispy-forms
-crispy-bootstrap5
 gunicorn
 psycopg[binary]
 rich
 pytest
 pytest-django
-markdown
 sentry-sdk
