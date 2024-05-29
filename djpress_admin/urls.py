@@ -2,11 +2,10 @@
 
 from django.urls import path
 
-from djpress_admin.views import index, preview_markdown
+from djpress_admin.views import markdown_previewer
 
 app_name = "djpress_admin"
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("preview-markdown/", preview_markdown, name="preview_markdown"),
+    path("", markdown_previewer, name="markdown_previewer"),
 ]
