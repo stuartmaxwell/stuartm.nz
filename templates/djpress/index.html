@@ -4,11 +4,7 @@
 
 {% block title %}
 
-  {% if post %}
-
-    {% post_title %} - {% blog_title %}
-
-  {% elif category %}
+  {% if category %}
 
     {% category_name %} - {% blog_title %}
 
@@ -27,30 +23,30 @@
 
 {% block content %}
 
-  {% if post %}
+  {% have_posts as posts %}
 
-    {% include "djpress/snippets/post_detail.html" %}
+  {% for post in posts %}
 
-  {% elif posts %}
+    {% if posts|length == 1  %}
 
-    {% for post in posts %}
+      {% include "djpress/snippets/post_detail.html" %}
 
-      {% if author or category %}
+    {% elif author or category %}
 
-        {% include "djpress/snippets/post_title.html" %}
+      {% include "djpress/snippets/post_title.html" %}
 
-      {% else %}
+    {% else %}
 
-        {% include "djpress/snippets/post_summary.html" %}
+      {% include "djpress/snippets/post_summary.html" %}
 
-      {% endif %}
+    {% endif %}
 
-    {% endfor %}
-
-  {% else %}
+  {% empty %}
 
     <p>No posts available.</p>
 
-  {% endif %}
+  {% endfor %}
+
+  {% posts_nav_links %}
 
 {% endblock content %}
