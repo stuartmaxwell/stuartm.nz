@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Timezone Converter{% endblock title %}
+
+{% block head %}
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+{% endblock head %}
+
+
+{% block content %}
+
+  <h1>Timezone Converter</h1>
+  <div class="grid">
+    <div>
+      <form>
+        <label for="timestamp" class="form-label">Enter a timestamp in ISO 8601 format:
+          <input class="form-control" type="text" name="timestamp" id="timestamp" value="2024-06-05T23:49:15.8067170Z" />
+        </label>
+        <label for="timezone" class="form-label">Enter a timezone to conver to:
+          <input class="form-control" type="text" name="timezone" id="timezone" value="Pacific/Auckland" />
+        </label>
+        <button
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+          hx-post="{% url 'timezone_converter:convert' %}"
+          hx-params="timestamp, timezone"
+          hx-target="#converted"
+          type="button">
+          Convert</button>
+      </form>
+    </div>
+    <div>
+      <span id="converted"></span>
+    </div>
+  </div>
+{% endblock content %}

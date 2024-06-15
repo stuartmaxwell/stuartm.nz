@@ -1,0 +1,40 @@
+{% if error_message %}
+
+  {{ error_message }}
+
+{% else %}
+
+  <p>Converted time: {{ converted_time }}</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Format</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>ISO 8601</td>
+      <td>{{ converted_time|date:"c" }}</td>
+    </tr>
+    <tr>
+      <td>RFC 5322</td>
+      <td>{{ converted_time|date:"r" }}</td>
+    </tr>
+    <tr>
+      <td>Short Date</td>
+      <td>{{ converted_time|date:"d/m/Y" }}</td>
+    </tr>
+    <tr>
+      <td>Long Date</td>
+      <td>{{ converted_time|date:"l, j F Y" }}</td>
+    </tr>
+    <tr>
+      <td>Short Time</td>
+      <td>{{ converted_time|date:"H:i" }}</td>
+    </tr>
+    <tr>
+      <td>Long Time</td>
+      <td>{{ converted_time|date:"H:i:s" }}</td>
+    </tr>
+  </table>
+{% endif %}
