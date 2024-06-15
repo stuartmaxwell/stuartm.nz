@@ -4,22 +4,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% spaceless %}{% block title %}{% blog_title %}{% endblock %}{% endspaceless %}</title>
-    <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="{% url 'djpress:rss_feed' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark" />
+
+    <title>{% blog_page_title %}</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.slate.min.css" />
     <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
     <link href="{% static "css/styles.min.css" %}" rel="stylesheet">
+
+    <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="{% url 'djpress:rss_feed' %}">
+
     <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
     {% block head %}{% endblock head %}
   </head>
   <body>
-    {% include "djpress/snippets/navbar.html" %}
-    <div class="container my-4">
+    <header class="container">
+      {% include "djpress/snippets/navbar.html" %}
+    </header>
+
+    <main class="container">
       {% block content %}
       {% endblock %}
-    </div>
+    </main>
 
   </body>
 </html>

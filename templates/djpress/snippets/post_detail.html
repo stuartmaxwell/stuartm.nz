@@ -1,13 +1,9 @@
 {% load djpress_tags %}
 
-<div class="card my-4 shadow">
-  <div class="card-body">
-    <h1>{% post_title %}</h1>
-    <div class="content">
-      {% post_content %}
-    </div>
-  </div>
-  <div class="card-footer text-muted">
+<article>
+  <h1>{% post_title %}</h1>
+  {% post_content %}
+  <footer>
     <p>
       Posted on {% post_date_link %}
       by {% post_author_link %}
@@ -15,5 +11,5 @@
     <p>
       Categories: {% post_categories_link "span" link_class="badge bg-primary" %}
     </p>
-  </div>
-</div>
+  </footer>
+</article>

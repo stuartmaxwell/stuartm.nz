@@ -1,37 +1,11 @@
 {% extends 'base.html' %}
 {% load djpress_tags %}
 
-
-{% block title %}
-
-  {% if category %}
-
-    {% category_name %} - {% blog_title %}
-
-  {% elif author %}
-
-    {% post_author %} - {% blog_title %}
-
-  {% else %}
-
-    {% blog_title %}
-
-  {% endif %}
-
-{% endblock title %}
-
-
 {% block content %}
-
-  {% have_posts as posts %}
 
   {% for post in posts %}
 
-    {% if posts|length == 1  %}
-
-      {% include "djpress/snippets/post_detail.html" %}
-
-    {% elif author or category %}
+    {% if author or category %}
 
       {% include "djpress/snippets/post_title.html" %}
 

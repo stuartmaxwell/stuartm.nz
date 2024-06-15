@@ -1,25 +1,28 @@
 {% load djpress_tags %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    {% blog_title_link "navbar-brand" %}
+<nav>
+  <ul>
+    <li><strong>{% blog_title_link %}</strong></li>
+  </ul>
 
-    <ul class="navbar-nav me-auto">
-      {% get_categories as categories %}
+  {% blog_pages outer="ul" %}
 
-      {% for category in categories %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'djpress:category_posts' category.slug %}">{{ category.name }}</a>
-        </li>
-      {% endfor %}
+  <ul style="margin-left: auto">
+    <li>
+      <details class="dropdown">
+        <summary>
+          Categories
+        </summary>
+        {% blog_categories outer="ul" %}
+      </details>
+    </li>
+  </ul>
 
-    </ul>
+  <ul>
+    <li>
+      <a role="button" class="outline" href="{% url 'djpress:rss_feed' %}">
+        {% include "svg/rss-fill.svg" %} RSS</a>
+    </li>
+  </ul>
 
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link icon-link" href="{% url 'djpress:rss_feed' %}">
-          {% include "svg/rss-fill.svg" %} RSS</a>
-      </li>
-    </ul>
-  </div>
 </nav>
