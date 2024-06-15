@@ -1,5 +1,5 @@
 django>=5.0,<5.1
-djpress==0.5.*
+djpress==0.6.*
 django-environ
 django-debug-toolbar
 whitenoise
