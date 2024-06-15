@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "djpress.apps.DjpressConfig",
     "djpress_admin",
+    "timezone_converter",
 ]
 
 if DEBUG:
