@@ -8,3 +8,7 @@
 pre {
   background-color: inherit;
 }
+
+span[role="group"] {
+  width: auto;
+}
