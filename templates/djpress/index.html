@@ -21,6 +21,29 @@
 
   {% endfor %}
 
-  {% posts_nav_links %}
+  {% is_paginated as paginated %}
+  {% if paginated %}
+
+    <span role="group">
+      {% get_pagination_range as page_range %}
+      {% get_pagination_current_page as current_page %}
+
+      {% for page in page_range %}
+
+        {% if page == current_page %}
+
+          <button aria-current="true" disabled>{{ page }}</button>
+
+        {% else %}
+
+          <a href="?page={{ page }}" role="button" title="Go to page {{ page }}">{{ page }}</a>
+
+        {% endif %}
+
+      {% endfor %}
+    </span>
+
+  {% endif %}
+
 
 {% endblock content %}
