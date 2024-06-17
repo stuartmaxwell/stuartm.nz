@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Markdown Editor{% endblock title %}
+
+{% block head %}
+  <script type="module" src="https://pyscript.net/releases/2024.6.1/core.js"></script>
+{% endblock head %}
+
+{% block content %}
+
+  <h1>Markdown Editor</h1>
+  <div class="grid">
+    <div>
+      <textarea id="editor" py-keyup="preview" rows="20" style="font-family: monospace; font-size: 0.75rem"></textarea>
+    </div>
+    <div>
+      <div id="preview"></div>
+    </div>
+  </div>
+
+  <script type="py" config='{"packages":["markdown", "pygments"]}'>
+    import markdown
+    from pyscript import document
+    md = markdown.Markdown(extensions=["fenced_code", "codehilite", "tables"], output_format="html")
+    def preview(event):
+      input = document.querySelector("#editor").value
+      output = document.querySelector("#preview")
+      output.innerHTML = md.convert(input)
+      md.reset()
+  </script>
+
+{% endblock content %}

@@ -65,8 +65,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "djpress.apps.DjpressConfig",
-    "djpress_admin",
     "timezone_converter",
+    "markdown_editor",
 ]
 
 if DEBUG:
@@ -242,6 +242,3 @@ LOGGING = {
 
 # DJPress settings
 BLOG_TITLE: str = "stuartm.nz"
-
-# DJPress Admin settings
-DJPRESS_ADMIN_PATH: str = "djpress-admin"

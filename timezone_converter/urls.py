@@ -7,6 +7,6 @@ from timezone_converter.views import convert, converter
 app_name = "timezone_converter"
 
 urlpatterns = [
-    path("timezones/", converter, name="converter"),
-    path("timezones/convert/", convert, name="convert"),
+    path("", converter, name="converter"),
+    path("convert/", convert, name="convert"),
 ]
