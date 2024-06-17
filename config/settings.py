@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import environ
+import pymdownx.emoji
 import sentry_sdk
 from django.contrib.messages import constants as messages
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -242,3 +243,12 @@ LOGGING = {
 
 # DJPress settings
 BLOG_TITLE: str = "stuartm.nz"
+MARKDOWN_EXTENSIONS: list = [
+    "pymdownx.superfences",
+    "pymdownx.highlight",
+    "tables",
+    "pymdownx.emoji",
+]
+MARKDOWN_EXTENSION_CONFIGS: dict = {
+    "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
+}

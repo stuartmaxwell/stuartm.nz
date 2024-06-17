@@ -1,5 +1,6 @@
 django>=5.0,<5.1
 djpress==0.7.*
+pymdown-extensions
 django-environ
 django-debug-toolbar
 whitenoise

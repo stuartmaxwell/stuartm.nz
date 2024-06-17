@@ -18,10 +18,14 @@
     </div>
   </div>
 
-  <script type="py" config='{"packages":["markdown", "pygments"]}'>
+  <script type="py" config='{"packages":["markdown", "pygments", "pymdown-extensions"]}'>
     import markdown
+    import pymdownx.emoji
     from pyscript import document
-    md = markdown.Markdown(extensions=["fenced_code", "codehilite", "tables"], output_format="html")
+    extension_configs = {
+      "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
+      }
+    md = markdown.Markdown(extensions=["pymdownx.superfences", "pymdownx.highlight", "pymdownx.emoji", "tables"], output_format="html", extension_configs=extension_configs)
     def preview(event):
       input = document.querySelector("#editor").value
       output = document.querySelector("#preview")

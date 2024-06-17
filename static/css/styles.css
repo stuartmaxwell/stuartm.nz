@@ -5,8 +5,8 @@
   height: auto;
 } */
 
-pre {
-  background-color: inherit;
+.highlight pre {
+  background-color: #2e3440;
 }
 
 span[role="group"] {
