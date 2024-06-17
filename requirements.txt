@@ -33,7 +33,7 @@ packaging==24.1
     #   pytest
 pluggy==1.5.0
     # via pytest
-psycopg==3.1.19
+psycopg[binary]==3.1.19
     # via -r requirements.in
 psycopg-binary==3.1.19
     # via psycopg
@@ -61,7 +61,7 @@ sqlparse==0.5.0
     #   django-debug-toolbar
 typing-extensions==4.12.2
     # via psycopg
-urllib3==2.2.1
+urllib3==2.2.2
     # via sentry-sdk
 whitenoise==6.6.0
     # via -r requirements.in
