@@ -16,12 +16,14 @@
 
     <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="{% url 'djpress:rss_feed' %}">
 
-    <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
+    {% if not debug %}
+      <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
+    {% endif %}
     {% block head %}{% endblock head %}
   </head>
   <body>
     <header class="container">
-      {% include "djpress/snippets/navbar.html" %}
+      {% include "snippets/navbar.html" %}
     </header>
 
     <main class="container">
