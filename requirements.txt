@@ -13,14 +13,16 @@ django-debug-toolbar==4.4.2
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
-djpress==0.7.0
+djpress==0.7.1
     # via -r requirements.in
 gunicorn==22.0.0
     # via -r requirements.in
 iniconfig==2.0.0
     # via pytest
 markdown==3.6
-    # via djpress
+    # via
+    #   djpress
+    #   pymdown-extensions
 markdown-it-py==3.0.0
     # via rich
 mdurl==0.1.2
@@ -39,12 +41,16 @@ pygments==2.18.0
     # via
     #   djpress
     #   rich
+pymdown-extensions==10.8.1
+    # via -r requirements.in
 pytest==8.2.2
     # via
     #   -r requirements.in
     #   pytest-django
 pytest-django==4.8.0
     # via -r requirements.in
+pyyaml==6.0.1
+    # via pymdown-extensions
 rich==13.7.1
     # via -r requirements.in
 sentry-sdk==2.5.1
