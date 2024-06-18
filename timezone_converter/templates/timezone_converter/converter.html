@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Timezone Converter{% endblock title %}
 
 {% block head %}
-  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="{% static "js/htmx_2.0.0.min.js" %}"></script>
 {% endblock head %}
 
 
