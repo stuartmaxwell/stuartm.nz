@@ -13,7 +13,7 @@ django-debug-toolbar==4.4.2
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
-djpress==0.7.1
+djpress==0.7.2
     # via -r requirements.in
 gunicorn==22.0.0
     # via -r requirements.in
@@ -53,7 +53,7 @@ pyyaml==6.0.1
     # via pymdown-extensions
 rich==13.7.1
     # via -r requirements.in
-sentry-sdk==2.5.1
+sentry-sdk==2.6.0
     # via -r requirements.in
 sqlparse==0.5.0
     # via
@@ -61,7 +61,7 @@ sqlparse==0.5.0
     #   django-debug-toolbar
 typing-extensions==4.12.2
     # via psycopg
-urllib3==2.2.1
+urllib3==2.2.2
     # via sentry-sdk
-whitenoise==6.6.0
+whitenoise==6.7.0
     # via -r requirements.in

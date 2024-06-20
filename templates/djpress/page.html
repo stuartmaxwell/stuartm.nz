@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load djpress_tags %}
+
+
+{% block content %}
+
+  <article>
+    <h1>{% post_title %}</h1>
+    {% post_content %}
+  </article>
+
+{% endblock content %}
