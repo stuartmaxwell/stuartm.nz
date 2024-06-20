@@ -1,1 +1,1 @@
-@media (max-width:576px){.hide-at-xs{display:none}}.highlight pre{background-color:#2e3440}span[role=group]{width:auto}
+@media (max-width:576px){.hide-at-xs{display:none}}@media (max-width:768px){.hide-at-s{display:none}}.highlight pre{background-color:#2e3440}span[role=group]{width:auto}@media (max-width:400px){nav ul li{padding:var(--pico-nav-element-spacing-vertical) .25em}}body{min-width:320px}

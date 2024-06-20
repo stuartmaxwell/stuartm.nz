@@ -11,16 +11,16 @@
     {% if user.is_authenticated %}
       <li>
         <a role="button" class="outline" href="{% url 'admin:index' %}">
-          {% include "svg/house-gear.svg" %} Admin</a>
+          {% include "svg/house-gear.svg" %}<span class="hide-at-s"> Admin</span></a>
       </li>
     {% endif %}
     <li>
       <a rel="me" role="button" class="outline" href="https://fosstodon.org/@stuartm">
-        {% include "svg/mastodon.svg" %} @stuartm</a>
+        {% include "svg/mastodon.svg" %}<span class="hide-at-s">  @stuartm</span></a>
     </li>
     <li>
       <a role="button" class="outline" href="{% url 'djpress:rss_feed' %}">
-        {% include "svg/rss-fill.svg" %} RSS</a>
+        {% include "svg/rss-fill.svg" %}<span class="hide-at-s">  RSS</span></a>
     </li>
   </ul>
 
