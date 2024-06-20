@@ -31,7 +31,7 @@ span[role="group"] {
   }
 }
 
-/* Prevent going smaller than 360px */
+/* Prevent going smaller than 320px */
 body {
   min-width: 320px;
 }
