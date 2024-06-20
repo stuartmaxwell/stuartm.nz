@@ -1,8 +1,8 @@
 {% load djpress_tags %}
 
-<nav>
+<nav class="container">
   <ul>
-    <li><strong>{% blog_title_link %}</strong></li>
+    <li><strong>{% blog_title_link link_class="secondary" %}</strong></li>
   </ul>
 
   {% blog_pages outer="ul" %}

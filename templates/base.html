@@ -10,7 +10,7 @@
 
     <title>{% blog_page_title post_text="| " %}{% blog_title %}</title>
 
-    <link href="{% static "css/pico.orange.min.css" %}" rel="stylesheet">
+    <link href="{% static "css/pico.jade.min.css" %}" rel="stylesheet">
     <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
     <link href="{% static "css/styles.min.css" %}" rel="stylesheet">
 
@@ -22,7 +22,7 @@
     {% block head %}{% endblock head %}
   </head>
   <body>
-    <header class="container">
+    <header>
       {% include "snippets/navbar.html" %}
     </header>
 
