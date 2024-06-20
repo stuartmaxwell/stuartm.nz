@@ -10,10 +10,28 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hide-at-s {
+    display: none;
+  }
+}
+
 .highlight pre {
   background-color: #2e3440;
 }
 
 span[role="group"] {
   width: auto;
+}
+
+/* Tighter margins in the navbar when really small */
+@media (max-width: 400px) {
+  nav ul li {
+    padding: var(--pico-nav-element-spacing-vertical) 0.25em;
+  }
+}
+
+/* Prevent going smaller than 360px */
+body {
+  min-width: 320px;
 }
