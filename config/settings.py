@@ -248,6 +248,7 @@ MARKDOWN_EXTENSIONS: list = [
     "pymdownx.highlight",
     "tables",
     "pymdownx.emoji",
+    "toc",
 ]
 MARKDOWN_EXTENSION_CONFIGS: dict = {
     "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
