@@ -2,14 +2,14 @@
 #    uv pip compile requirements.in -o requirements.txt
 asgiref==3.8.1
     # via django
-certifi==2024.6.2
+certifi==2024.7.4
     # via sentry-sdk
 django==5.0.6
     # via
     #   -r requirements.in
     #   django-debug-toolbar
     #   djpress
-django-debug-toolbar==4.4.2
+django-debug-toolbar==4.4.5
     # via -r requirements.in
 django-environ==0.11.2
     # via -r requirements.in
@@ -33,9 +33,9 @@ packaging==24.1
     #   pytest
 pluggy==1.5.0
     # via pytest
-psycopg==3.1.19
+psycopg==3.2.1
     # via -r requirements.in
-psycopg-binary==3.1.19
+psycopg-binary==3.2.1
     # via psycopg
 pygments==2.18.0
     # via
@@ -53,7 +53,7 @@ pyyaml==6.0.1
     # via pymdown-extensions
 rich==13.7.1
     # via -r requirements.in
-sentry-sdk==2.6.0
+sentry-sdk==2.7.1
     # via -r requirements.in
 sqlparse==0.5.0
     # via
