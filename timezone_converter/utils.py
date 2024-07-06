@@ -28,5 +28,5 @@ def convert_timestamp_to_timezone(timestamp: str, timezone: str) -> datetime:
         msg = "Invalid timezone. Please use a valid timezone."
         raise ValueError(msg) from exc
 
-    # Localize the datetime object to the given timezone.
+    # Convert the datetime object to the given timezone.
     return datetime_obj.astimezone(tz)
