@@ -1,14 +1,10 @@
 """Views for the timezone_converter app."""
 
-from typing import TYPE_CHECKING
+from datetime import datetime
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-
-from timezone_converter.utils import convert_timestamp_to_timezone
-
-if TYPE_CHECKING:
-    from datetime import datetime
 
 
 # A simple view to display the converter HTML template.
@@ -38,11 +34,34 @@ def convert(request: HttpRequest) -> HttpResponse:
             {"error_message": error_message},
         )
 
+    # Convert the timestamp to a datetime object.
     try:
-        # Convert the timestamp to the given timezone.
-        converted_time: datetime = convert_timestamp_to_timezone(timestamp, timezone)
-    except ValueError as exc:
-        error_message = str(exc)
+        datetime_obj: datetime = datetime.fromisoformat(timestamp)
+    except ValueError:
+        error_message = "Invalid timestamp. Please use the ISO 8601 format."
+        return render(
+            request,
+            "timezone_converter/converted.html",
+            {"error_message": error_message},
+        )
+
+    # Check the converted timestamp is timezone aware
+    if datetime_obj.tzinfo is None:
+        error_message = (
+            "The timestamp provided must be timezone aware. For example, "
+            "use 'Z' for UTC, or provide an offset."
+        )
+        return render(
+            request,
+            "timezone_converter/converted.html",
+            {"error_message": error_message},
+        )
+
+    # Check that the timezone is valid.
+    try:
+        ZoneInfo(timezone)
+    except ZoneInfoNotFoundError:
+        error_message = "Invalid timezone. Please use a valid timezone."
         return render(
             request,
             "timezone_converter/converted.html",
@@ -52,5 +71,5 @@ def convert(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "timezone_converter/converted.html",
-        {"converted_time": converted_time, "error_message": error_message},
+        {"timestamp": datetime_obj, "timezone": timezone},
     )
