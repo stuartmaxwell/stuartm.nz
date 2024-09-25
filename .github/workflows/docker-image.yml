@@ -31,6 +31,6 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository }}:latest
 
-      - name: Send POST request to Portainer webhook
-        run: |
-          curl --fail --retry 3 --max-time 10 -X POST "${{ secrets.PORTAINER_WEBHOOK }}" || exit 1
+      # - name: Send POST request to Portainer webhook
+      #   run: |
+      #     curl --fail --retry 3 --max-time 10 -X POST "${{ secrets.PORTAINER_WEBHOOK }}" || exit 1
