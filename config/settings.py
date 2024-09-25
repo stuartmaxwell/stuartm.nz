@@ -32,6 +32,9 @@ env = environ.Env(
     DB_PORT=(str, ""),
     WHITENOISE_STATIC=(bool, False),
     ADMIN_URL=(str, "admin"),
+    BLOG_TITLE=(str, "stuartm.nz"),
+    POST_PREFIX=(str, "post"),
+    POST_PERMALINK=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -242,7 +245,6 @@ LOGGING = {
 }
 
 # DJPress settings
-BLOG_TITLE: str = "stuartm.nz"
 MARKDOWN_EXTENSIONS: list = [
     "pymdownx.superfences",
     "pymdownx.highlight",
@@ -253,3 +255,6 @@ MARKDOWN_EXTENSIONS: list = [
 MARKDOWN_EXTENSION_CONFIGS: dict = {
     "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
 }
+BLOG_TITLE = env("BLOG_TITLE")
+POST_PREFIX = env("POST_PREFIX")
+POST_PERMALINK = env("POST_PERMALINK")
