@@ -4,11 +4,29 @@ services:
   app:
     image: ghcr.io/stuartmaxwell/stuartmnz:latest
     entrypoint: /app/entrypoint.sh
-    restart: always
     command: gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
     user: "1000"
-    volumes:
-      - static_volume:/app
-
-volumes:
-  static_volume:
+    environment:
+      - "SECRET_KEY=${SECRET_KEY}"
+      - "DEBUG=${DEBUG}"
+      - "ALLOWED_HOSTS=${ALLOWED_HOSTS}"
+      - "EMAIL_HOST=${EMAIL_HOST}"
+      - "EMAIL_PORT=${EMAIL_PORT}"
+      - "EMAIL_HOST_USER=${EMAIL_HOST_USER}"
+      - "EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}"
+      - "EMAIL_USE_TLS=${EMAIL_USE_TLS}"
+      - "DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}"
+      - "DB_ENGINE=${DB_ENGINE}"
+      - "DB_HOST=${DB_HOST}"
+      - "DB_NAME=${DB_NAME}"
+      - "DB_PASSWORD=${DB_PASSWORD}"
+      - "DB_PORT=${DB_PORT}"
+      - "DB_USER=${DB_USER}"
+      - "WHITENOISE_STATIC=${WHITENOISE_STATIC}"
+      - "ADMIN_URL=${ADMIN_URL}"
+      - "SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT}"
+      - "SENTRY_DSN=${SENTRY_DSN}"
+      - "SENTRY_TRACES_SAMPLE_RATE=${SENTRY_TRACES_SAMPLE_RATE}"
+      - "BLOG_TITLE=${BLOG_TITLE}"
+      - "POST_PREFIX=${POST_PREFIX}"
+      - "POST_PERMALINK=${POST_PERMALINK}"
