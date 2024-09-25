@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <main id="errorpage">
+    <div id="content">
+      <h1>An error occurred</h1>
+      <p class="lead">Sorry, that page cannot be found. The error has already been reported and will be investigated soon.</p>
+      <div><a role="button" href="/">{% include "svg/house-fill.svg" %}  Return to home</a></div>
+    </div>
+  </main>
+{% endblock content %}
