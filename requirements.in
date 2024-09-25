@@ -1,5 +1,5 @@
-django>=5.0,<5.1
-djpress==0.7.*
+django~=5.1
+djpress==0.8.1
 pymdown-extensions
 django-environ
 django-debug-toolbar
