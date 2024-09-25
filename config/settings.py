@@ -35,6 +35,9 @@ env = environ.Env(
     BLOG_TITLE=(str, "stuartm.nz"),
     POST_PREFIX=(str, "post"),
     POST_PERMALINK=(str, ""),
+    ARCHIVES_PATH_ENABLED=(bool, True),
+    ARCHIVES_PATH=(str, "archives"),
+    DATE_ARCHIVES_ENABLED=(bool, True),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -258,3 +261,6 @@ MARKDOWN_EXTENSION_CONFIGS: dict = {
 BLOG_TITLE = env("BLOG_TITLE")
 POST_PREFIX = env("POST_PREFIX")
 POST_PERMALINK = env("POST_PERMALINK")
+ARCHIVES_PATH_ENABLED = env("ARCHIVES_PATH_ENABLED")
+ARCHIVES_PATH = env("ARCHIVES_PATH")
+DATE_ARCHIVES_ENABLED = env("DATE_ARCHIVES_ENABLED")
