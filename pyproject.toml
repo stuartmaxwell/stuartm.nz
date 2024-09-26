@@ -12,6 +12,7 @@ ignore = [
   "TD002",  # Missing author in TODO
   "S308",   # suspicious-mark-safe-usage
 ]
+line-length = 120
 
 target-version = "py312"
 
