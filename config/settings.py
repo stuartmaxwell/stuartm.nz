@@ -130,10 +130,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
-if "sqlite" in env("DB_ENGINE"):
-    DB_NAME = BASE_DIR / f"{env('DB_NAME')}.sqlite3"
-else:
-    DB_NAME = env("DB_NAME")
+DB_NAME = BASE_DIR / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
 
 DATABASES = {
     "default": {
@@ -150,9 +147,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": (
-            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-        ),
+        "NAME": ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",

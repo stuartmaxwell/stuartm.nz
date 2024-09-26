@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /private/
+
+User-agent: GPTBot
+Disallow: /
