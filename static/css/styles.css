@@ -1,5 +1,95 @@
 /* Custom sytles for stuartm.nz */
 
+/* Fonts */
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-regular.woff2") format("woff2"),
+    url("/static/fonts/firasans-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-italic.woff2") format("woff2"),
+    url("/static/fonts/firasans-italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-bold.woff2") format("woff2"),
+    url("/static/fonts/firasans-bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-bolditalic.woff2") format("woff2"),
+    url("/static/fonts/firasans-bolditalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: fallback;
+}
+
+body {
+  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+}
+
+/* Typography */
+body,
+html {
+  font-size: 18px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 1.2;
+}
+h1 {
+  font-size: 2.667em;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.333em;
+}
+h4 {
+  font-size: 1em;
+}
+h5 {
+  font-size: 0.944em;
+}
+h6 {
+  font-size: 0.889em;
+}
+p {
+  font-size: 1em;
+}
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 1.778em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.167em;
+  }
+}
+
 /* img {
   max-width: 100%;
   height: auto;
