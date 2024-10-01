@@ -83,3 +83,7 @@ dc-logs-dev:
 # Run a terminal on the development environment
 dc-exec-dev:
     docker compose --file docker-compose-dev.yml exec app /bin/bash
+
+# Generate a secret key for Django
+secret:
+  {{uv}} manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
