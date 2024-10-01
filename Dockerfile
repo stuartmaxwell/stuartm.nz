@@ -2,22 +2,30 @@ FROM python:3.12-slim-bookworm
 
 RUN apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y build-essential curl libpq-dev --no-install-recommends \
+  && apt-get install -y build-essential libpq-dev --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE 1
+# install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED 1
+# - Silence uv complaining about not being able to use hard links,
+# - tell uv to byte-compile packages for faster application startups,
+# - prevent uv from accidentally downloading isolated Python builds,
+# - pick a Python,
+# - and finally declare `/venv` as the target for `uv sync`.
+ENV UV_LINK_MODE=copy \
+  UV_COMPILE_BYTECODE=1 \
+  UV_PYTHON_DOWNLOADS=never \
+  UV_PYTHON=python3.12
+# UV_PROJECT_ENVIRONMENT=/venv
+# UV_CACHE_DIR=/cache
 
-# Install pip requirements
-RUN python -m pip install --upgrade pip
-COPY requirements.txt /app/requirements.txt
-RUN python -m pip install -r /app/requirements.txt
-
+# Set up the environment
+COPY pyproject.toml /app/
+COPY uv.lock /app/
 WORKDIR /app
+RUN uv sync --locked --no-dev
 COPY . /app
 RUN mkdir /app/staticfiles
 
@@ -25,5 +33,4 @@ RUN mkdir /app/staticfiles
 RUN useradd appuser && chown -R appuser /app
 USER appuser
 
-# Expose port 8000 for Gunicorn
 EXPOSE 8000

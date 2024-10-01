@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ "$DB" = "postgresql" ]
+# Exit immediately if any command fails
+set -e
+
+if [ "$DB_ENGINE" = "django.db.backends.postgresql" ]
 then
     echo "Waiting for postgresql..."
 
@@ -8,10 +11,17 @@ then
       sleep 0.1
     done
 
-    echo "PostgreSQL started"
+    echo "PostgreSQL ready!"
 fi
 
-python manage.py migrate --no-input
-python manage.py collectstatic --no-input
+# Apply database migrations
+echo "Applying database migrations"
+uv run --no-cache manage.py migrate --noinput
 
+# Collect static files
+echo "Collecting static files"
+uv run --no-cache manage.py collectstatic --noinput
+
+# Start the Django server with Gunicorn
+echo "Starting server"
 exec "$@"
