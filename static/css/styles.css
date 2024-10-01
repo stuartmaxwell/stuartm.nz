@@ -44,7 +44,7 @@ body {
 /* Typography */
 body,
 html {
-  font-size: 18px;
+  font-size: 19px;
 }
 h1,
 h2,
@@ -124,4 +124,23 @@ span[role="group"] {
 /* Prevent going smaller than 320px */
 body {
   min-width: 320px;
+}
+
+/* More spacing between articles */
+article {
+  margin-bottom: 4em;
+}
+
+/* Bigger, bolder font with italics for the brand class */
+.brand {
+  font-size: 2em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Bigger, bolder font with italics for the nav-menu class */
+.nav-menu {
+  font-size: 1.333em;
+  font-weight: bold;
+  font-style: italic;
 }
