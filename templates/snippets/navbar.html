@@ -2,10 +2,10 @@
 
 <nav class="container">
   <ul>
-    <li><strong>{% blog_title_link link_class="secondary" %}</strong></li>
+    <li class="brand"><strong>{% blog_title_link link_class="secondary" %}</strong></li>
   </ul>
 
-  {% blog_pages outer="ul" %}
+  {% blog_pages outer="ul" link_class="nav-menu" %}
 
   <ul style="margin-left: auto">
     {% if user.is_authenticated %}
