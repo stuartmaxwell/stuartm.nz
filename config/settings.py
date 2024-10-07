@@ -33,6 +33,7 @@ env = environ.Env(
     WHITENOISE_STATIC=(bool, False),
     ADMIN_URL=(str, "admin"),
     BLOG_TITLE=(str, "stuartm.nz"),
+    POST_PREFIX=(str, "{{ year }}/{{ month }}"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -256,5 +257,5 @@ DJPRESS_SETTINGS = {
     "MARKDOWN_EXTENSIONS": ["pymdownx.superfences", "pymdownx.highlight", "tables", "pymdownx.emoji", "toc"],
     "MARKDOWN_EXTENSION_CONFIGS": {"pymdownx.emo,ji": {"emoji_generator": pymdownx.emoji.to_alt}},
     "BLOG_TITLE": "stuartm.nz",
-    "POST_PREFIX": "{{ year }}/{{ month }}",
+    "POST_PREFIX": env("POST_PREFIX"),
 }
