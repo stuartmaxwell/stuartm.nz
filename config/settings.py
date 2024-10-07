@@ -33,11 +33,6 @@ env = environ.Env(
     WHITENOISE_STATIC=(bool, False),
     ADMIN_URL=(str, "admin"),
     BLOG_TITLE=(str, "stuartm.nz"),
-    POST_PREFIX=(str, "{{ year }}/{{ month }}/{{ day }}"),
-    POST_PERMALINK=(str, ""),
-    ARCHIVES_PATH_ENABLED=(bool, True),
-    ARCHIVES_PATH=(str, "archives"),
-    DATE_ARCHIVES_ENABLED=(bool, True),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -246,9 +241,4 @@ LOGGING = {
 DJPRESS_SETTINGS = {
     "MARKDOWN_EXTENSIONS": ["pymdownx.superfences", "pymdownx.highlight", "tables", "pymdownx.emoji", "toc"],
     "MARKDOWN_EXTENSION_CONFIGS": {"pymdownx.emo,ji": {"emoji_generator": pymdownx.emoji.to_alt}},
-    "BLOG_TITLE": env("BLOG_TITLE"),
-    "POST_PREFIX": env("POST_PREFIX"),
-    "ARCHIVES_PATH_ENABLED": env("ARCHIVES_PATH_ENABLED"),
-    "ARCHIVES_PATH": env("ARCHIVES_PATH"),
-    "DATE_ARCHIVES_ENABLED": env("DATE_ARCHIVES_ENABLED"),
 }
