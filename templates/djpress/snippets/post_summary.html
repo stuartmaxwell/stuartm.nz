@@ -2,10 +2,7 @@
 
 <article>
   <h1>{% post_title_link %}</h1>
-  {{ post.truncated_content_markdown|safe }}
-  {% if post.is_truncated %}
-    <p><a href="{% url 'djpress:post_detail' post.permalink %}">Read more</a></p>
-  {% endif %}
+  {% post_content %}
   <footer>
     <p>Posted on {% post_date %} by {% post_author %}</p>
     <p>
