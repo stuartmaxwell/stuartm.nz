@@ -12,7 +12,7 @@ download_latest_backup() {
     else
         echo "Latest backup found: $latest_backup"
         aws s3 cp s3://$S3_BUCKET/$latest_backup /app/latest-backup.tar.zst --endpoint-url $AWS_ENDPOINT_URL
-        tar --gizip -xf /app/latest-backup.tar.gz -O > /app/$DB_NAME.sqlite3
+        tar --gzip -xf /app/latest-backup.tar.gz -O > /app/$DB_NAME.sqlite3
         echo "SQLite database backup downloaded and extracted."
     fi
 }
