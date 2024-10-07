@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit immediately if any command fails
-# set -e
+set -euf -o pipefail
 
 # Function to download the latest SQLite database backup from S3
 download_latest_backup() {
@@ -17,7 +17,6 @@ download_latest_backup() {
     fi
 }
 
-
 if [ "$DB_ENGINE" = "django.db.backends.postgresql" ]
 then
     echo "Waiting for postgresql..."
@@ -31,11 +30,6 @@ fi
 
 # Check if the database engine is SQLite and the database file doesn't exist
 echo "Checking if SQLite database file exists"
-# Print out environment variables
-echo "DB_ENGINE: $DB_ENGINE"
-echo "DB_NAME: $DB_NAME"
-echo "S3_BUCKET: $S3_BUCKET"
-echo "AWS_ENDPOINT_URL: $AWS_ENDPOINT_URL"
 if [ "$DB_ENGINE" = "django.db.backends.sqlite3" ] && [ ! -f "/app/$DB_NAME.sqlite3" ]; then
   download_latest_backup
 fi

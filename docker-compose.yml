@@ -8,6 +8,7 @@ services:
       - "S3_BUCKET=${S3_BUCKET}"
       - "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
       - "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
+      - "AWS_ENDPOINT_URL=${AWS_ENDPOINT_URL}"
       - "SECRET_KEY=${SECRET_KEY}"
       - "DEBUG=${DEBUG}"
       - "ALLOWED_HOSTS=${ALLOWED_HOSTS}"
@@ -28,3 +29,8 @@ services:
       - "SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT}"
       - "SENTRY_DSN=${SENTRY_DSN}"
       - "SENTRY_TRACES_SAMPLE_RATE=${SENTRY_TRACES_SAMPLE_RATE}"
+    volumes:
+      - app_data:/app
+
+volumes:
+  app_data:
