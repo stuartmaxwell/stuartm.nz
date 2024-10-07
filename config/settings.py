@@ -126,7 +126,19 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 DB_NAME = BASE_DIR / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
-
+SQLITE_OPTIONS = {
+    "init_command": (
+        "PRAGMA foreign_keys=ON;"
+        "PRAGMA journal_mode = WAL;"
+        "PRAGMA synchronous = NORMAL;"
+        "PRAGMA busy_timeout = 5000;"
+        "PRAGMA temp_store = MEMORY;"
+        "PRAGMA mmap_size = 134217728;"
+        "PRAGMA journal_size_limit = 67108864;"
+        "PRAGMA cache_size = 2000;"
+    ),
+    "transaction_mode": "IMMEDIATE",
+}
 DATABASES = {
     "default": {
         "ENGINE": env("DB_ENGINE"),
@@ -137,6 +149,8 @@ DATABASES = {
         "PORT": env("DB_PORT"),
     },
 }
+if "sqlite" in env("DB_ENGINE"):
+    DATABASES["default"].update(SQLITE_OPTIONS)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
