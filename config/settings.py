@@ -256,6 +256,6 @@ LOGGING = {
 DJPRESS_SETTINGS = {
     "MARKDOWN_EXTENSIONS": ["pymdownx.superfences", "pymdownx.highlight", "tables", "pymdownx.emoji", "toc"],
     "MARKDOWN_EXTENSION_CONFIGS": {"pymdownx.emo,ji": {"emoji_generator": pymdownx.emoji.to_alt}},
-    "BLOG_TITLE": "stuartm.nz",
+    "BLOG_TITLE": env("BLOG_TITLE"),
     "POST_PREFIX": env("POST_PREFIX"),
 }
