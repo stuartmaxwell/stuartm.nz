@@ -21,11 +21,9 @@ ENV UV_LINK_MODE=copy \
 
 # Add the backup script
 COPY backup.sh /app/
-RUN chmod +x /app/backup.sh
 
 # Add the entrypoint script
 COPY entrypoint.sh /app/
-RUN chmod +x /app/entrypoint.sh
 
 # Set up the environment
 COPY pyproject.toml /app/
@@ -36,6 +34,9 @@ RUN uv sync --locked --no-dev
 # Copy the rest of the application
 COPY . /app
 RUN mkdir /app/staticfiles
+
+RUN chmod +x /app/backup.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Switching to a non-root user
 RUN useradd appuser && chown -R appuser /app
