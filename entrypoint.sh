@@ -11,7 +11,7 @@ download_latest_backup() {
         echo "No backup found in S3 bucket."
     else
         echo "Latest backup found: $latest_backup"
-        aws s3 cp s3://$S3_BUCKET/$latest_backup /app/latest-backup.tar.zst --endpoint-url $AWS_ENDPOINT_URL
+        aws s3 cp s3://$S3_BUCKET/$latest_backup /app/latest-backup.tar.gz --endpoint-url $AWS_ENDPOINT_URL
         tar --gzip -xf /app/latest-backup.tar.gz -O > /app/$DB_NAME.sqlite3
         echo "SQLite database backup downloaded and extracted."
     fi
