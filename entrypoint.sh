@@ -6,13 +6,13 @@
 # Function to download the latest SQLite database backup from S3
 download_latest_backup() {
     echo "Downloading latest SQLite database backup from S3..."
-    latest_backup=$(aws s3 ls s3://$S3_BUCKET/ --recursive | sort | tail -n 1 | awk '{print $4}')
+    latest_backup=$(aws s3 ls s3://$S3_BUCKET/ --recursive --endpoint-url $AWS_ENDPOINT_URL | sort | tail -n 1 | awk '{print $4}')
     if [ -z "$latest_backup" ]; then
         echo "No backup found in S3 bucket."
     else
         echo "Latest backup found: $latest_backup"
-        aws s3 cp s3://$S3_BUCKET/$latest_backup /app/latest-backup.tar.zst
-        tar --zstd -xf /app/latest-backup.tar.zst -O > /app/$DB_NAME.sqlite3
+        aws s3 cp s3://$S3_BUCKET/$latest_backup /app/latest-backup.tar.zst --endpoint-url $AWS_ENDPOINT_URL
+        tar --gizip -xf /app/latest-backup.tar.gz -O > /app/$DB_NAME.sqlite3
         echo "SQLite database backup downloaded and extracted."
     fi
 }
