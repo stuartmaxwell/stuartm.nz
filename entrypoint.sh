@@ -17,17 +17,6 @@ download_latest_backup() {
     fi
 }
 
-if [ "$DB_ENGINE" = "django.db.backends.postgresql" ]
-then
-    echo "Waiting for postgresql..."
-
-    while ! nc -z $DB_HOST $DB_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL ready!"
-fi
-
 # Check if the database engine is SQLite and the database file doesn't exist
 echo "Checking if SQLite database file exists"
 if [ "$DB_ENGINE" = "django.db.backends.sqlite3" ] && [ ! -f "/app/db/$DB_NAME.sqlite3" ]; then
@@ -41,10 +30,6 @@ uv run --no-cache manage.py migrate --noinput
 # Collect static files
 echo "Collecting static files"
 uv run --no-cache manage.py collectstatic --noinput
-
-# Set up cronjob
-echo "Setting up cronjob"
-echo "0 * * * * /app/backup.sh" | crontab -
 
 # Start the Django server with Gunicorn
 echo "Starting server"
