@@ -19,6 +19,9 @@ ENV UV_LINK_MODE=copy \
   UV_PYTHON_DOWNLOADS=never \
   UV_PYTHON=python3.12
 
+# Create directory for the datatbase
+RUN mkdir -p /app/db
+
 # Add the backup script
 COPY backup.sh /app/
 
