@@ -3,7 +3,7 @@ FROM python:3.13-slim-bookworm
 # Install system dependencies
 RUN apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y build-essential sqlite3 awscli cron --no-install-recommends \
+  && apt-get install -y sqlite3 awscli --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 
