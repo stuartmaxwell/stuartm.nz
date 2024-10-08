@@ -32,7 +32,7 @@ services:
       - "BLOG_TITLE=${BLOG_TITLE}"
       - "POST_PREFIX=${POST_PREFIX}"
     volumes:
-      - app_data:/app
+      - app_db:/app/db
 
 volumes:
-  app_data:
+  app_db:

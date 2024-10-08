@@ -126,7 +126,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
-DB_NAME = BASE_DIR / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
+DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
 SQLITE_OPTIONS = {
     "init_command": (
         "PRAGMA foreign_keys=ON;"
