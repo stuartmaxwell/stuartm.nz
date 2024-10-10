@@ -30,16 +30,16 @@ wheels = [
 
 [[package]]
 name = "django"
-version = "5.1.1"
+version = "5.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "sqlparse" },
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/88/6f/8f57ed6dc88656edd4fcb35c50dd963f3cd79303bd711fb0160fc7fd6ab7/Django-5.1.1.tar.gz", hash = "sha256:021ffb7fdab3d2d388bc8c7c2434eb9c1f6f4d09e6119010bbb1694dda286bc2", size = 10675933 }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/e5/a06e20c963b280af4aa9432bc694fbdeb1c8df9e28c2ffd5fbb71c4b1bec/Django-5.1.2.tar.gz", hash = "sha256:bd7376f90c99f96b643722eee676498706c9fd7dc759f55ebfaf2c08ebcdf4f0", size = 10711674 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/aa/b423e37e9ba5480d3fd1d187e3fdbd09f9f71b991468881a45413522ccd3/Django-5.1.1-py3-none-any.whl", hash = "sha256:71603f27dac22a6533fb38d83072eea9ddb4017fead6f67f2562a40402d61c3f", size = 8246418 },
+    { url = "https://files.pythonhosted.org/packages/a3/b8/f205f2b8c44c6cdc555c4f56bbe85ceef7f67c0cf1caa8abe078bb7e32bd/Django-5.1.2-py3-none-any.whl", hash = "sha256:f11aa87ad8d5617171e3f77e1d5d16f004b79a2cf5d2e1d2b97a6a1f8e9ba5ed", size = 8276058 },
 ]
 
 [[package]]
@@ -66,16 +66,16 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.9.2"
+version = "0.9.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/98/5d/9f557f0d3d911511efb201b01a3c95cb643c57e85b6de8f61ec42a8c7ea5/djpress-0.9.2.tar.gz", hash = "sha256:880e10703d70e03ffbc6f38671a463981dfc05c1d1351f8f39557a0bb54025a8", size = 57019 }
+sdist = { url = "https://files.pythonhosted.org/packages/d1/65/56457f50acc469d1332e1a9aef6832973a4d2e77fc5df7a0ceba0e3bcdeb/djpress-0.9.3.tar.gz", hash = "sha256:303dc1f71f246ed26e0c0d53a3560969a54719f2656c896c186c3afa50485107", size = 60965 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/77/97/b21f75a58af57be65bff50afd689f6e73e0c0aff1f66ffa01ae47268506a/djpress-0.9.2-py3-none-any.whl", hash = "sha256:8f35d34ca15165aed1223ca862abb51571e790d88c32179cd0558772501bf397", size = 28902 },
+    { url = "https://files.pythonhosted.org/packages/eb/52/a7f79df13ef0bd91b41b174755d21f4de9674cf5b8161f0385f4de2f3988/djpress-0.9.3-py3-none-any.whl", hash = "sha256:f0aed1c63a5b61a77f75d8b4e3415c5694962c1c08f945b4a7360420cd7147c7", size = 31842 },
 ]
 
 [[package]]
@@ -258,15 +258,15 @@ wheels = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.15.0"
+version = "2.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1b/76/8a6462885c1e162b7fa9d6e7cb7ed4b0f06c8c75843806049ed1c8489d21/sentry_sdk-2.15.0.tar.gz", hash = "sha256:a599e7d3400787d6f43327b973e55a087b931ba2c592a7a7afa691f8eb5e75e2", size = 284889 }
+sdist = { url = "https://files.pythonhosted.org/packages/80/63/59640a54963747d2c4b2d149412b2024abed13bacd4e8d16ae5babb97da0/sentry_sdk-2.16.0.tar.gz", hash = "sha256:90f733b32e15dfc1999e6b7aca67a38688a567329de4d6e184154a73f96c6892", size = 290180 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/41/22/88712c958160e5a5c9fc63229d953feec44db1dda30109ece4d357edb41d/sentry_sdk-2.15.0-py2.py3-none-any.whl", hash = "sha256:8fb0d1a4e1a640172f31502e4503543765a1fe8a9209779134a4ac52d4677303", size = 310990 },
+    { url = "https://files.pythonhosted.org/packages/b3/aa/9f8dce2aec2e95d48c057ff3bcac48958cd15f67d4e9e80e74b46c324abf/sentry_sdk-2.16.0-py2.py3-none-any.whl", hash = "sha256:49139c31ebcd398f4f6396b18910610a0c1602f6e67083240c33019d1f6aa30c", size = 313785 },
 ]
 
 [[package]]
