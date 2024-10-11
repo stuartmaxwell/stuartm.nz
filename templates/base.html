@@ -1,5 +1,4 @@
-{% load static %}
-{% load djpress_tags %}
+{% load djpress_tags static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
     {% if not debug %}
       <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
     {% endif %}
-    {% block head %}{% endblock head %}
+    {% block head %}{% endblock %}
   </head>
   <body>
     <header>
@@ -28,7 +27,7 @@
 
     <main class="container">
       {% block content %}
-      {% endblock %}
+      {% endblock content %}
     </main>
 
   </body>
