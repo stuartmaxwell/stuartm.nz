@@ -16,4 +16,4 @@ jobs:
         uses: astral-sh/setup-uv@v2
 
       - name: Run tests
-        run: uv run --frozen --python 3.13 pytest
+        run: uv run --locked pytest
