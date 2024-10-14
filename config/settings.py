@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "djpress.apps.DjpressConfig",
     "timezone_converter",
     "markdown_editor",
+    "shell",
 ]
 
 if DEBUG:
