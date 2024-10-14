@@ -11,7 +11,8 @@
   <h1>Markdown Editor</h1>
   <div class="grid">
     <div>
-      <textarea id="editor" py-keyup="preview" rows="20" style="font-family: monospace; font-size: 0.75rem"></textarea>
+      <p aria-busy="true" id="loading" style="font-style: italic">Loading...</p>
+      <textarea id="editor" py-keyup="preview" rows="20" style="font-family: monospace; font-size: 0.75rem;"></textarea>
     </div>
     <div>
       <div id="preview"></div>
@@ -31,6 +32,12 @@
       output = document.querySelector("#preview")
       output.innerHTML = md.convert(input)
       md.reset()
+  </script>
+
+  <script>
+    window.addEventListener('py:ready', function() {
+      document.getElementById('loading').style.display = 'none';
+    });
   </script>
 
 {% endblock content %}
