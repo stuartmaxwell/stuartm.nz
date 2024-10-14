@@ -1,5 +1,5 @@
 default_language_version:
-  python: python3.11
+  python: python3.13
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -16,7 +16,7 @@ repos:
     rev: "1.22.1" # replace with latest tag on GitHub
     hooks:
       - id: django-upgrade
-        args: [--target-version, "4.2"] # Replace with Django version
+        args: [--target-version, "5.1"] # Replace with Django version
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
     rev: v0.6.9
