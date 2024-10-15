@@ -9,14 +9,11 @@
 {% block content %}
 
   <h1>Markdown Editor</h1>
-  <div class="grid">
-    <div>
-      <p aria-busy="true" id="loading" style="font-style: italic">Loading...</p>
-      <textarea id="editor" py-keyup="preview" rows="20" style="font-family: monospace; font-size: 0.75rem;"></textarea>
-    </div>
-    <div>
-      <div id="preview"></div>
-    </div>
+  <div id="markdown-editor">
+    <div><button id="copymarkdown">Copy Markdown</button> <span id="loading" aria-busy="true">Loading...</span></div>
+    <div><button id="copyhtml">Copy HTML</button></div>
+    <div id="editor" py-keyup="preview"></div>
+    <div id="preview"></div>
   </div>
 
   <script type="py" config='{"packages":["markdown", "pygments", "pymdown-extensions"]}'>
@@ -28,7 +25,7 @@
       }
     md = markdown.Markdown(extensions=["pymdownx.superfences", "pymdownx.highlight", "pymdownx.emoji", "tables", "toc"], output_format="html", extension_configs=extension_configs)
     def preview(event):
-      input = document.querySelector("#editor").value
+      input = document.querySelector("#editor").innerText
       output = document.querySelector("#preview")
       output.innerHTML = md.convert(input)
       md.reset()
@@ -37,6 +34,39 @@
   <script>
     window.addEventListener('py:ready', function() {
       document.getElementById('loading').style.display = 'none';
+      document.getElementById('editor').setAttribute('contenteditable', 'true');
+      document.getElementById('editor').focus();
+
+    });
+
+    document.getElementById('copyhtml').addEventListener('click', function() {
+      const editorContent = document.getElementById('preview').innerHTML;
+
+      navigator.clipboard.writeText(editorContent).then(function() {
+        console.log('Content copied to clipboard');
+        // Optionally, provide user feedback here
+        document.getElementById('copyhtml').innerText = 'Copied! 👍';
+        setTimeout(() => {
+          document.getElementById('copyhtml').innerText = 'Copy HTML';
+        }, 3000);
+      }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+      });
+    });
+
+    document.getElementById('copymarkdown').addEventListener('click', function() {
+      const editorContent = document.getElementById('editor').innerText;
+
+      navigator.clipboard.writeText(editorContent).then(function() {
+        console.log('Content copied to clipboard');
+        // Optionally, provide user feedback here
+        document.getElementById('copymarkdown').innerText = 'Copied! 👍';
+        setTimeout(() => {
+          document.getElementById('copymarkdown').innerText = 'Copy Markdown';
+        }, 3000);
+      }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+      });
     });
   </script>
 

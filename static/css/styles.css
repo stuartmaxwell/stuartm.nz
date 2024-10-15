@@ -23,7 +23,7 @@
   font-family: "Fira Sans";
   src: url("/static/fonts/firasans-bold.woff2") format("woff2"),
     url("/static/fonts/firasans-bold.woff") format("woff");
-  font-weight: bold;
+  font-weight: 700;
   font-style: normal;
   font-display: fallback;
 }
@@ -32,68 +32,26 @@
   font-family: "Fira Sans";
   src: url("/static/fonts/firasans-bolditalic.woff2") format("woff2"),
     url("/static/fonts/firasans-bolditalic.woff") format("woff");
-  font-weight: bold;
+  font-weight: 700;
   font-style: italic;
   font-display: fallback;
 }
 
-body {
-  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+:root {
+  --pico-font-family-sans-serif: "Fira Sans", Helvetica, Arial, sans-serif;
+  --pico-form-element-spacing-vertical: 0.5em;
 }
 
 /* Typography */
-body,
-html {
-  font-size: 19px;
-}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
-  font-weight: bold;
   font-style: italic;
-  line-height: 1.2;
-}
-h1 {
-  font-size: 2.667em;
-}
-h2 {
-  font-size: 2em;
-}
-h3 {
-  font-size: 1.333em;
-}
-h4 {
-  font-size: 1em;
-}
-h5 {
-  font-size: 0.944em;
-}
-h6 {
-  font-size: 0.889em;
-}
-p {
-  font-size: 1em;
-}
-@media screen and (max-width: 800px) {
-  h1 {
-    font-size: 1.778em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  h3 {
-    font-size: 1.167em;
-  }
 }
 
-/* img {
-  max-width: 100%;
-  height: auto;
-} */
 @media (max-width: 576px) {
   .hide-at-xs {
     display: none;
@@ -133,14 +91,36 @@ article {
 
 /* Bigger, bolder font with italics for the brand class */
 .brand {
-  font-size: 2em;
+  font-size: 1.75em;
   font-weight: bold;
   font-style: italic;
 }
 
 /* Bigger, bolder font with italics for the nav-menu class */
 .nav-menu {
-  font-size: 1.333em;
+  font-size: 1.25em;
   font-weight: bold;
   font-style: italic;
+}
+
+/* Markdown Editor Styles */
+#markdown-editor {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(400px, auto));
+  grid-template-rows: min-content minmax(600px, auto);
+  gap: 0.5em;
+}
+
+#editor,
+#preview {
+  height: 100%;
+  padding: 0.5em;
+  border: #2e3440 1px solid;
+  border-radius: 0.5em;
+  filter: drop-shadow(2px 4px 6px hsl(220deg 60% 50% / 0.3));
+}
+
+#editor {
+  font-family: var(--pico-font-family-monospace);
+  font-size: 0.875em;
 }
