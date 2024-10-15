@@ -115,9 +115,9 @@ article {
 #preview {
   height: 100%;
   padding: 0.5em;
-  border: #2e3440 1px solid;
+  border: var(--pico-muted-border-colorcolor) 1px solid;
   border-radius: 0.5em;
-  filter: drop-shadow(2px 4px 6px hsl(220deg 60% 50% / 0.3));
+  box-shadow: var(--pico-box-shadow);
 }
 
 #editor {
