@@ -106,7 +106,7 @@ article {
 /* Markdown Editor Styles */
 #markdown-editor {
   display: grid;
-  grid-template-columns: repeat(2, minmax(400px, auto));
+  grid-template-columns: 50% 50%;
   grid-template-rows: min-content minmax(600px, auto);
   gap: 0.5em;
 }
