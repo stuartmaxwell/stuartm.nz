@@ -12,7 +12,7 @@
   <div id="markdown-editor">
     <div><button id="copymarkdown">Copy Text</button> <span id="loading" aria-busy="true">Loading...</span></div>
     <div><button id="copyhtml">Copy HTML</button></div>
-    <div id="editor" py-keyup="preview"></div>
+    <textarea id="editor" py-keyup="preview"></textarea>
     <div id="preview"></div>
   </div>
 
@@ -25,49 +25,63 @@
       }
     md = markdown.Markdown(extensions=["pymdownx.superfences", "pymdownx.highlight", "pymdownx.emoji", "tables", "toc"], output_format="html", extension_configs=extension_configs)
     def preview(event):
-      input = document.querySelector("#editor").innerText
+      input = document.querySelector("#editor").value
       output = document.querySelector("#preview")
       output.innerHTML = md.convert(input)
       md.reset()
   </script>
 
   <script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const loading = document.getElementById('loading');
+    const copyHtmlBtn = document.getElementById('copyhtml');
+    const copyMarkdownBtn = document.getElementById('copymarkdown');
+
+
     window.addEventListener('py:ready', function() {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('editor').setAttribute('contenteditable', 'true');
-      document.getElementById('editor').focus();
-
+      loading.style.display = 'none';
+      setTimeout(() => {
+        editor.focus();
+      }, 0);
     });
 
-    document.getElementById('copyhtml').addEventListener('click', function() {
-      const editorContent = document.getElementById('preview').innerHTML;
+    // Copy Markdown button
+    copyMarkdownBtn.addEventListener('click', function() {
+      editor.select();
+      const markdownCopySuccess = document.execCommand('copy');
+      const copyMarkdownBtnText = copyMarkdownBtn.textContent;
 
-      navigator.clipboard.writeText(editorContent).then(function() {
-        console.log('Content copied to clipboard');
-        // Optionally, provide user feedback here
-        document.getElementById('copyhtml').innerText = 'Copied! 👍';
+      if (markdownCopySuccess) {
+        copyMarkdownBtn.textContent = 'Copied! 👍';
+      } else {
+        copyMarkdownBtn.textContent = 'Copy failed 😢';
+      }
+
+      setTimeout(() => {
+        copyMarkdownBtn.textContent = copyMarkdownBtnText;
+      }, 3000);
+    });
+
+    // Copy HTML button
+    copyHtmlBtn.addEventListener('click', function() {
+      const previewContent = preview.innerHTML;
+      const copyHtmlBtnText = copyHtmlBtn.textContent;
+
+      navigator.clipboard.writeText(previewContent).then(() => {
+        copyHtmlBtn.textContent = 'Copied! 👍';
         setTimeout(() => {
-          document.getElementById('copyhtml').innerText = 'Copy HTML';
+          copyHtmlBtn.textContent = copyHtmlBtnText;
         }, 3000);
-      }).catch(function(err) {
+      }).catch(err => {
         console.error('Failed to copy: ', err);
+        copyHtmlBtn.textContent = 'Copy failed 😢';
+        setTimeout(() => {
+          copyHtmlBtn.textContent = copyHtmlBtnText;
+        }, 3000);
       });
     });
 
-    document.getElementById('copymarkdown').addEventListener('click', function() {
-      const editorContent = document.getElementById('editor').innerText;
-
-      navigator.clipboard.writeText(editorContent).then(function() {
-        console.log('Content copied to clipboard');
-        // Optionally, provide user feedback here
-        document.getElementById('copymarkdown').innerText = 'Copied! 👍';
-        setTimeout(() => {
-          document.getElementById('copymarkdown').innerText = 'Copy Markdown';
-        }, 3000);
-      }).catch(function(err) {
-        console.error('Failed to copy: ', err);
-      });
-    });
   </script>
 
 {% endblock content %}
