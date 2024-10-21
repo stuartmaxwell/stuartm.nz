@@ -52,6 +52,13 @@ h6 {
   font-style: italic;
 }
 
+/* Use grid display for the main content with the sidebar class */
+main.main-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 0.25fr;
+  gap: 1em;
+}
+
 @media (max-width: 576px) {
   .hide-at-xs {
     display: none;
@@ -61,6 +68,12 @@ h6 {
 @media (max-width: 768px) {
   .hide-at-s {
     display: none;
+  }
+
+  main.main-sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
   }
 }
 

@@ -66,16 +66,16 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.9.3"
+version = "0.9.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d1/65/56457f50acc469d1332e1a9aef6832973a4d2e77fc5df7a0ceba0e3bcdeb/djpress-0.9.3.tar.gz", hash = "sha256:303dc1f71f246ed26e0c0d53a3560969a54719f2656c896c186c3afa50485107", size = 60965 }
+sdist = { url = "https://files.pythonhosted.org/packages/0c/b2/109c99c8f0c01907dd8931da6a39bc09af256fb366ab2c610a447fe8e273/djpress-0.9.5.tar.gz", hash = "sha256:385fa7903133a3bec2c5e3cfd9f64f9f4955e8ab320f495f6caedf06d696bde5", size = 61429 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/eb/52/a7f79df13ef0bd91b41b174755d21f4de9674cf5b8161f0385f4de2f3988/djpress-0.9.3-py3-none-any.whl", hash = "sha256:f0aed1c63a5b61a77f75d8b4e3415c5694962c1c08f945b4a7360420cd7147c7", size = 31842 },
+    { url = "https://files.pythonhosted.org/packages/97/89/a293c523942023c2ec9d4e8b4e4b6cb1abfedbe210ca74bb3162a02173fd/djpress-0.9.5-py3-none-any.whl", hash = "sha256:316da3c260b5e44abab114dde88adf755784a18ab1de2653470a178b72285b40", size = 32043 },
 ]
 
 [[package]]
