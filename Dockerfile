@@ -3,9 +3,12 @@ FROM python:3.13-slim-bookworm
 # Install system dependencies
 RUN apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y sqlite3 awscli --no-install-recommends \
+  && apt-get install -y sqlite3 --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
+
+# install s5cmd
+COPY --from=peakcom/s5cmd:latest /s5cmd /usr/local/bin/s5cmd
 
 # install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
