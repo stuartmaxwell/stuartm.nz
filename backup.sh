@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 # Run using cron to backup db every hour
+# Ensure the following environment variables are set:
+#  - AWS_ACCESS_KEY_ID
+#  - AWS_SECRET_ACCESS_KEY
+#  - AWS_ENDPOINT_URL
+#  - S3_BUCKET
 
 set -euf -o pipefail
 
@@ -28,6 +33,6 @@ rm "${BACKUP_FILE}"
 
 # Upload to S3
 echo "Uploading ${TAR_FILE} to S3: s3://$S3_BUCKET/backup-${HOUR}.tar.gz"
-aws s3 cp "${TAR_FILE}" "s3://$S3_BUCKET/backup-${HOUR}.tar.gz" --endpoint-url $AWS_ENDPOINT_URL
+s5cmd --endpoint-url $AWS_ENDPOINT_URL cp "${TAR_FILE}" "s3://$S3_BUCKET/backup-${HOUR}.tar.gz"
 
 echo "Backup complete."
