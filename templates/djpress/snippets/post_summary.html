@@ -1,12 +1,12 @@
 {% load djpress_tags %}
 
 <article>
-  <h1>{% post_title_link %}</h1>
+  {% post_title outer_tag="h1" %}
   {% post_content %}
   <footer>
     <p>Posted on {% post_date %} by {% post_author %}</p>
     <p>
-      Categories: {% post_categories_link "span" link_class="badge bg-primary" %}
+      Categories: {% post_categories "span" link_class="badge bg-primary" %}
     </p>
   </footer>
 </article>
