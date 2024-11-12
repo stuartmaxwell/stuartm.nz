@@ -5,7 +5,32 @@
     <li class="brand"><strong>{% blog_title_link link_class="secondary" %}</strong></li>
   </ul>
 
-  {% blog_pages outer="ul" link_class="nav-menu" %}
+  {% comment %} Pages menu {% endcomment %}
+  <ul>
+    {% get_pages as pages %}
+    {% for page in pages %}
+    <!-- {{ page.title }} - {{ page.is_parent }} -->
+      {% if page.is_parent %}
+        <li>
+          <details class="dropdown">
+            <summary role="button" class="outline">
+              {{ page.title }}
+            </summary>
+            <ul dir="rtl">
+              <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+              {% for child in page.children.all %}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+      {% else %}
+        {% if not page.is_child %}
+          <li><a href="{{ page.url }}" role="button" class="outline">{{ page.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
 
   <ul style="margin-left: auto">
     {% if user.is_authenticated %}
@@ -19,7 +44,7 @@
         {% include "svg/mastodon.svg" %}<span class="hide-at-s">  @stuartm</span></a>
     </li>
     <li>
-      <a role="button" class="outline" href="{% rss_url %}">
+      <a role="button" class="outline" href="{% get_rss_url %}">
         {% include "svg/rss-fill.svg" %}<span class="hide-at-s">  RSS</span></a>
     </li>
   </ul>

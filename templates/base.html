@@ -14,7 +14,7 @@
     <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
     <link href="{% static "css/styles.css" %}" rel="stylesheet">
 
-    <link rel="alternate" type="application/rss+xml" title="Latest Posts" href="{% rss_url %}">
+    {% rss_link %}
 
     {% if not debug %}
       <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
