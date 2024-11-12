@@ -77,10 +77,6 @@ main.main-sidebar {
   }
 }
 
-.highlight pre {
-  background-color: #2e3440;
-}
-
 span[role="group"] {
   width: auto;
 }
@@ -136,4 +132,10 @@ article {
 #editor {
   font-family: var(--pico-font-family-monospace);
   font-size: 0.875em;
+}
+
+/* Markdown Preview Styles */
+.highlight pre {
+  background-color: #2e3440;
+  padding: 1em;
 }
