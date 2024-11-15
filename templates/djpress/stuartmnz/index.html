@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'djpress/stuartmnz/base.html' %}
 {% load djpress_tags %}
 
-{% block content %}
+{% block djpress_content %}
 
   {% for post in posts %}
 
@@ -46,4 +46,4 @@
   {% endif %}
 
 
-{% endblock content %}
+{% endblock djpress_content %}
