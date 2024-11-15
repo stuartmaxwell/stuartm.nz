@@ -26,24 +26,9 @@
       {% include "snippets/navbar.html" %}
     </header>
 
-    <main class="container main-sidebar">
-      <div>
-        {% block content %}
-        {% endblock content %}
-      </div>
-      <aside class="hide-at-s">
-        <nav>
-          <ul>
-            <li><strong>Recent Posts</strong></li>
-          </ul>
-          <ul>
-            {% get_recent_posts as posts %}
-            {% for post in posts %}
-              <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
-      </aside>
+    <main class="container {% block main_classes %}{% endblock %}">
+      {% block content %}
+      {% endblock content %}
     </main>
 
   </body>
