@@ -17,31 +17,35 @@
             hx-target="#result">
         {% csrf_token %}
 
-        {% for category, category_name in categories %}
-          <article>
-            <header>
-              <h2>{{ category_name }}</h2>
-            </header>
-
-            <div class="grid">
-              {% for field in form %}
-                {% if field.name|startswith:'provider_' %}
-                  {% with provider=providers|get_provider:field.name %}
-                    {% if provider.category == category %}
-                      <label class="provider-option">
-                        {{ field }}
-                        <strong>{{ field.label }}</strong>
-                        {% if field.help_text %}
-                          <small>{{ field.help_text }}</small>
+        <div class="grid">
+          {% for category, category_name in categories %}
+            <div>
+              <article>
+                <header>
+                  <h2>{{ category_name }}</h2>
+                </header>
+                <ul>
+                  {% for field in form %}
+                    {% if field.name|startswith:'provider_' %}
+                      {% with provider=providers|get_provider:field.name %}
+                        {% if provider.category == category %}
+                          <li>
+                            <label>
+                              {{ field }}
+                              <strong{% if field.help_text %} data-tooltip="{{ field.help_text }}"{% endif %}>{{ field.label }}</strong>
+                            </label>
+                          </li>
                         {% endif %}
-                      </label>
+                      {% endwith %}
                     {% endif %}
-                  {% endwith %}
-                {% endif %}
-              {% endfor %}
+                  {% endfor %}
+                </ul>
+              </article>
             </div>
-          </article>
-        {% endfor %}
+          {% endfor %}
+        </div>
+
+        <p>Now select the policy you want to apply with this SPF record. This is an important choice and is explained below.</p>
 
         <article>
           <header>
@@ -64,20 +68,4 @@
     </article>
   </div>
 
-  <style>
-    .provider-option {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .provider-option input[type="checkbox"] {
-      margin: 0;
-    }
-
-    .provider-option small {
-      opacity: 0.8;
-    }
-  </style>
 {% endblock content %}

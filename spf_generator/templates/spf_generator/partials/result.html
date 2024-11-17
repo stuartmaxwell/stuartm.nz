@@ -1,13 +1,55 @@
-<article class="success">
-  <header>
-    <h3>Generated SPF Record</h3>
-  </header>
-  <pre><code>{{ spf_record }}</code></pre>
-  <footer>
-    <small>
+<dialog open>
+  <article class="success">
+    <header>
+      <button aria-label="Close" rel="prev" onclick="closeModal(event)"></button>
+      <h3>Generated SPF Record</h3>
+    </header>
+    <pre><code id="spf-record">{{ spf_record }}</code></pre>
+    <footer>
       Add this record as a TXT record in your domain's DNS settings.<br>
       <strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.<br>
       <small>{{ all_mechanism_help|safe }}</small>
-    </small>
-  </footer>
-</article>
+      <div style="margin-top: 1rem;">
+        <button class="primary" onclick="copySpfRecord(this)">
+          Copy SPF Record
+        </button>
+      </div>
+    </footer>
+  </article>
+</dialog>
+
+<script>
+  function closeModal(event) {
+    event.preventDefault();
+    const modal = document.querySelector('dialog');
+    if (modal) {
+      modal.remove();
+    }
+  }
+
+  async function copySpfRecord(button) {
+    const spfRecord = document.getElementById('spf-record');
+    if (spfRecord) {
+      try {
+        await navigator.clipboard.writeText(spfRecord.textContent);
+
+              // Show feedback
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+
+              // Reset button text after 2 seconds
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+
+      } catch (err) {
+        console.error('Failed to copy text:', err);
+        button.textContent = 'Failed to copy';
+
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }
+    }
+  }
+</script>
