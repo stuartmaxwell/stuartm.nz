@@ -5,6 +5,29 @@ from typing import ClassVar
 from django.db import models
 
 
+class SpfAllMechanism(models.TextChoices):
+    """SPF 'all' mechanism options.
+
+    FAIL: -all - Explicitly deny all other servers
+    SOFTFAIL: ~all - Suggest denial but don't enforce
+    NEUTRAL: ?all - Take no position
+    """
+
+    FAIL = "-all", "Fail (-all)"
+    SOFTFAIL = "~all", "Softfail (~all)"
+    NEUTRAL = "?all", "Neutral (?all)"
+
+    @property
+    def description(self) -> str:
+        """Returns a brief description of what this mechanism does."""
+        descriptions = {
+            self.FAIL: "explicitly rejects mail from unlisted servers",
+            self.SOFTFAIL: "suggests rejection but doesn't enforce it",
+            self.NEUTRAL: "takes no position on unlisted servers",
+        }
+        return descriptions[self]
+
+
 class ProviderCategory(models.TextChoices):
     """Enumeration of different email provider categories.
 

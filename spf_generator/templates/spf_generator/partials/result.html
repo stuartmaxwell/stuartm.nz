@@ -4,6 +4,10 @@
   </header>
   <pre><code>{{ spf_record }}</code></pre>
   <footer>
-    <small>Add this record as a TXT record in your domain's DNS settings.</small>
+    <small>
+      Add this record as a TXT record in your domain's DNS settings.<br>
+      <strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.<br>
+      <small>{{ all_mechanism_help|safe }}</small>
+    </small>
   </footer>
 </article>

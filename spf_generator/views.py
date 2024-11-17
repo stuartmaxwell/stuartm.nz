@@ -6,7 +6,7 @@ from django import forms
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from spf_generator.models import EmailProvider, ProviderCategory
+from spf_generator.models import EmailProvider, ProviderCategory, SpfAllMechanism
 
 
 class ProviderSelectForm(forms.Form):
@@ -15,6 +15,23 @@ class ProviderSelectForm(forms.Form):
     The form dynamically generates checkboxes for each active provider,
     grouped by category.
     """
+
+    all_mechanism = forms.ChoiceField(
+        choices=SpfAllMechanism.choices,
+        initial=SpfAllMechanism.FAIL,
+        required=True,
+        help_text=(
+            "<p>Choose how to handle mail from unlisted servers:</p>"
+            "<ul>"
+            "<li><strong>Fail (-all)</strong>: Recommended. Explicitly reject mail from unlisted servers. "
+            "Use this if you're sure you've listed all legitimate sending servers.</li>"
+            "<li><strong>Softfail (~all)</strong>: Suggest rejection but don't enforce it. "
+            "Useful during SPF testing or if you're unsure about all legitimate senders.</li>"
+            "<li><strong>Neutral (?all)</strong>: Take no position on unlisted servers. "
+            "Not recommended as it doesn't help prevent email spoofing.</li>"
+            "</ul>"
+        ),
+    )
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         """Initializes the form with provider fields."""
@@ -81,7 +98,7 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                 response["HX-Retarget"] = "#result"
                 return response
 
-            # Generate SPF record
+            # Generate SPF record with selected 'all' mechanism
             mechanisms = " ".join(
                 p.get_mechanism()
                 for p in sorted(
@@ -89,7 +106,8 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     key=lambda x: x.priority,
                 )
             )
-            spf_record = f"v=spf1 {mechanisms} -all"
+            all_mechanism = SpfAllMechanism(form.cleaned_data["all_mechanism"])
+            spf_record = f"v=spf1 {mechanisms} {all_mechanism}"
 
             # Check record length
             max_record_length = 255
@@ -101,10 +119,15 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     headers={"HX-Retarget": "#result"},
                 )
 
+            # Success - render SPF record
             response = render(
                 request,
                 "spf_generator/partials/result.html",
-                {"spf_record": spf_record},
+                {
+                    "spf_record": spf_record,
+                    "all_mechanism": all_mechanism.label,
+                    "all_mechanism_description": all_mechanism.description,
+                },
             )
             response["HX-Retarget"] = "#result"
             return response

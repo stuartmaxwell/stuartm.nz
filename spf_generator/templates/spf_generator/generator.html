@@ -10,6 +10,7 @@
     <article>
       <header>
         <h1>SPF Record Generator</h1>
+        <p>Select the email services that you use with your domain from the lists below.</p>
       </header>
 
       <form hx-post="{% url 'spf_generator:spf_generator' %}"
@@ -41,6 +42,20 @@
             </div>
           </article>
         {% endfor %}
+
+        <article>
+          <header>
+            <h2>Default Policy</h2>
+          </header>
+          <div class="grid">
+            <div>
+              {{ form.all_mechanism }}
+              {% if form.all_mechanism.help_text %}
+                <small>{{ form.all_mechanism.help_text|safe }}</small>
+              {% endif %}
+            </div>
+          </div>
+        </article>
 
         <button type="submit">Generate SPF Record</button>
       </form>
