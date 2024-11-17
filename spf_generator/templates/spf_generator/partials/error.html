@@ -1,0 +1,26 @@
+<article class="error">
+  <header>
+    <h3>Error</h3>
+  </header>
+  <p>{{ error }}</p>
+</article>
+
+<style>
+  .error {
+    border-color: var(--del-color);
+    background-color: var(--del-background);
+  }
+
+  .success {
+    border-color: var(--ins-color);
+    background-color: var(--ins-background);
+  }
+
+  pre {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--code-background);
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+  }
+</style>

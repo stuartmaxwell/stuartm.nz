@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load spf_generator_filters %}
+
+{% block head %}
+  <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+{% endblock head %}
+
+{% block content %}
+  <div class="container">
+    <article>
+      <header>
+        <h1>SPF Record Generator</h1>
+      </header>
+
+      <form hx-post="{% url 'spf_generator:spf_generator' %}"
+            hx-target="#result">
+        {% csrf_token %}
+
+        {% for category, category_name in categories %}
+          <article>
+            <header>
+              <h2>{{ category_name }}</h2>
+            </header>
+
+            <div class="grid">
+              {% for field in form %}
+                {% if field.name|startswith:'provider_' %}
+                  {% with provider=providers|get_provider:field.name %}
+                    {% if provider.category == category %}
+                      <label class="provider-option">
+                        {{ field }}
+                        <strong>{{ field.label }}</strong>
+                        {% if field.help_text %}
+                          <small>{{ field.help_text }}</small>
+                        {% endif %}
+                      </label>
+                    {% endif %}
+                  {% endwith %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+
+        <button type="submit">Generate SPF Record</button>
+      </form>
+
+      <div id="result" role="alert"></div>
+    </article>
+  </div>
+
+  <style>
+    .provider-option {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .provider-option input[type="checkbox"] {
+      margin: 0;
+    }
+
+    .provider-option small {
+      opacity: 0.8;
+    }
+  </style>
+{% endblock content %}
