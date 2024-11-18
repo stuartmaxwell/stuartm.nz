@@ -69,3 +69,41 @@
   </div>
 
 {% endblock content %}
+
+{% block body_close %}
+  <script>
+    function closeModal(event) {
+      event.preventDefault();
+      const modal = document.querySelector('dialog');
+      if (modal) {
+        modal.remove();
+      }
+    }
+
+    async function copySpfRecord(button) {
+      const spfRecord = document.getElementById('spf-record');
+      if (spfRecord) {
+        try {
+          await navigator.clipboard.writeText(spfRecord.textContent);
+
+              // Show feedback
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+
+              // Reset button text after 2 seconds
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+
+        } catch (err) {
+          console.error('Failed to copy text:', err);
+          button.textContent = 'Failed to copy';
+
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        }
+      }
+    }
+  </script>
+{% endblock body_close %}
