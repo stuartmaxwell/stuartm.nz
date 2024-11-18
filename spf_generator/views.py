@@ -1,56 +1,10 @@
 """Views for the SPF Generator app."""
 
-from typing import Any
-
-from django import forms
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from spf_generator.forms import ProviderSelectForm
 from spf_generator.models import EmailProvider, ProviderCategory, SpfAllMechanism
-
-
-class ProviderSelectForm(forms.Form):
-    """Form for selecting email providers.
-
-    The form dynamically generates checkboxes for each active provider,
-    grouped by category.
-    """
-
-    all_mechanism = forms.ChoiceField(
-        choices=SpfAllMechanism.choices,
-        initial=SpfAllMechanism.FAIL,
-        required=True,
-        help_text=(
-            "<p>Choose how to handle mail from unlisted servers:</p>"
-            "<ul>"
-            "<li><strong>Fail (-all)</strong>: Recommended. Explicitly reject mail from unlisted servers. "
-            "Use this if you're sure you've listed all legitimate sending servers.</li>"
-            "<li><strong>Softfail (~all)</strong>: Suggest rejection but don't enforce it. "
-            "Useful during SPF testing or if you're unsure about all legitimate senders.</li>"
-            "<li><strong>Neutral (?all)</strong>: Take no position on unlisted servers. "
-            "Not recommended as it doesn't help prevent email spoofing.</li>"
-            "</ul>"
-        ),
-    )
-
-    def __init__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
-        """Initializes the form with provider fields."""
-        super().__init__(*args, **kwargs)
-
-        # Group providers by category
-        for category in ProviderCategory.choices:
-            providers = EmailProvider.objects.filter(
-                category=category[0],
-                active=True,
-            )
-
-            for provider in providers:
-                field_name = f"provider_{provider.id}"
-                self.fields[field_name] = forms.BooleanField(
-                    required=False,
-                    label=provider.name,
-                    help_text=provider.description,
-                )
 
 
 def generate_spf_record(request: HttpRequest) -> HttpResponse:
@@ -76,16 +30,16 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     provider = EmailProvider.objects.get(id=provider_id)
                     selected_providers.append(provider)
 
-            # Check if any providers were selected
-            if not selected_providers:
+            # Check if either providers are selected or custom IP is provided
+            custom_ip = form.cleaned_data.get("custom_ip", "")
+            if not selected_providers and not custom_ip:
                 response = render(
                     request,
                     "spf_generator/partials/error.html",
-                    {"error": "Please select at least one email provider"},
+                    {"error": "Please select at least one email provider or enter a custom IP address"},
                 )
                 response["HX-Retarget"] = "#result"
                 return response
-
             # Check total lookup count
             total_lookups = sum(p.lookup_count for p in selected_providers)
             max_dns_lookups = 10
@@ -98,16 +52,23 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                 response["HX-Retarget"] = "#result"
                 return response
 
-            # Generate SPF record with selected 'all' mechanism
-            mechanisms = " ".join(
+            # Generate SPF record
+            mechanisms = []
+
+            # Add custom IP first if provided
+            if custom_ip:
+                mechanisms.append(custom_ip)
+
+            # Add provider mechanisms
+            mechanisms.extend(
                 p.get_mechanism()
                 for p in sorted(
                     selected_providers,
                     key=lambda x: x.priority,
                 )
             )
-            all_mechanism = SpfAllMechanism(form.cleaned_data["all_mechanism"])
-            spf_record = f"v=spf1 {mechanisms} {all_mechanism}"
+
+            spf_record = f"v=spf1 {' '.join(mechanisms)} {form.cleaned_data['all_mechanism']}"
 
             # Check record length
             max_record_length = 255
@@ -118,6 +79,8 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     {"error": "Combined SPF record exceeds 255 characters"},
                     headers={"HX-Retarget": "#result"},
                 )
+
+            all_mechanism = SpfAllMechanism(form.cleaned_data["all_mechanism"])
 
             # Success - render SPF record
             response = render(
@@ -132,11 +95,11 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
             response["HX-Retarget"] = "#result"
             return response
 
-        # Form validation failed
+        # Form validation failed - must be the IP address if this point is reached
         response = render(
             request,
             "spf_generator/partials/error.html",
-            {"error": "Invalid form submission"},
+            {"error": "Invalid form submission - please check if you've entered an invalid IP address"},
         )
         response["HX-Retarget"] = "#result"
         return response
