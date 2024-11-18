@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "timezone_converter",
     "markdown_editor",
     "shell",
+    "spf_generator",
 ]
 
 if DEBUG:

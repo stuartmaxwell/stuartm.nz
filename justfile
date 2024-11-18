@@ -83,3 +83,11 @@ dc-exec-dev:
 # Generate a secret key for Django
 secret:
   {{uvr}} manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+
+# Create a new Django app
+startapp APPNAME:
+    {{uvr}} manage.py startapp {{APPNAME}}
+
+# Generic manage command
+@manage ARGS="":
+    {{uvr}} manage.py {{ARGS}}

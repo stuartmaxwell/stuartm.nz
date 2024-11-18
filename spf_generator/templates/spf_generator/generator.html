@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load spf_generator_filters %}
+
+{% block head %}
+  <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+{% endblock head %}
+
+{% block content %}
+  <div class="container">
+    <article>
+      <header>
+        <h1>SPF Record Generator</h1>
+        <p><strong>Please note:</strong> I have made best efforts to ensure the information below is correct. But I highly recommend checking and validating the SPF record before updating it in your DNS. Please contact me if you spot any mistakes.</p>
+        <p>Select the email services that you use with your domain from the lists below.</p>
+      </header>
+
+      <form hx-post="{% url 'spf_generator:spf_generator' %}"
+            hx-target="#result">
+        {% csrf_token %}
+
+        <div class="grid">
+          {% for category, category_name in categories %}
+            <div>
+              <article>
+                <header>
+                  <h2>{{ category_name }}</h2>
+                </header>
+                <ul>
+                  {% for field in form %}
+                    {% if field.name|startswith:'provider_' %}
+                      {% with provider=providers|get_provider:field.name %}
+                        {% if provider.category == category %}
+                          <li>
+                            <label>
+                              {{ field }}
+                              <strong{% if field.help_text %} data-tooltip="{{ field.help_text }}"{% endif %}>{{ field.label }}</strong>
+                            </label>
+                          </li>
+                        {% endif %}
+                      {% endwith %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+
+        <p>Optionally, you can add the IP address of your own server to your SPF record. This is useful if you have a server that sends emails directly to the internet.</p>
+
+        <article>
+          <header>
+            <h2>Custom Server</h2>
+          </header>
+          {{ form.custom_ip }}
+          {% if form.custom_ip.help_text %}
+            <small>{{ form.custom_ip.help_text }}</small>
+          {% endif %}
+          {% if form.custom_ip.errors %}
+            <small class="error">{{ form.custom_ip.errors.0 }}</small>
+          {% endif %}
+        </article>
+
+        <p>Now select the policy you want to apply with this SPF record. This is an important choice and is explained below.</p>
+
+        <article>
+          <header>
+            <h2>Default Policy</h2>
+          </header>
+          <div class="grid">
+            <div>
+              {{ form.all_mechanism }}
+              {% if form.all_mechanism.help_text %}
+                <small>{{ form.all_mechanism.help_text|safe }}</small>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+
+        <button type="submit">Generate SPF Record</button>
+      </form>
+
+      <div id="result" role="alert"></div>
+    </article>
+  </div>
+
+{% endblock content %}
+
+{% block body_close %}
+  <script>
+    function closeModal(event) {
+      event.preventDefault();
+      const modal = document.querySelector('dialog');
+      if (modal) {
+        modal.remove();
+      }
+    }
+
+    async function copySpfRecord(button) {
+      const spfRecord = document.getElementById('spf-record');
+      if (spfRecord) {
+        try {
+          await navigator.clipboard.writeText(spfRecord.textContent);
+
+              // Show feedback
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+
+              // Reset button text after 2 seconds
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+
+        } catch (err) {
+          console.error('Failed to copy text:', err);
+          button.textContent = 'Failed to copy';
+
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        }
+      }
+    }
+  </script>
+{% endblock body_close %}

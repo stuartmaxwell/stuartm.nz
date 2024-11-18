@@ -1,0 +1,1 @@
+"""SPF Generator App."""
