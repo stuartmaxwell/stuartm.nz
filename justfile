@@ -87,3 +87,7 @@ secret:
 # Create a new Django app
 startapp APPNAME:
     {{uvr}} manage.py startapp {{APPNAME}}
+
+# Generic manage command
+@manage ARGS="":
+    {{uvr}} manage.py {{ARGS}}
