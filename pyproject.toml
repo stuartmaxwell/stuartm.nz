@@ -17,6 +17,7 @@ dependencies = [
   "pytest-django>=4.9.0",
   "mistune>=3.0.2",
   "pygments>=2.18.0",
+  "djpress-publish-mastodon>=1.0.0",
 ]
 
 [tool.curlylint.rules]
