@@ -33,6 +33,7 @@ env = environ.Env(
     ADMIN_URL=(str, "admin"),
     BLOG_TITLE=(str, "stuartm.nz"),
     POST_PREFIX=(str, "{{ year }}/{{ month }}"),
+    MASTODON_ACCESS_TOKEN=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -259,4 +260,15 @@ DJPRESS_SETTINGS = {
     "POST_PREFIX": env("POST_PREFIX"),
     "THEME": "stuartmnz",
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
+    "PLUGINS": [
+        "djpress_publish_mastodon",
+    ],
+    "PLUGIN_SETTINGS": {
+        "djpress_publish_mastodon": {
+            "instance_url": "https://fosstodon.org",
+            "access_token": env("MASTODON_ACCESS_TOKEN"),
+            "status_message": "🚀 I created a new blog post!\n\n",
+            "base_url": "https://stuartm.nz/",
+        },
+    },
 }
