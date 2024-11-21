@@ -9,7 +9,6 @@
   <ul>
     {% get_pages as pages %}
     {% for page in pages %}
-    <!-- {{ page.title }} - {{ page.is_parent }} -->
       {% if page.is_parent %}
         <li>
           <details class="dropdown">
