@@ -31,7 +31,7 @@
       {% include "snippets/navbar.html" %}
     </header>
 
-    <main class="container {% block main_classes %}{% endblock %}">
+    <main class="{% block main_classes %}{% endblock %}">
       {% block content %}
       {% endblock content %}
     </main>
