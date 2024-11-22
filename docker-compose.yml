@@ -2,7 +2,7 @@ services:
   app:
     build: .
     entrypoint: /app/entrypoint.sh
-    command: uv run --no-cache daphne -b 0.0.0.0 -p 8000 --proxy-headers --workers 2 config.asgi:application
+    command: uv run --no-cache daphne -b 0.0.0.0 -p 8000 --proxy-headers config.asgi:application
     user: "1000"
     environment:
       - "S3_BUCKET=${S3_BUCKET}"
