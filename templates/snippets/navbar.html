@@ -39,6 +39,10 @@
       </li>
     {% endif %}
     <li>
+      <a role="button" class="outline" href="{% url "contact_form:contact_form" %}" hx-get="{% url 'contact_form:contact_form' %}" hx-target="#result">
+        {% include "svg/email-heart.svg" %}<span class="hide-at-s">  @email</span></a>
+    </li>
+    <li>
       <a rel="me" role="button" class="outline" href="https://fosstodon.org/@stuartm">
         {% include "svg/mastodon.svg" %}<span class="hide-at-s">  @stuartm</span></a>
     </li>

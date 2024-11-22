@@ -12,7 +12,7 @@ background_tasks = set()
 
 
 # A simple view to display the converter HTML template.
-async def contact_form(request: HttpRequest) -> HttpResponse:
+async def contact_form(request: HttpRequest, contact_form_title: str = "Contact Form") -> HttpResponse:
     """Render the contact form template."""
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -23,7 +23,7 @@ async def contact_form(request: HttpRequest) -> HttpResponse:
             message = form.cleaned_data["message"]
 
             # Send the email - see RUFF006
-            task = asyncio.create_task(send_email_async(name, email, message))
+            task = asyncio.create_task(send_email_async(name=name, email=email, message=message))
             background_tasks.add(task)
             task.add_done_callback(background_tasks.discard)
 
@@ -32,4 +32,8 @@ async def contact_form(request: HttpRequest) -> HttpResponse:
     else:
         form = ContactForm()
 
-    return TemplateResponse(request, "contact_form/contact_form.html", {"form": form})
+    return TemplateResponse(
+        request,
+        "contact_form/contact_form.html",
+        {"form": form, "contact_form_title": contact_form_title},
+    )

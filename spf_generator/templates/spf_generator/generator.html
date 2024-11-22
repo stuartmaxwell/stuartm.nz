@@ -12,11 +12,10 @@
     <header>
       <h1>SPF Record Generator</h1>
       <p><strong>Please note:</strong> I have made best efforts to ensure the information below is correct. But I highly recommend checking and validating the SPF record before updating it in your DNS. Please contact me if you spot any mistakes.</p>
-      <p>Select the email services that you use with your domain from the lists below.</p>
+      <p>Select the email services that you use with your domain from the lists below. If you don't see the service you want, please <a href="{% url 'spf_generator:contact_form' %}" hx-get="{% url 'spf_generator:contact_form' %}" hx-target="#result">send me a message to let me know</a>.</p>
     </header>
 
-    <form hx-post="{% url 'spf_generator:spf_generator' %}"
-          hx-target="#result">
+    <form hx-post="{% url 'spf_generator:spf_generator' %}" hx-target="#result">
       {% csrf_token %}
 
       <div class="grid">
@@ -80,46 +79,6 @@
 
       <button type="submit">Generate SPF Record</button>
     </form>
-
-    <div id="result" role="alert"></div>
   </article>
 
 {% endblock content %}
-
-{% block body_close %}
-  <script>
-    function closeModal(event) {
-      event.preventDefault();
-      const modal = document.querySelector('dialog');
-      if (modal) {
-        modal.remove();
-      }
-    }
-
-    async function copySpfRecord(button) {
-      const spfRecord = document.getElementById('spf-record');
-      if (spfRecord) {
-        try {
-          await navigator.clipboard.writeText(spfRecord.textContent);
-
-              // Show feedback
-          const originalText = button.textContent;
-          button.textContent = 'Copied!';
-
-              // Reset button text after 2 seconds
-          setTimeout(() => {
-            button.textContent = originalText;
-          }, 2000);
-
-        } catch (err) {
-          console.error('Failed to copy text:', err);
-          button.textContent = 'Failed to copy';
-
-          setTimeout(() => {
-            button.textContent = originalText;
-          }, 2000);
-        }
-      }
-    }
-  </script>
-{% endblock body_close %}
