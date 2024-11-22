@@ -1,14 +1,18 @@
 """Views for the contact_form app."""
 
-from django.core.mail import send_mail
+import asyncio
+
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 
 from contact_form.forms import ContactForm
+from contact_form.tasks import send_email_async
+
+background_tasks = set()
 
 
 # A simple view to display the converter HTML template.
-def contact_form(request: HttpRequest) -> HttpResponse:
+async def contact_form(request: HttpRequest) -> HttpResponse:
     """Render the contact form template."""
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -17,16 +21,15 @@ def contact_form(request: HttpRequest) -> HttpResponse:
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             message = form.cleaned_data["message"]
-            # Send the email
-            send_mail(
-                subject=f"Contact form submission from {name}",
-                message=message,
-                from_email=email,
-                recipient_list=["stuart@amanzi.nz"],
-                fail_silently=False,
-            )
+
+            # Send the email - see RUFF006
+            task = asyncio.create_task(send_email_async(name, email, message))
+            background_tasks.add(task)
+            task.add_done_callback(background_tasks.discard)
+
             # Show a success message
-            return render(request, "contact_form/success.html")
+            return TemplateResponse(request, "contact_form/success.html")
     else:
         form = ContactForm()
-    return render(request, "contact_form/contact_form.html", {"form": form})
+
+    return TemplateResponse(request, "contact_form/contact_form.html", {"form": form})

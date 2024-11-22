@@ -2,7 +2,7 @@ services:
   app:
     build: .
     entrypoint: /app/entrypoint.sh
-    command: uv run --no-cache gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
+    command: uv run --no-cache daphne -b 0.0.0.0 -p 8000 --proxy-headers --workers 2 config.asgi:application
     user: "1000"
     environment:
       - "S3_BUCKET=${S3_BUCKET}"
@@ -31,6 +31,9 @@ services:
       - "SENTRY_TRACES_SAMPLE_RATE=${SENTRY_TRACES_SAMPLE_RATE}"
       - "BLOG_TITLE=${BLOG_TITLE}"
       - "POST_PREFIX=${POST_PREFIX}"
+      - "RESEND_API_KEY=${RESEND_API_KEY}"
+      - "CONTACT_FORM_TO=${CONTACT_FORM_TO}"
+      - "CONTACT_FORM_FROM=${CONTACT_FORM_FROM}"
     volumes:
       - app_db:/app/db
 
