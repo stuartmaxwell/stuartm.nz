@@ -1,0 +1,24 @@
+<dialog open>
+  <form hx-post="{% url 'contact_form:contact_form' %}" hx-target="#result">
+    <article class="success">
+      <header>
+        <button aria-label="Close" rel="prev" onclick="closeModal(event)"></button>
+        <h3>{{ contact_form_title }}</h3>
+      </header>
+      <fieldset>
+        {% csrf_token %}
+        {% for field in form %}
+          {{ field }}
+        {% endfor %}
+      </fieldset>
+      <footer>
+        <button class="primary">
+          📧 Send
+        </button>
+        <button class="secondary" onclick="closeModal(event)">
+          Cancel
+        </button>
+      </footer>
+    </article>
+  </form>
+</dialog>

@@ -4,16 +4,17 @@
       <button aria-label="Close" rel="prev" onclick="closeModal(event)"></button>
       <h3>Your SPF Record</h3>
     </header>
-    <pre><code id="spf-record">{{ spf_record }}</code></pre>
+    <pre><code id="spf-record">"{{ spf_record }}"</code></pre>
+    <p>Add this record as a TXT record in your domain's DNS settings.</p>
+    <p><strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.<br>
+      <small>{{ all_mechanism_help|safe }}</small></p>
     <footer>
-      Add this record as a TXT record in your domain's DNS settings.<br>
-      <strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.<br>
-      <small>{{ all_mechanism_help|safe }}</small>
-      <div style="margin-top: 1rem;">
-        <button class="primary" onclick="copySpfRecord(this)">
-          Copy SPF Record
-        </button>
-      </div>
+      <button class="primary" onclick="copySpfRecord(this)">
+        📋 Copy SPF Record
+      </button>
+      <button class="secondary" onclick="closeModal(event)">
+        Close
+      </button>
     </footer>
   </article>
 </dialog>

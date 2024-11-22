@@ -16,6 +16,7 @@ if settings.DEBUG:
 
 urlpatterns += [
     path(f"{settings.ADMIN_URL}/", admin.site.urls),
+    path("contact/", view=include("contact_form.urls")),
     path("utils/timezones/", view=include("timezone_converter.urls")),
     path("utils/markdown-editor/", view=include("markdown_editor.urls")),
     path("utils/spf/", view=include("spf_generator.urls")),

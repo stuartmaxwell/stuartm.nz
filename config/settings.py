@@ -34,6 +34,9 @@ env = environ.Env(
     BLOG_TITLE=(str, "stuartm.nz"),
     POST_PREFIX=(str, "{{ year }}/{{ month }}"),
     MASTODON_ACCESS_TOKEN=(str, ""),
+    RESEND_API_KEY=(str, ""),
+    CONTACT_FORM_TO=(str, ""),
+    CONTACT_FORM_FROM=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -61,6 +64,7 @@ ADMIN_URL = env("ADMIN_URL")
 CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -72,6 +76,7 @@ INSTALLED_APPS = [
     "markdown_editor",
     "shell",
     "spf_generator",
+    "contact_form",
 ]
 
 if DEBUG:
@@ -126,6 +131,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 # Database
 DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
@@ -272,3 +278,17 @@ DJPRESS_SETTINGS = {
         },
     },
 }
+
+# Email configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+
+# Contact Form
+RESEND_API_KEY = env("RESEND_API_KEY")
+CONTACT_FORM_TO = env("CONTACT_FORM_TO")
+CONTACT_FORM_FROM = env("CONTACT_FORM_FROM")
