@@ -64,13 +64,13 @@ ADMIN_URL = env("ADMIN_URL")
 CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
 INSTALLED_APPS = [
-    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_tasks",
     "djpress.apps.DjpressConfig",
     "timezone_converter",
     "markdown_editor",
@@ -131,7 +131,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-ASGI_APPLICATION = "config.asgi.application"
 
 # Database
 DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
@@ -292,3 +291,11 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 RESEND_API_KEY = env("RESEND_API_KEY")
 CONTACT_FORM_TO = env("CONTACT_FORM_TO")
 CONTACT_FORM_FROM = env("CONTACT_FORM_FROM")
+
+# django-tasks
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks.backends.immediate.ImmediateBackend",
+        "ENQUEUE_ON_COMMIT": False,
+    },
+}
