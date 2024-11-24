@@ -2,7 +2,7 @@ services:
   app:
     build: .
     entrypoint: /app/entrypoint.sh
-    command: uv run --no-cache daphne -b 0.0.0.0 -p 8000 --proxy-headers --workers 2 config.asgi:application
+    command: uv run --no-cache gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
     user: "1000"
     environment:
       - "S3_BUCKET=${S3_BUCKET}"
