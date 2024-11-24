@@ -19,6 +19,8 @@ dependencies = [
   "pygments>=2.18.0",
   "djpress-publish-mastodon>=1.0.0",
   "httpx>=0.27.2",
+  "uvicorn>=0.32.1",
+  "uvicorn-worker>=0.2.0",
 ]
 
 [tool.curlylint.rules]

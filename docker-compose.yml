@@ -2,7 +2,7 @@ services:
   app:
     build: .
     entrypoint: /app/entrypoint.sh
-    command: uv run --no-cache gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
+    command: uv run --no-cache gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class uvicorn_worker.UvicornWorker --bind 0.0.0.0:8000 config.asgi:application
     user: "1000"
     environment:
       - "S3_BUCKET=${S3_BUCKET}"
