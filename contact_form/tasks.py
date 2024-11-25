@@ -15,6 +15,7 @@ async def send_email_async(message: str, name: str = "", email: str = "") -> Non
     payload = {
         "from": settings.CONTACT_FORM_FROM,
         "to": settings.CONTACT_FORM_TO,
+        "reply_to": email,
         "subject": "Contact Form Submission from stuartm.nz",
         "html": f"<ul><li>Name: {name}</li><li>Email: {email}</li><li>Message:<br>{message}</li></ul>",
         "text": f"Name: {name}\n\nEmail: {email}\n\nMessage:\n\n{message}\n\n",
