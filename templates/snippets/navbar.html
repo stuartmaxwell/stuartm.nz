@@ -31,7 +31,7 @@
     {% endfor %}
   </ul>
 
-  <ul style="margin-left: auto">
+  <ul class="hide-at-xs" style="margin-left: auto">
     {% if user.is_authenticated %}
       <li>
         <a role="button" class="outline" href="{% url 'admin:index' %}">
