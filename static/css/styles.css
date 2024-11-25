@@ -71,9 +71,7 @@ main.main-sidebar {
   }
 
   main.main-sidebar {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1em;
+    display: block;
   }
 }
 
