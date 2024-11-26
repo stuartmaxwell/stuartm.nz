@@ -1,82 +1,65 @@
+{% extends '_base.html' %}
 {% load djpress_tags static %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
+{% block title %}{% blog_page_title post_text="| " %}{% blog_title %}{% endblock %}
 
-    <meta name="fediverse:creator" content="@stuartm@fosstodon.org">
-    <meta name="description" content="Stuart Maxwell's Django Home">
-    <meta name="keywords" content="Stuart Maxwell, Django, Python, Web Development, Blog">
-    <meta name="author" content="Stuart Maxwell">
+{% block css %}
+  <link href="{% static "css/pico.jade.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/styles.css" %}" rel="stylesheet">
+{% endblock css %}
 
-    <title>{% blog_page_title post_text="| " %}{% blog_title %}</title>
-    <link rel="icon" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32" type="image/png">
+{% block head %}
+  {% rss_link %}
+  <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+{% endblock head %}
 
-    <link href="{% static "css/pico.jade.min.css" %}" rel="stylesheet">
-    <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
-    <link href="{% static "css/styles.css" %}" rel="stylesheet">
+{% block header %}
+  <header>
+    {% include "snippets/navbar.html" %}
+  </header>
+{% endblock header %}
 
-    {% rss_link %}
+{% block main_classes %}{% endblock %}"
 
-    {% if not debug %}
-      <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
-    {% endif %}
+{% block content %}{% endblock %}
 
-    {% block head %}
-      <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
-    {% endblock head %}
-  </head>
-  <body>
-    <header>
-      {% include "snippets/navbar.html" %}
-    </header>
+{% block body_close %}
+  <div id="result"></div>
 
-    <main class="{% block main_classes %}{% endblock %}">
-      {% block content %}
-      {% endblock content %}
-    </main>
+  <script>
+    function closeModal(event) {
+      event.preventDefault();
+      const modal = document.querySelector('dialog');
+      if (modal) {
+        modal.remove();
+      }
+    }
 
-    {% block body_close %}
-      <div id="result"></div>
+    async function copySpfRecord(button) {
+      const spfRecord = document.getElementById('spf-record');
+      if (spfRecord) {
+        try {
+          await navigator.clipboard.writeText(spfRecord.textContent);
 
-      <script>
-        function closeModal(event) {
-          event.preventDefault();
-          const modal = document.querySelector('dialog');
-          if (modal) {
-            modal.remove();
-          }
+              // Show feedback
+          const originalText = button.textContent;
+          button.textContent = '👍 Copied!';
+
+              // Reset button text after 2 seconds
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+
+        } catch (err) {
+          console.error('Failed to copy text:', err);
+          button.textContent = '❗️ Failed to copy';
+
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
         }
-
-        async function copySpfRecord(button) {
-          const spfRecord = document.getElementById('spf-record');
-          if (spfRecord) {
-            try {
-              await navigator.clipboard.writeText(spfRecord.textContent);
-
-                  // Show feedback
-              const originalText = button.textContent;
-              button.textContent = '👍 Copied!';
-
-                  // Reset button text after 2 seconds
-              setTimeout(() => {
-                button.textContent = originalText;
-              }, 2000);
-
-            } catch (err) {
-              console.error('Failed to copy text:', err);
-              button.textContent = '❗️ Failed to copy';
-
-              setTimeout(() => {
-                button.textContent = originalText;
-              }, 2000);
-            }
-          }
-        }
-      </script>
-    {% endblock body_close %}
-  </body>
-</html>
+      }
+    }
+  </script>
+{% endblock body_close %}
