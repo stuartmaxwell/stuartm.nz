@@ -133,15 +133,15 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.13.0"
+version = "0.13.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e7/7a/849b94bccb9bdb5600b20353ba3ca2f71cd6770db42a722f9440499665a5/djpress-0.13.0.tar.gz", hash = "sha256:9d924f391ad2ced147d543afc9a12aad9077baf951d4f817a1c46decf23f820d", size = 114995 }
+sdist = { url = "https://files.pythonhosted.org/packages/ea/f6/57dc88096a126594395b822b1d900a992268671b33f364bf7436156a38ca/djpress-0.13.3.tar.gz", hash = "sha256:6603001c75a5b14ad4b2bc11fbfb6c369eeb2d490efb155ccaf133065065d230", size = 116405 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/94/e0/a1065e8fbd375a0342c764a5c1c068785c7f6c4012a475e3182236d1eeca/djpress-0.13.0-py3-none-any.whl", hash = "sha256:cbddd8d943b18e6b23dfad5adef7acb52ae7b0377ffc5ff6be39b9017bd74064", size = 44013 },
+    { url = "https://files.pythonhosted.org/packages/8b/6b/f6dca612b6400f4d2ff75ee853919908b5ce336066b49288c8866a3a96d4/djpress-0.13.3-py3-none-any.whl", hash = "sha256:4c365165326d9f9790c979e59c7f696829803addab68abe1f16376a66937a954", size = 45175 },
 ]
 
 [[package]]
@@ -396,15 +396,15 @@ wheels = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.18.0"
+version = "2.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/24/cc/0d87cc8246f52d92228aa6718a24e1988a2893f4abe2f64ec5a8bcba4185/sentry_sdk-2.18.0.tar.gz", hash = "sha256:0dc21febd1ab35c648391c664df96f5f79fb0d92d7d4225cd9832e53a617cafd", size = 293615 }
+sdist = { url = "https://files.pythonhosted.org/packages/a2/0e/cc0e60f0e0cfd5a9e42622ff5a227301c6475a56bcfa82e8e893bc209f20/sentry_sdk-2.19.0.tar.gz", hash = "sha256:ee4a4d2ae8bfe3cac012dcf3e4607975904c137e1738116549fc3dbbb6ff0e36", size = 298045 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/76/9b/2d512efdb0de203d1f0312fae53433c3009ba70b0078421d25baaedc960a/sentry_sdk-2.18.0-py2.py3-none-any.whl", hash = "sha256:ee70e27d1bbe4cd52a38e1bd28a5fadb9b17bc29d91b5f2b97ae29c0a7610442", size = 317514 },
+    { url = "https://files.pythonhosted.org/packages/c6/6b/191ca63f05d3ecc7600b5b3abd493a4c1b8468289c9737a7735ade1fedca/sentry_sdk-2.19.0-py2.py3-none-any.whl", hash = "sha256:7b0b3b709dee051337244a09a30dbf6e95afe0d34a1f8b430d45e0982a7c125b", size = 322158 },
 ]
 
 [[package]]
