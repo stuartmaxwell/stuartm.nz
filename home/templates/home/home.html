@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
-
 {% load static %}
+
+{% block title %}Home{% endblock %}
 
 {% block head %}
   <style>
@@ -48,6 +49,7 @@
   <script>
     function updateClock() {
       const now = new Date();
+      const baseTitle = "Home";
 
       const timeOptions = { hour12: false, hour: '2-digit', minute: '2-digit' };
       const timeStr = now.toLocaleTimeString('en-NZ', timeOptions);
@@ -57,6 +59,8 @@
 
       document.getElementById('clock').textContent = timeStr;
       document.getElementById('date').textContent = dateStr;
+      document.title = `Home ${timeStr}`;
+
     }
 
     updateClock();
