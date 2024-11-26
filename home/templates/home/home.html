@@ -1,0 +1,66 @@
+{% extends "_base.html" %}
+
+{% load static %}
+
+{% block head %}
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('{% static "img/wallpaper/dark-ferns-hnysCJrPpkc.jpeg" %}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    main {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+
+    time {
+      color: var(--pico-muted-color);
+      font-size: 4rem;
+      font-weight: bold;
+    }
+    div#date {
+      text-align: center;
+    }
+  </style>
+{% endblock head %}
+
+{% block main_classes %}{% endblock %}
+
+{% block content %}
+
+  <time id="clock"></time>
+  <div id="date"></div>
+
+{% endblock content %}
+
+{% block body_close %}
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      const timeOptions = { hour12: false, hour: '2-digit', minute: '2-digit' };
+      const timeStr = now.toLocaleTimeString('en-NZ', timeOptions);
+
+      const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
+      const dateStr = now.toLocaleDateString('en-NZ', dateOptions);
+
+      document.getElementById('clock').textContent = timeStr;
+      document.getElementById('date').textContent = dateStr;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+
+{% endblock body_close %}
