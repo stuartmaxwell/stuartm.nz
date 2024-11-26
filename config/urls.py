@@ -20,6 +20,7 @@ urlpatterns += [
     path("utils/timezones/", view=include("timezone_converter.urls")),
     path("utils/markdown-editor/", view=include("markdown_editor.urls")),
     path("utils/spf/", view=include("spf_generator.urls")),
+    path("utils/home/", view=include("home.urls")),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path("", include("djpress.urls")),
 ]

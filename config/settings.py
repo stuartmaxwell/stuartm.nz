@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     "shell",
     "spf_generator",
     "contact_form",
+    "home",
 ]
 
 if DEBUG:
