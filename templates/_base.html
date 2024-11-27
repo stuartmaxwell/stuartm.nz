@@ -30,6 +30,7 @@
     {% block header %}{% endblock %}
 
     <main class="{% block main_classes %}{% endblock %}">
+      {% include "snippets/messages.html" %}
       {% block content %}{% endblock %}
     </main>
 
