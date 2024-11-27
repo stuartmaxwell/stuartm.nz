@@ -1,12 +1,28 @@
 """Contact Form Tasks."""
 
+import logging
+
 import httpx
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
+
+SUCESS_STATUS_CODE = 200
+
 
 async def send_email_async(message: str, name: str = "", email: str = "") -> None:
-    """Asynchronously send an email using Resend's API."""
+    """Asynchronously send an email using Resend's API.
+
+    Args:
+        message (str): The message to send.
+        name (str): The name of the sender.
+        email (str): The email of the sender.
+
+    Returns:
+        None: The function does not return anything.
+    """
     url = "https://api.resend.com/emails"
+
     headers = {
         "Authorization": f"Bearer {settings.RESEND_API_KEY}",
         "Content-Type": "application/json",
@@ -22,4 +38,8 @@ async def send_email_async(message: str, name: str = "", email: str = "") -> Non
     }
 
     async with httpx.AsyncClient() as client:
-        await client.post(url, headers=headers, json=payload)
+        response = await client.post(url, headers=headers, json=payload)
+        if response.status_code != SUCESS_STATUS_CODE:
+            logger.error(f"Failed to send email: {response.status_code}. Payload: {payload}")
+        else:
+            logger.debug(f"Email sent successfully: {response.status_code}. Payload: {payload}")
