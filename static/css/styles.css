@@ -151,3 +151,27 @@ article {
 .highlight pre {
   background-color: #2e3440;
 }
+
+/* Message Alert Styles */
+.message {
+  border-radius: 0.5em;
+  color: #2e3440;
+  margin-bottom: var(--pico-spacing);
+  padding: 0.5rem;
+}
+
+.alert-info {
+  background-color: #5e81ac;
+}
+
+.alert-success {
+  background-color: #a3be8c;
+}
+
+.alert-warning {
+  background-color: #ebcb8b;
+}
+
+.alert-danger {
+  background-color: #bf616a;
+}
