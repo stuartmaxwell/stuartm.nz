@@ -298,9 +298,6 @@ CONTACT_FORM_FROM = env("CONTACT_FORM_FROM")
 # Securtiy settings
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Redirect all HTTP traffic to HTTPS
-SECURE_SSL_REDIRECT = True
-
 # Use secure cookies
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
