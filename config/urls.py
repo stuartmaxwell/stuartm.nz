@@ -38,6 +38,7 @@ urlpatterns += [
     path("utils/markdown-editor/", view=include("markdown_editor.urls")),
     path("utils/spf/", view=include("spf_generator.urls")),
     path("utils/home/", view=include("home.urls")),
+    path("utils/__debugging__/", view=include("debugging_app.urls")),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("", include("djpress.urls")),

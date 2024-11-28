@@ -37,6 +37,7 @@ env = environ.Env(
     RESEND_API_KEY=(str, ""),
     CONTACT_FORM_TO=(str, ""),
     CONTACT_FORM_FROM=(str, ""),
+    DEBUGGING_APP_PATH=(str, "this-is-just-a-temporary-debugging-app-path"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -78,6 +79,7 @@ INSTALLED_APPS = [
     "spf_generator",
     "contact_form",
     "home",
+    "debugging_app",
 ]
 
 if DEBUG:
@@ -306,3 +308,6 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
+# Debugging app
+DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
