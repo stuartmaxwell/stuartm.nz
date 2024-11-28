@@ -18,6 +18,10 @@ sync-up:
 
 # Run the Django development server
 run:
+    {{uvr}} manage.py runserver
+
+# Run the Django development server
+arun:
     {{uvr}} gunicorn --workers=2 --worker-class uvicorn_worker.UvicornWorker --bind 127.0.0.1:8000 config.asgi:application
 
 # Make migrations
