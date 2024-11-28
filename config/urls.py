@@ -2,8 +2,25 @@
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.generic import TemplateView
+from djpress.sitemaps import (
+    CategorySitemap,
+    DateBasedSitemap,
+    PageSitemap,
+    PostSitemap,
+)
+
+from config.sitemaps import StaticSitemap
+
+sitemaps = {
+    "posts": PostSitemap,
+    "pages": PageSitemap,
+    "categories": CategorySitemap,
+    "archives": DateBasedSitemap,
+    "static": StaticSitemap,
+}
 
 urlpatterns = []
 
@@ -22,5 +39,6 @@ urlpatterns += [
     path("utils/spf/", view=include("spf_generator.urls")),
     path("utils/home/", view=include("home.urls")),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("", include("djpress.urls")),
 ]
