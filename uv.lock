@@ -145,15 +145,15 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.14.0"
+version = "0.14.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/66/b3/fcd907fb72b4373f5a623ee817d3578cfb84d15663cfeeee7a0c22f0d89c/djpress-0.14.0.tar.gz", hash = "sha256:b56e5f7221cbf00207c7a94e5a7d9dbcaff035d7c4af1ad798663f281449fdf9", size = 121090 }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/22/5091b2dd5fdd2fb937eb78d4878009fec9d952b5498b4662aa6ea298b6d3/djpress-0.14.1.tar.gz", hash = "sha256:6bb3bad3df07aa836b98afdc87af85406aafc2e48bfb7b5215e708f00e24d6ac", size = 121823 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/81/30/3a9b5bae8cc9a9ac6d18b126bd23b9daec5127ed6fd4588a2496b2b03250/djpress-0.14.0-py3-none-any.whl", hash = "sha256:db8189a2d353b53758ad41b98ea3e4ee97fed10ae63039c536ba8ae11ed846be", size = 47675 },
+    { url = "https://files.pythonhosted.org/packages/3e/20/f4e1e9cbf9ac8dddea9ebfa28b73e95b88e6f66ee87738aa2171ea981888/djpress-0.14.1-py3-none-any.whl", hash = "sha256:08fa4a43cb74edc9b61cf911ad5812e094b0fe0dc07aaba2e240c74612278fc7", size = 47946 },
 ]
 
 [[package]]
@@ -226,18 +226,17 @@ wheels = [
 
 [[package]]
 name = "httpx"
-version = "0.27.2"
+version = "0.28.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
     { name = "certifi" },
     { name = "httpcore" },
     { name = "idna" },
-    { name = "sniffio" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/78/82/08f8c936781f67d9e6b9eeb8a0c8b4e406136ea4c3d1f89a5db71d42e0e6/httpx-0.27.2.tar.gz", hash = "sha256:f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2", size = 144189 }
+sdist = { url = "https://files.pythonhosted.org/packages/10/df/676b7cf674dd1bdc71a64ad393c89879f75e4a0ab8395165b498262ae106/httpx-0.28.0.tar.gz", hash = "sha256:0858d3bab51ba7e386637f22a61d8ccddaeec5f3fe4209da3a6168dbb91573e0", size = 141307 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/56/95/9377bcb415797e44274b51d46e3249eba641711cf3348050f76ee7b15ffc/httpx-0.27.2-py3-none-any.whl", hash = "sha256:7bb2708e112d8fdd7829cd4243970f0c223274051cb35ee80c03301ee29a3df0", size = 76395 },
+    { url = "https://files.pythonhosted.org/packages/8f/fb/a19866137577ba60c6d8b69498dc36be479b13ba454f691348ddf428f185/httpx-0.28.0-py3-none-any.whl", hash = "sha256:dc0b419a0cfeb6e8b34e85167c0da2671206f5095f1baa9663d23bcfd6b535fc", size = 73551 },
 ]
 
 [[package]]
