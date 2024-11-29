@@ -34,6 +34,9 @@ services:
       - "RESEND_API_KEY=${RESEND_API_KEY}"
       - "CONTACT_FORM_TO=${CONTACT_FORM_TO}"
       - "CONTACT_FORM_FROM=${CONTACT_FORM_FROM}"
+      - "DEBUGGING_APP_PATH=${DEBUGGING_APP_PATH}"
+      - "LOGFIRE_ENVIRONMENT=${LOGFIRE_ENVIRONMENT}"
+      - "LOGFIRE_TOKEN=${LOGFIRE_TOKEN}"
     volumes:
       - app_db:/app/db
 

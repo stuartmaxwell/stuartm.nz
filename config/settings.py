@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import environ
+import logfire
 import sentry_sdk
 from django.contrib.messages import constants as messages
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -38,6 +39,7 @@ env = environ.Env(
     CONTACT_FORM_TO=(str, ""),
     CONTACT_FORM_FROM=(str, ""),
     DEBUGGING_APP_PATH=(str, "this-is-just-a-temporary-debugging-app-path"),
+    LOGFIRE_ENVIRONMENT=(str, "dev"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -311,3 +313,8 @@ SECURE_HSTS_PRELOAD = True
 
 # Debugging app
 DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
+
+# Logfire
+LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
+logfire.configure(environment=LOGFIRE_ENVIRONMENT)
+logfire.instrument_django()
