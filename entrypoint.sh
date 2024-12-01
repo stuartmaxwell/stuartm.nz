@@ -3,24 +3,35 @@
 # Exit immediately if any command fails
 set -euf -o pipefail
 
+BACKUP_PATH="/app/db"  # This must match the path in the Dockerfile and backup.sh
+DB_PATH="${BACKUP_PATH}/${DB_NAME}.sqlite3"
+TEMP_RESTORE_FILE="${BACKUP_PATH}/latest-backup.tar.gz"
+
 # Function to download the latest SQLite database backup from S3
 download_latest_backup() {
     echo "Downloading latest SQLite database backup from S3..."
-    latest_backup=$(aws s3 ls s3://$S3_BUCKET/ --recursive --endpoint-url $AWS_ENDPOINT_URL | sort | tail -n 1 | awk '{print $4}')
-    if [ -z "$latest_backup" ]; then
+    # This will give us the file name of the most recent backup.
+    # s5cmd ls doesn't have a direct sort option, so we'll pipe to sort
+    LATEST_BACKUP=$(s5cmd --endpoint-url "${AWS_ENDPOINT_URL}" ls "s3://${S3_BUCKET}/**" | sort | tail -n 1 | awk '{print $NF}')
+
+    if [ -z "${LATEST_BACKUP}" ]; then
+        # There's no backup so nothing to do.
         echo "No backup found in S3 bucket."
     else
-        echo "Latest backup found: $latest_backup"
-        aws s3 cp s3://$S3_BUCKET/$latest_backup /app/db/latest-backup.tar.gz --endpoint-url $AWS_ENDPOINT_URL
-        tar --gzip -xf /app/db/latest-backup.tar.gz -O > /app/db/$DB_NAME.sqlite3
+        # Found a backup, download and extract it
+        echo "Latest backup found: ${LATEST_BACKUP}"
+        s5cmd --endpoint-url "${AWS_ENDPOINT_URL}" cp s3://${S3_BUCKET}/${LATEST_BACKUP} "${TEMP_RESTORE_FILE}"
+        tar --gzip -xf "${TEMP_RESTORE_FILE}" -O > "${DB_PATH}"
+        # Clean up the temporary file we downloaded
+        rm "${TEMP_RESTORE_FILE}"
         echo "SQLite database backup downloaded and extracted."
     fi
 }
 
-# Check if the database engine is SQLite and the database file doesn't exist
+# Check if the database file exists - if it doesn't, download the latest backup
 echo "Checking if SQLite database file exists"
-if [ "$DB_ENGINE" = "django.db.backends.sqlite3" ] && [ ! -f "/app/db/$DB_NAME.sqlite3" ]; then
-  download_latest_backup
+if [ ! -f "${DB_PATH}" ]; then
+    download_latest_backup
 fi
 
 # Apply database migrations
