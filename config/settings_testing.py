@@ -15,3 +15,9 @@ PASSWORD_HASHERS: list[str] = [
 ]
 
 CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
+
+# DJPress settings
+DJPRESS_SETTINGS = {
+    "POST_PREFIX": "{{ year }}/{{ month }}",
+    "PLUGINS": [],
+}

@@ -1,7 +1,7 @@
 {% extends '_base.html' %}
 {% load djpress_tags static %}
 
-{% block title %}{% blog_page_title post_text="| " %}{% blog_title %}{% endblock %}
+{% block title %}{% page_title post_text="| " %}{% site_title %}{% endblock %}
 
 {% block css %}
   <link href="{% static "css/pico.jade.min.css" %}" rel="stylesheet">

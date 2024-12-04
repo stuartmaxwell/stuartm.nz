@@ -32,7 +32,7 @@ env = environ.Env(
     DB_PORT=(str, ""),
     WHITENOISE_STATIC=(bool, False),
     ADMIN_URL=(str, "admin"),
-    BLOG_TITLE=(str, "stuartm.nz"),
+    SITE_TITLE=(str, "stuartm.nz"),
     POST_PREFIX=(str, "{{ year }}/{{ month }}"),
     MASTODON_ACCESS_TOKEN=(str, ""),
     RESEND_API_KEY=(str, ""),
@@ -269,7 +269,7 @@ LOGGING = {
 
 # DJPress settings
 DJPRESS_SETTINGS = {
-    "BLOG_TITLE": env("BLOG_TITLE"),
+    "SITE_TITLE": env("SITE_TITLE"),
     "POST_PREFIX": env("POST_PREFIX"),
     "THEME": "stuartmnz",
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
