@@ -40,6 +40,7 @@ env = environ.Env(
     CONTACT_FORM_FROM=(str, ""),
     DEBUGGING_APP_PATH=(str, "this-is-just-a-temporary-debugging-app-path"),
     LOGFIRE_ENVIRONMENT=(str, "dev"),
+    BLUESKY_APP_PASSWORD=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -274,6 +275,7 @@ DJPRESS_SETTINGS = {
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
         "djpress_publish_mastodon",
+        "djpress_publish_bluesky",
     ],
     "PLUGIN_SETTINGS": {
         "djpress_publish_mastodon": {
@@ -281,6 +283,12 @@ DJPRESS_SETTINGS = {
             "access_token": env("MASTODON_ACCESS_TOKEN"),
             "status_message": "🚀 I created a new blog post!\n\n",
             "base_url": "https://stuartm.nz/",
+        },
+        "djpress_publish_bluesky": {
+            "handle": "stuartm.nz",
+            "app_password": env("BLUESKY_APP_PASSWORD"),
+            "site_url": "https://stuartm.nz/",
+            "post_message": "🚀 I created a new blog post!",
         },
     },
 }

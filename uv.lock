@@ -157,6 +157,19 @@ wheels = [
 ]
 
 [[package]]
+name = "djpress-publish-bluesky"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "djpress" },
+    { name = "httpx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8d/ec/82b72e1b24794df19f4b1a9c3ebac1159607d7c3a02415a0ab9cca748321/djpress_publish_bluesky-1.0.0.tar.gz", hash = "sha256:807e9f694fd7f09165c804d9f095e866eb4058e34f264b0e5cc6edef1491e3c2", size = 9233 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7a/db/a17bc2b44d20b0f975ff476fb98e02403ce9e8ccef47a94665b3b89312a8/djpress_publish_bluesky-1.0.0-py3-none-any.whl", hash = "sha256:71932038428259b966cd48c09eb0e92a88ffae60f3be5dcf74f586b7fbd3f78f", size = 4518 },
+]
+
+[[package]]
 name = "djpress-publish-mastodon"
 version = "1.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -271,7 +284,7 @@ wheels = [
 
 [[package]]
 name = "logfire"
-version = "2.5.0"
+version = "2.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "executing" },
@@ -282,9 +295,9 @@ dependencies = [
     { name = "rich" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cd/90/1baa613a8b3f4f3ee50e776d0ad1b476baf9c9c592d5452ee50d2742c332/logfire-2.5.0.tar.gz", hash = "sha256:207af778dec75dd758422dccd631956aa9bf11a75f974ce7a3704243e4337cb7", size = 251877 }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/1a/f84e5b4c13465e962f13bbf03aef71a25ac5f8d2836b1e438e6c7137c2df/logfire-2.6.0.tar.gz", hash = "sha256:a23378f688344b5ec7f473fcd346e70105aad2c0e28c7dd22fb3250be8ee8c85", size = 252919 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/50/81ce8a51e89015111950b03283e0fd2d63e79a5e0d7b77c922682e82313e/logfire-2.5.0-py3-none-any.whl", hash = "sha256:cae6f22cc81fc9009df939f5232d53ef94ae8c630ecbd28a31ad818745c94c19", size = 171539 },
+    { url = "https://files.pythonhosted.org/packages/dd/ce/26dab0a0b608fc109580e54e151c453cc6c31cb22e44af8e5ca51a557970/logfire-2.6.0-py3-none-any.whl", hash = "sha256:04afc7263e3294eb5ff9e1d5b6e6a2677cc3b7ef75b48c477093a634a5f0ea43", size = 172481 },
 ]
 
 [package.optional-dependencies]
@@ -548,7 +561,7 @@ wheels = [
 
 [[package]]
 name = "pytest"
-version = "8.3.3"
+version = "8.3.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
@@ -556,9 +569,9 @@ dependencies = [
     { name = "packaging" },
     { name = "pluggy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/6c/62bbd536103af674e227c41a8f3dcd022d591f6eed5facb5a0f31ee33bbc/pytest-8.3.3.tar.gz", hash = "sha256:70b98107bd648308a7952b06e6ca9a50bc660be218d53c257cc1fc94fda10181", size = 1442487 }
+sdist = { url = "https://files.pythonhosted.org/packages/05/35/30e0d83068951d90a01852cb1cef56e5d8a09d20c7f511634cc2f7e0372a/pytest-8.3.4.tar.gz", hash = "sha256:965370d062bce11e73868e0335abac31b4d3de0e82f4007408d242b4f8610761", size = 1445919 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6b/77/7440a06a8ead44c7757a64362dd22df5760f9b12dc5f11b6188cd2fc27a0/pytest-8.3.3-py3-none-any.whl", hash = "sha256:a6853c7375b2663155079443d2e45de913a911a11d669df02a50814944db57b2", size = 342341 },
+    { url = "https://files.pythonhosted.org/packages/11/92/76a1c94d3afee238333bc0a42b82935dd8f9cf8ce9e336ff87ee14d9e1cf/pytest-8.3.4-py3-none-any.whl", hash = "sha256:50e16d954148559c9a74109af1eaf0c945ba2d8f30f0a3d3335edde19788b6f6", size = 343083 },
 ]
 
 [[package]]
@@ -680,6 +693,7 @@ dependencies = [
     { name = "django-debug-toolbar" },
     { name = "django-environ" },
     { name = "djpress" },
+    { name = "djpress-publish-bluesky" },
     { name = "djpress-publish-mastodon" },
     { name = "gunicorn" },
     { name = "httpx" },
@@ -701,6 +715,7 @@ requires-dist = [
     { name = "django-debug-toolbar", specifier = ">=4.4.6" },
     { name = "django-environ", specifier = ">=0.11.2" },
     { name = "djpress", specifier = "~=0.14.0" },
+    { name = "djpress-publish-bluesky", specifier = ">=1.0.0" },
     { name = "djpress-publish-mastodon", specifier = ">=1.0.0" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "httpx", specifier = ">=0.27.2" },
