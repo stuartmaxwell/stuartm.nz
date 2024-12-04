@@ -4,39 +4,7 @@ services:
     entrypoint: /app/entrypoint.sh
     command: uv run --no-cache gunicorn --worker-class uvicorn_worker.UvicornWorker --worker-tmp-dir /dev/shm --workers=2 --max-requests=1000 --max-requests-jitter=50 --bind 0.0.0.0:8000 config.asgi:application
     user: "1000"
-    environment:
-      - "S3_BUCKET=${S3_BUCKET}"
-      - "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
-      - "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
-      - "AWS_ENDPOINT_URL=${AWS_ENDPOINT_URL}"
-      - "SECRET_KEY=${SECRET_KEY}"
-      - "DEBUG=${DEBUG}"
-      - "ALLOWED_HOSTS=${ALLOWED_HOSTS}"
-      - "EMAIL_HOST=${EMAIL_HOST}"
-      - "EMAIL_PORT=${EMAIL_PORT}"
-      - "EMAIL_HOST_USER=${EMAIL_HOST_USER}"
-      - "EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}"
-      - "EMAIL_USE_TLS=${EMAIL_USE_TLS}"
-      - "DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}"
-      - "DB_ENGINE=${DB_ENGINE}"
-      - "DB_HOST=${DB_HOST}"
-      - "DB_NAME=${DB_NAME}"
-      - "DB_PASSWORD=${DB_PASSWORD}"
-      - "DB_PORT=${DB_PORT}"
-      - "DB_USER=${DB_USER}"
-      - "WHITENOISE_STATIC=${WHITENOISE_STATIC}"
-      - "ADMIN_URL=${ADMIN_URL}"
-      - "SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT}"
-      - "SENTRY_DSN=${SENTRY_DSN}"
-      - "SENTRY_TRACES_SAMPLE_RATE=${SENTRY_TRACES_SAMPLE_RATE}"
-      - "BLOG_TITLE=${BLOG_TITLE}"
-      - "POST_PREFIX=${POST_PREFIX}"
-      - "RESEND_API_KEY=${RESEND_API_KEY}"
-      - "CONTACT_FORM_TO=${CONTACT_FORM_TO}"
-      - "CONTACT_FORM_FROM=${CONTACT_FORM_FROM}"
-      - "DEBUGGING_APP_PATH=${DEBUGGING_APP_PATH}"
-      - "LOGFIRE_ENVIRONMENT=${LOGFIRE_ENVIRONMENT}"
-      - "LOGFIRE_TOKEN=${LOGFIRE_TOKEN}"
+    env_file: .env
     volumes:
       - app_db:/app/db
 
