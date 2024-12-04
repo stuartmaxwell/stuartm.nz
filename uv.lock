@@ -158,28 +158,28 @@ wheels = [
 
 [[package]]
 name = "djpress-publish-bluesky"
-version = "1.0.0"
+version = "1.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "djpress" },
     { name = "httpx" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8d/ec/82b72e1b24794df19f4b1a9c3ebac1159607d7c3a02415a0ab9cca748321/djpress_publish_bluesky-1.0.0.tar.gz", hash = "sha256:807e9f694fd7f09165c804d9f095e866eb4058e34f264b0e5cc6edef1491e3c2", size = 9233 }
+sdist = { url = "https://files.pythonhosted.org/packages/d6/a9/e95afbe678a8a1cb8c633947c64c1a127c1e62c2a0083a127bb593e02759/djpress_publish_bluesky-1.0.1.tar.gz", hash = "sha256:ccc6ecdf98f6b343f254f3f1e7aedef08f746d9c3616830ccc132708f430ee87", size = 9236 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7a/db/a17bc2b44d20b0f975ff476fb98e02403ce9e8ccef47a94665b3b89312a8/djpress_publish_bluesky-1.0.0-py3-none-any.whl", hash = "sha256:71932038428259b966cd48c09eb0e92a88ffae60f3be5dcf74f586b7fbd3f78f", size = 4518 },
+    { url = "https://files.pythonhosted.org/packages/9c/eb/362095f1684fc4a185ef1ad895a823e89eb22d4da72496e020b5983772fd/djpress_publish_bluesky-1.0.1-py3-none-any.whl", hash = "sha256:97dc6a8c6aa7d60f7e0ffecde0c62077e27fa7d2e7e9193867104749d6849f1a", size = 4526 },
 ]
 
 [[package]]
 name = "djpress-publish-mastodon"
-version = "1.0.1"
+version = "1.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "djpress" },
     { name = "mastodon-py" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fd/c8/850745203a9491accbcf422041f8aed287f744896303b98bcc965b6cae25/djpress_publish_mastodon-1.0.1.tar.gz", hash = "sha256:c887da73dd811aaeb2fa69bb10aad53d890986ef443d72c06131f5446eb8ff2d", size = 13638 }
+sdist = { url = "https://files.pythonhosted.org/packages/1b/34/a3253c2b271938c5c65a46a5211a2843f42def3a96e7db8cebc9359c9ace/djpress_publish_mastodon-1.0.3.tar.gz", hash = "sha256:003960b85edcc3294e3fc46dee4ff2ccd7f6de243fec3e97c33da0c89e257666", size = 15862 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4a/0f/c38d8c6b7dfeb24944becf2f035bbe2f892a0307d5472791028cc314384f/djpress_publish_mastodon-1.0.1-py3-none-any.whl", hash = "sha256:07d8b0fa5e8be15509f975320b4a9cb1221962dd3189298fa1dbad13dca232f6", size = 4426 },
+    { url = "https://files.pythonhosted.org/packages/89/82/5577138148f734be6b110fdd2770f0dae86a5488bb11f00969a44b9f7eb6/djpress_publish_mastodon-1.0.3-py3-none-any.whl", hash = "sha256:5f42e75a54b5eda258287692ab109e6a85628577b75e8764d9c543fb56e41137", size = 4489 },
 ]
 
 [[package]]
