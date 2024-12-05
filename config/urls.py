@@ -33,6 +33,7 @@ if settings.DEBUG:
 
 urlpatterns += [
     path(f"{settings.ADMIN_URL}/", admin.site.urls),
+    path("healthcheck/", view=include("healthcheck_app.urls")),
     path("contact/", view=include("contact_form.urls")),
     path("utils/timezones/", view=include("timezone_converter.urls")),
     path("utils/markdown-editor/", view=include("markdown_editor.urls")),

@@ -41,6 +41,7 @@ env = environ.Env(
     DEBUGGING_APP_PATH=(str, "this-is-just-a-temporary-debugging-app-path"),
     LOGFIRE_ENVIRONMENT=(str, "dev"),
     BLUESKY_APP_PASSWORD=(str, ""),
+    HEALTHCHECK_PATH=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -76,6 +77,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "djpress.apps.DjpressConfig",
+    "healthcheck_app",
     "timezone_converter",
     "markdown_editor",
     "shell",
@@ -325,4 +327,10 @@ DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
 # Logfire
 LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
 logfire.configure(environment=LOGFIRE_ENVIRONMENT)
-logfire.instrument_django()
+logfire.instrument_django(
+    capture_headers=True,
+    excluded_urls="/healthcheck",
+)
+
+# Healthcheck app
+HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
