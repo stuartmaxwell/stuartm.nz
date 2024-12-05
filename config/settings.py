@@ -327,7 +327,10 @@ DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
 # Logfire
 LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
 logfire.configure(environment=LOGFIRE_ENVIRONMENT)
-logfire.instrument_django()
+logfire.instrument_django(
+    capture_headers=True,
+    excluded_urls="/healthcheck",
+)
 
 # Healthcheck app
 HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
