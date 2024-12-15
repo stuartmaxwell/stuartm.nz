@@ -2,6 +2,10 @@
 
 {% post_wrap %}
 
+  {% if user.is_authenticated and user.is_staff %}
+    <div style="text-align: right"><a href="{% url 'admin:djpress_post_change' post.id %}" style="text-decoration: none">✏️</a></div>
+  {% endif %}
+
   {% post_title outer_tag="h1" %}
 
   {% post_content outer_tag="section" %}
