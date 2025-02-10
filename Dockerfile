@@ -42,7 +42,7 @@ COPY . /app
 RUN mkdir /app/staticfiles
 
 # Fix permissions
-RUN chmod 1777 /tmp
+RUN chmod -R 1777 /tmp
 RUN chmod +x /app/backup.sh
 RUN chmod +x /app/entrypoint.sh
 
