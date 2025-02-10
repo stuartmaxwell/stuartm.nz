@@ -18,10 +18,10 @@ jobs:
         uses: astral-sh/setup-uv@v2
 
       - name: Update dependencies
-        run: uv sync --upgrade
+        run: uv sync --all-extras --upgrade
 
       - name: Run tests
-        run: uv run --locked pytest
+        run: uv run --extra test --locked pytest
 
       - name: Create and switch to new branch
         run: |
