@@ -1,0 +1,43 @@
+name: Update Dependencies
+
+on:
+  workflow_dispatch:  # manual trigger only
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: Update dependencies
+        run: uv sync --upgrade
+
+      - name: Run tests
+        run: uv run --locked pytest
+
+      - name: Create and switch to new branch
+        run: |
+          git checkout -b dependency-updates-${{ steps.date.outputs.date }}
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "chore: update dependencies"
+          git push origin dependency-updates-${{ steps.date.outputs.date }}
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "chore: update dependencies" \
+            --body "Automated dependency updates via uv. Updates have been tested with pytest." \
+            --base main \
+            --head dependency-updates-${{ steps.date.outputs.date }}
