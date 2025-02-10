@@ -3,6 +3,9 @@
 # Exit immediately if any command fails
 set -euf -o pipefail
 
+# Debugging
+echo `ls -al /tmp`
+
 BACKUP_PATH="/app/db"  # This must match the path in the Dockerfile and backup.sh
 DB_PATH="${BACKUP_PATH}/${DB_NAME}.sqlite3"
 TEMP_RESTORE_FILE="${BACKUP_PATH}/latest-backup.tar.gz"
