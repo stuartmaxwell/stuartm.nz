@@ -36,11 +36,6 @@ jobs:
           git push origin dependency-updates-${{ steps.date.outputs.date }}
 
       - name: Create Pull Request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-            --title "chore: update dependencies" \
-            --body "Automated dependency updates via uv. Updates have been tested with pytest." \
-            --base main \
-            --head dependency-updates-${{ steps.date.outputs.date }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: dependency-updates-${{ steps.date.outputs.date }}
