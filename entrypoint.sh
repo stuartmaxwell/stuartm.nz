@@ -15,7 +15,7 @@ download_latest_backup() {
     echo "Downloading latest SQLite database backup from S3..."
     # This will give us the file name of the most recent backup.
     # s5cmd ls doesn't have a direct sort option, so we'll pipe to sort
-    LATEST_BACKUP=$(s5cmd --endpoint-url "${AWS_ENDPOINT_URL}" ls "s3://${S3_BUCKET}/**" | sort | tail -n 1 | awk '{print $NF}')
+    LATEST_BACKUP=$(s5cmd --endpoint-url "${AWS_ENDPOINT_URL}" ls "s3://${S3_BUCKET}/" | sort | tail -n 1 | awk '{print $NF}')
 
     if [ -z "${LATEST_BACKUP}" ]; then
         # There's no backup so nothing to do.
