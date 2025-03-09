@@ -329,7 +329,7 @@ LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
 logfire.configure(environment=LOGFIRE_ENVIRONMENT)
 logfire.instrument_django(
     capture_headers=True,
-    # excluded_urls="/healthcheck",
+    excluded_urls="/healthcheck",
 )
 
 # Healthcheck app
