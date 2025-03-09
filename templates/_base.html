@@ -1,4 +1,4 @@
-{% load static %}
+{% load djpress_tags static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +15,16 @@
     <meta name="keywords" content="Stuart Maxwell, Django, Python, Web Development, Blog">
     <meta name="author" content="Stuart Maxwell">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+      {% block title %}
+        {% page_title post_text="| " %}{% site_title %}
+      {% endblock title %}
+    </title>
+
     <link rel="icon" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32" type="image/png">
 
     {% block css %}
-      <link href="{% static "css/pico.jade.min.css" %}" rel="stylesheet">
+      <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
       <link href="{% static "css/styles.css" %}" rel="stylesheet">
     {% endblock css %}
 
@@ -27,16 +32,59 @@
       <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
     {% endif %}
 
-    {% block head %}{% endblock %}
+    {% block head %}
+      {% rss_link %}
+      <script src="{% static "js/htmx_203.min.js" %}"></script>
+    {% endblock head %}
   </head>
   <body>
-    {% block header %}{% endblock %}
+    {% block header %}
+      {% include "snippets/header.html" %}
+    {% endblock header %}
 
-    <main class="{% block main_classes %}{% endblock %}">
+    <main>
       {% include "snippets/messages.html" %}
       {% block content %}{% endblock %}
     </main>
 
-    {% block body_close %}{% endblock %}
+    {% block body_close %}
+      <div id="result"></div>
+
+      <script>
+        function closeModal(event) {
+          event.preventDefault();
+          const modal = document.querySelector('dialog');
+          if (modal) {
+            modal.remove();
+          }
+        }
+
+        async function copySpfRecord(button) {
+          const spfRecord = document.getElementById('spf-record');
+          if (spfRecord) {
+            try {
+              await navigator.clipboard.writeText(spfRecord.textContent);
+
+                  // Show feedback
+              const originalText = button.textContent;
+              button.textContent = '👍 Copied!';
+
+                  // Reset button text after 2 seconds
+              setTimeout(() => {
+                button.textContent = originalText;
+              }, 2000);
+
+            } catch (err) {
+              console.error('Failed to copy text:', err);
+              button.textContent = '❗️ Failed to copy';
+
+              setTimeout(() => {
+                button.textContent = originalText;
+              }, 2000);
+            }
+          }
+        }
+      </script>
+    {% endblock body_close %}
   </body>
 </html>
