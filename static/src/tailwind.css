@@ -89,6 +89,9 @@
       overflow-auto
       text-xs;
   }
+  blockquote {
+    @apply border-l-4 border-green-800 pl-4 ml-4 italic;
+  }
 }
 @layer components {
   header a {

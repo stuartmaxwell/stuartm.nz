@@ -502,6 +502,14 @@
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
+  blockquote {
+    margin-left: calc(var(--spacing) * 4);
+    border-left-style: var(--tw-border-style);
+    border-left-width: 4px;
+    border-color: var(--color-green-800);
+    padding-left: calc(var(--spacing) * 4);
+    font-style: italic;
+  }
 }
 @layer components {
   header a {
