@@ -1,1 +1,21 @@
 /* Custom styles for stuartm.nz */
+html,
+body {
+  height: 100%;
+  font-size: 19px;
+}
+
+/* header has a background color of --bs-green */
+header {
+  background-color: var(--bs-green);
+}
+
+header .navbar-brand {
+  font-weight: 900;
+  font-style: italic;
+}
+
+header .nav-link {
+  font-weight: 900;
+  font-style: italic;
+}

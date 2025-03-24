@@ -6,6 +6,10 @@ $font-family-base: $font-family-sans-serif;
 $green: #0D542B;
 $orange: #f56900;
 $primary: $green;
-;
+
+// Typography
+$headings-font-weight: 900;
+$headings-font-style: italic;
+
 
 @import "../../node_modules/bootstrap/scss/bootstrap";

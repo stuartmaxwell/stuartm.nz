@@ -44,10 +44,12 @@
       {% include "snippets/header.html" %}
     {% endblock header %}
 
-    <main>
-      {% include "snippets/messages.html" %}
-      {% block content %}{% endblock %}
-    </main>
+    {% block main %}
+      <main class="container">
+        {% include "snippets/messages.html" %}
+        {% block content %}{% endblock %}
+      </main>
+    {% endblock main %}
 
     {% block body_close %}
       <div id="result"></div>
