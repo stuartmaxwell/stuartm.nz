@@ -13,9 +13,29 @@ header {
 header .navbar-brand {
   font-weight: 900;
   font-style: italic;
+  font-size: 1.5rem;
 }
 
 header .nav-link {
   font-weight: 900;
   font-style: italic;
+}
+
+/* code blocks */
+pre {
+  background-color: #2e3440;
+  color: #d8dee9;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* link with hover effect: rounded subtle background */
+a.sidebar-link {
+  text-decoration: underline;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+a.sidebar-link:hover {
+  background-color: var(--bs-primary-bg-subtle);
 }
