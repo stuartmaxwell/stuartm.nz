@@ -51,3 +51,7 @@ media/
 **/*.sqlite3
 **/*.csv
 **/*.log
+
+# NPM stuff
+node_modules/
+build/
