@@ -20,11 +20,9 @@
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a href="{% url 'admin:index' %}" class="nav-link">
-            <div class="nav-link">
-              {% include "svg/house-gear.svg" %}
-              <span class="hidden md:block">Admin</span>
-            </div>
+          <a href="{% url 'admin:index' %}" class="nav-link icon-link">
+            {% include "svg/house-gear.svg" %}
+            Admin
           </a>
         </li>
       {% endif %}
