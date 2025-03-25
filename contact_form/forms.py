@@ -1,7 +1,6 @@
 """Forms for the contact_form app."""
 
 from django import forms
-from django.core.exceptions import ValidationError
 
 
 class ContactForm(forms.Form):
@@ -47,11 +46,3 @@ class ContactForm(forms.Form):
         required=False,
         widget=forms.HiddenInput,
     )
-
-    def clean_honeypot(self) -> str:
-        """Check if the honeypot field is empty."""
-        honeypot = self.cleaned_data["honeypot"]
-        if honeypot:
-            msg = "Bad bot!"
-            raise ValidationError(msg)
-        return honeypot
