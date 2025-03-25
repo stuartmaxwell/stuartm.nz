@@ -1,14 +1,12 @@
-<dialog open>
-  <article class="success">
-    <header>
-      <button aria-label="Close" rel="prev" onclick="closeModal(event)"></button>
-      <h3>Thanks!</h3>
-    </header>
+<div class="modal-content">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="contactModalLabel">Thanks!</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
     <p>Your message has been sent and should be with me soon.</p>
-    <footer>
-      <button class="secondary" onclick="closeModal(event)">
-        Close
-      </button>
-    </footer>
-  </article>
-</dialog>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  </div>
+</div>

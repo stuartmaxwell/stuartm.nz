@@ -24,24 +24,26 @@
   {% is_paginated as paginated %}
   {% if paginated %}
 
-    <nav class="pagination" aria-label="Pagination">
+    {% get_pagination_range as page_range %}
+    {% get_pagination_current_page as current_page %}
 
-      {% get_pagination_range as page_range %}
-      {% get_pagination_current_page as current_page %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
 
-      {% for page in page_range %}
+        {% for page in page_range %}
 
-        {% if page == current_page %}
+          {% if page == current_page %}
 
-          <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
-          <a href="?page={{ page }}" class="current" aria-current="page">{{ page }}</a>
+            <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
 
-        {% else %}
+          {% else %}
 
-          <a href="?page={{ page }}">{{ page }}</a>
+            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
 
-        {% endif %}
-      {% endfor %}
+          {% endif %}
+        {% endfor %}
+
+      </ul>
     </nav>
 
   {% endif %}

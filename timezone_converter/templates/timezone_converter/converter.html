@@ -3,6 +3,7 @@
 
 {% block title %}Timezone Converter{% endblock %}
 
+{% comment %} This removes the RSS link {% endcomment %}
 {% block head %}
   <script src="{% static "js/htmx_203.min.js" %}"></script>
 {% endblock head %}
@@ -10,8 +11,8 @@
 {% block content %}
 
   <h1>Timezone Converter</h1>
-  <div class="grid">
-    <div>
+  <div class="row">
+    <div class="col">
       <form>
         <label for="timestamp" class="form-label">Enter a timestamp in ISO 8601 format:
           <input class="form-control" type="text" name="timestamp" id="timestamp" value="2024-01-01T00:00:00Z" />
@@ -24,11 +25,12 @@
           hx-post="{% url 'timezone_converter:convert' %}"
           hx-params="timestamp, timezone"
           hx-target="#converted"
-          type="button">
+          type="button"
+          class="btn btn-primary">
           Convert</button>
       </form>
     </div>
-    <div>
+    <div class="col">
       <span id="converted"></span>
     </div>
   </div>

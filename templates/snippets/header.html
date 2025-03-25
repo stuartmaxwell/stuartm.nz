@@ -1,53 +1,51 @@
 {% load djpress_tags %}
 
-<header class="">
-  <ul>
-    {% site_title_link link_class="nav-brand-link" %}
-  </ul>
+<header class="navbar navbar-expand navbar-dark mb-3">
+  <div class="container">
 
-  <ul class="flex flex-row space-x-2 mx-4 grow">
-    {% get_pages as pages %}
-    {% for page in pages %}
-      {% if not page.is_child %}
-        <li><a href="{{ page.url }}" class="font-bold italic">{{ page.title }}</a></li>
+    {% site_title_link link_class="navbar-brand" %}
+
+
+    <ul class="navbar-nav me-auto">
+      {% get_pages as pages %}
+      {% for page in pages %}
+        {% if not page.is_child %}
+          <li class="nav-item">
+            <a href="{{ page.url }}" class="nav-link">{{ page.title }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'admin:index' %}" class="nav-link">
+            <div class="nav-link">
+              {% include "svg/house-gear.svg" %}
+              <span class="hidden md:block">Admin</span>
+            </div>
+          </a>
+        </li>
       {% endif %}
-    {% endfor %}
-  </ul>
-
-  <ul class="flex flex-row space-x-2">
-    {% if user.is_authenticated %}
-      <li>
-        <a href="{% url 'admin:index' %}">
-          <div class="nav-link">
-            {% include "svg/house-gear.svg" %}
-            <span class="hidden md:block">Admin</span>
-          </div>
+      <li class="nav-item">
+        <a href="{% url "contact_form:contact_form" %}" hx-get="{% url 'contact_form:contact_form' %}" hx-target="#contactForm"  data-bs-toggle="modal" data-bs-target="#contactFormModal" class="nav-link icon-link">
+          {% include "svg/email-heart.svg" %}
+          Email
         </a>
       </li>
-    {% endif %}
-    <li>
-      <a href="{% url "contact_form:contact_form" %}" hx-get="{% url 'contact_form:contact_form' %}" hx-target="#result">
-        <div class="nav-link">
-          {% include "svg/email-heart.svg" %}
-          <span class="hidden md:block">@email</span>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a rel="me" href="https://fosstodon.org/@stuartm">
-        <div class="nav-link">
+      <li class="nav-item">
+        <a rel="me" href="https://fosstodon.org/@stuartm" class="nav-link icon-link">
           {% include "svg/mastodon.svg" %}
-          <span class="hidden md:block">@stuartm</span>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a href="{% get_rss_url %}">
-        <div class="nav-link">
+          Social
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% get_rss_url %}" class="nav-link icon-link">
           {% include "svg/rss-fill.svg" %}
-          <span class="hidden md:block">RSS</span>
-        </div>
-      </a>
-    </li>
-  </ul>
+          RSS
+        </a>
+      </li>
+    </ul>
+  </div>
 </header>

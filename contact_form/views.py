@@ -2,6 +2,7 @@
 
 import asyncio
 
+from django.forms import ValidationError
 from django.http import HttpRequest, HttpResponse
 from django.template.response import TemplateResponse
 
@@ -42,6 +43,14 @@ async def contact_form(request: HttpRequest, contact_form_title: str = "Contact 
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             message = form.cleaned_data["message"]
+            honeypot = form.cleaned_data["honeypot"]
+            # Check if the honeypot field is empty
+            if honeypot:
+                # If the honeypot field is filled, just crash and raise a ValidationError
+                # This is a simple way to check if the form was submitted by a bot
+                # and not a human.
+                msg = "Bad bot!"
+                raise ValidationError(msg)
 
             # Send the email - see RUFF006
             task = asyncio.create_task(send_email_async(name=name, email=email, message=message))

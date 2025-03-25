@@ -8,82 +8,93 @@
 
 {% block main_classes %}container-fluid{% endblock %}
 
-{% block content %}
+{% block main %}
+  <main class="container">
 
-  <h1>Markdown Editor</h1>
-  <div id="markdown-editor">
-    <div><button id="copymarkdown">Copy Text</button> <span id="loading" aria-busy="true">Loading...</span></div>
-    <div><button id="copyhtml">Copy HTML</button></div>
-    <textarea id="editor" py-keyup="preview"></textarea>
-    <div id="preview"></div>
-  </div>
+    <h1>Markdown Editor <span id="loading" aria-busy="true">Loading...</span></h1>
+    <div class="row">
+      <div class="col">
+        <div class="position-relative">
+          <button class="z-1 position-absolute top-0 end-0 btn btn-sm btn-outline-secondary" id="copymarkdown">Copy</button>
+          <textarea class="z-0 position-absolute top-0 start-0 form-control" style="height: 400px" id="editor" py-keyup="preview"></textarea>
+        </div>
+      </div>
 
-  <script type="py" config='{"packages":["markdown", "pygments", "pymdown-extensions"]}'>
-    import markdown
-    import pymdownx.emoji
-    from pyscript import document
-    extension_configs = {
-      "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
-      }
-    md = markdown.Markdown(extensions=["pymdownx.superfences", "pymdownx.highlight", "pymdownx.emoji", "tables", "toc"], output_format="html", extension_configs=extension_configs)
-    def preview(event):
-      input = document.querySelector("#editor").value
-      output = document.querySelector("#preview")
-      output.innerHTML = md.convert(input)
-      md.reset()
-  </script>
+      <div class="col">
+        <div class="position-relative">
+          <button class="z-1 position-absolute top-0 end-0 btn btn-sm btn-outline-secondary" id="copyhtml">Copy</button>
+          <div id="preview" class="z-0 position-absolute top-0 start-0"></div>
+        </div>
+      </div>
+    </div>
 
-  <script>
-    const editor = document.getElementById('editor');
-    const preview = document.getElementById('preview');
-    const loading = document.getElementById('loading');
-    const copyHtmlBtn = document.getElementById('copyhtml');
-    const copyMarkdownBtn = document.getElementById('copymarkdown');
+    <script type="py" config='{"packages":["markdown", "pygments", "pymdown-extensions"]}'>
+      import markdown
+      import pymdownx.emoji
+      from pyscript import document
+      extension_configs = {
+        "pymdownx.emoji": {"emoji_generator": pymdownx.emoji.to_alt},
+        }
+      md = markdown.Markdown(extensions=["pymdownx.superfences", "pymdownx.highlight", "pymdownx.emoji", "tables", "toc"], output_format="html", extension_configs=extension_configs)
+      def preview(event):
+        input = document.querySelector("#editor").value
+        output = document.querySelector("#preview")
+        output.innerHTML = md.convert(input)
+        md.reset()
+    </script>
+
+    <script>
+      const editor = document.getElementById('editor');
+      const preview = document.getElementById('preview');
+      const loading = document.getElementById('loading');
+      const copyHtmlBtn = document.getElementById('copyhtml');
+      const copyMarkdownBtn = document.getElementById('copymarkdown');
 
 
-    window.addEventListener('py:ready', function() {
-      loading.style.display = 'none';
-      setTimeout(() => {
-        editor.focus();
-      }, 0);
-    });
-
-    // Copy Markdown button
-    copyMarkdownBtn.addEventListener('click', function() {
-      editor.select();
-      const markdownCopySuccess = document.execCommand('copy');
-      const copyMarkdownBtnText = copyMarkdownBtn.textContent;
-
-      if (markdownCopySuccess) {
-        copyMarkdownBtn.textContent = 'Copied! 👍';
-      } else {
-        copyMarkdownBtn.textContent = 'Copy failed 😢';
-      }
-
-      setTimeout(() => {
-        copyMarkdownBtn.textContent = copyMarkdownBtnText;
-      }, 3000);
-    });
-
-    // Copy HTML button
-    copyHtmlBtn.addEventListener('click', function() {
-      const previewContent = preview.innerHTML;
-      const copyHtmlBtnText = copyHtmlBtn.textContent;
-
-      navigator.clipboard.writeText(previewContent).then(() => {
-        copyHtmlBtn.textContent = 'Copied! 👍';
+      window.addEventListener('py:ready', function() {
+        loading.style.display = 'none';
         setTimeout(() => {
-          copyHtmlBtn.textContent = copyHtmlBtnText;
-        }, 3000);
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-        copyHtmlBtn.textContent = 'Copy failed 😢';
+          editor.focus();
+        }, 0);
+      });
+
+      // Copy Markdown button
+      copyMarkdownBtn.addEventListener('click', function() {
+        editor.select();
+        const markdownCopySuccess = document.execCommand('copy');
+        const copyMarkdownBtnText = copyMarkdownBtn.textContent;
+
+        if (markdownCopySuccess) {
+          copyMarkdownBtn.textContent = '👍';
+        } else {
+          copyMarkdownBtn.textContent = '😢';
+        }
+
         setTimeout(() => {
-          copyHtmlBtn.textContent = copyHtmlBtnText;
+          copyMarkdownBtn.textContent = copyMarkdownBtnText;
         }, 3000);
       });
-    });
 
-  </script>
+      // Copy HTML button
+      copyHtmlBtn.addEventListener('click', function() {
+        const previewContent = preview.innerHTML;
+        const copyHtmlBtnText = copyHtmlBtn.textContent;
 
-{% endblock content %}
+        navigator.clipboard.writeText(previewContent).then(() => {
+          copyHtmlBtn.textContent = 'Copied! 👍';
+          setTimeout(() => {
+            copyHtmlBtn.textContent = copyHtmlBtnText;
+          }, 3000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+          copyHtmlBtn.textContent = 'Copy failed 😢';
+          setTimeout(() => {
+            copyHtmlBtn.textContent = copyHtmlBtnText;
+          }, 3000);
+        });
+      });
+
+    </script>
+
+  </main>
+{% endblock main %}

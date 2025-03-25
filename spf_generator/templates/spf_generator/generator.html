@@ -1,80 +1,110 @@
 {% extends "_base.html" %}
-{% load spf_generator_filters %}
-
-{% block main_classes %}container{% endblock %}
+{% load spf_generator_filters static %}
 
 {% block content %}
-  <article>
-    <header>
-      <h1>SPF Record Generator</h1>
-      <p><strong>Please note:</strong> I have made best efforts to ensure the information below is correct. But I highly recommend checking and validating the SPF record before updating it in your DNS. Please contact me if you spot any mistakes.</p>
-      <p>Select the email services that you use with your domain from the lists below. If you don't see the service you want, please <a href="{% url 'spf_generator:contact_form' %}" hx-get="{% url 'spf_generator:contact_form' %}" hx-target="#result">send me a message to let me know</a>.</p>
-    </header>
+  <h1>SPF Record Generator</h1>
+  <p><strong>Please note:</strong> I have made best efforts to ensure the information below is correct. But I highly recommend checking and validating the SPF record before updating it in your DNS. Please contact me if you spot any mistakes.</p>
+  <p>Select the email services that you use with your domain from the lists below. If you don't see the service you want, please <a href="{% url 'spf_generator:contact_form' %}" hx-get="{% url 'spf_generator:contact_form' %}" hx-target="#result">send me a message to let me know</a>.</p>
 
-    <form hx-post="{% url 'spf_generator:spf_generator' %}" hx-target="#result">
-      {% csrf_token %}
-
-      <div class="grid">
-        {% for category, category_name in categories %}
-          <div>
-            <article>
-              <header>
-                <h2>{{ category_name }}</h2>
-              </header>
-              <ul>
-                {% for field in form %}
-                  {% if field.name|startswith:'provider_' %}
-                    {% with provider=providers|get_provider:field.name %}
-                      {% if provider.category == category %}
-                        <li>
-                          <label>
-                            {{ field }}
-                            <strong{% if field.help_text %} data-tooltip="{{ field.help_text }}"{% endif %}>{{ field.label }}</strong>
-                          </label>
-                        </li>
-                      {% endif %}
-                    {% endwith %}
+  <form hx-post="{% url 'spf_generator:spf_generator' %}" hx-target="#spfResults" class="mb-5">
+    {% csrf_token %}
+    <div class="row">
+      {% for category, category_name in categories %}
+        <div class="col">
+          <h2>{{ category_name }}</h2>
+          <ul>
+            {% for field in form %}
+              {% if field.name|startswith:'provider_' %}
+                {% with provider=providers|get_provider:field.name %}
+                  {% if provider.category == category %}
+                    <li>
+                      <label>
+                        {{ field }}
+                        <strong{% if field.help_text %} title="{{ field.help_text }}"{% endif %}>{{ field.label }}</strong>
+                      </label>
+                    </li>
                   {% endif %}
-                {% endfor %}
-              </ul>
-            </article>
-          </div>
-        {% endfor %}
+                {% endwith %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+
+    <h2>Custom Server</h2>
+    <div class="row">
+      <div class="col">
+        <p>Optionally, you can add the IP address of your own server to your SPF record. This is useful if you have a server that sends emails directly to the internet.</p>
+        {% if form.custom_ip.errors %}
+          <small class="error">{{ form.custom_ip.errors.0 }}</small>
+        {% endif %}
       </div>
-
-      <p>Optionally, you can add the IP address of your own server to your SPF record. This is useful if you have a server that sends emails directly to the internet.</p>
-
-      <article>
-        <header>
-          <h2>Custom Server</h2>
-        </header>
+      <div class="col">
         {{ form.custom_ip }}
         {% if form.custom_ip.help_text %}
           <small>{{ form.custom_ip.help_text }}</small>
         {% endif %}
-        {% if form.custom_ip.errors %}
-          <small class="error">{{ form.custom_ip.errors.0 }}</small>
+      </div>
+    </div>
+
+    <h2>Default Policy</h2>
+    <div class="row">
+      <div class="col">
+        <p>Now select the policy you want to apply with this SPF record. This is an important choice and is explained below.</p>
+        {{ form.all_policy }}
+        {% if form.all_policy.help_text %}
+          <small>{{ form.all_policy.help_text|safe }}</small>
         {% endif %}
-      </article>
+      </div>
+      <div class="col">
+        {{ form.all_mechanism }}
+        {% if form.all_mechanism.help_text %}
+          <small>{{ form.all_mechanism.help_text|safe }}</small>
+        {% endif %}
+      </div>
+    </div>
 
-      <p>Now select the policy you want to apply with this SPF record. This is an important choice and is explained below.</p>
-
-      <article>
-        <header>
-          <h2>Default Policy</h2>
-        </header>
-        <div class="grid">
-          <div>
-            {{ form.all_mechanism }}
-            {% if form.all_mechanism.help_text %}
-              <small>{{ form.all_mechanism.help_text|safe }}</small>
-            {% endif %}
-          </div>
-        </div>
-      </article>
-
-      <button type="submit">Generate SPF Record</button>
-    </form>
-  </article>
+    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#spfModal">Generate SPF Record</button>
+  </form>
 
 {% endblock content %}
+
+{% block body_close %}
+  <div class="modal fade" id="contactFormModal" tabindex="-1" aria-labelledby="contactFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="contactForm"></div>
+  </div>
+  <div id="spfModal" class="modal fade" tabindex="-1" aria-labelledby="spfModal" aria-hidden="true">
+    <div class="modal-dialog" id="spfResults"></div>
+  </div>
+
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script>
+    async function copySpfRecord(button) {
+      const spfRecord = document.getElementById('spf-record');
+      if (spfRecord) {
+        try {
+          await navigator.clipboard.writeText(spfRecord.textContent);
+
+          // Show feedback
+          const originalText = button.textContent;
+          button.textContent = '👍 Copied!';
+
+          // Reset button text after 2 seconds
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+
+        } catch (err) {
+          console.error('Failed to copy text:', err);
+          button.textContent = '❗️ Failed to copy';
+
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        }
+      }
+    }
+
+  </script>
+{% endblock body_close %}

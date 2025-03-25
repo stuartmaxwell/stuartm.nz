@@ -95,3 +95,14 @@ startapp APPNAME:
 # Generic manage command
 @manage ARGS="":
     {{uvr}} manage.py {{ARGS}}
+
+# Build the CSS from SCSS
+build-css:
+  sass build/scss/custom.scss build/css/bootstrap.custom.css
+
+# Purge CSS
+purge-css:
+  purgecss --css build/css/bootstrap.custom.css --output static/css/bs53p.css --content ./templates/**/*.html ./**/templates/**/*.html
+
+# Purge and build CSS
+css: build-css purge-css

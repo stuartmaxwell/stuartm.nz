@@ -33,24 +33,20 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
             # Check if either providers are selected or custom IP is provided
             custom_ip = form.cleaned_data.get("custom_ip", "")
             if not selected_providers and not custom_ip:
-                response = render(
+                return render(
                     request,
                     "spf_generator/partials/error.html",
                     {"error": "Please select at least one email provider or enter a custom IP address"},
                 )
-                response["HX-Retarget"] = "#result"
-                return response
             # Check total lookup count
             total_lookups = sum(p.lookup_count for p in selected_providers)
             max_dns_lookups = 10
             if total_lookups > max_dns_lookups:
-                response = render(
+                return render(
                     request,
                     "spf_generator/partials/error.html",
                     {"error": f"Total DNS lookups ({total_lookups}) exceeds maximum of 10"},
                 )
-                response["HX-Retarget"] = "#result"
-                return response
 
             # Generate SPF record
             mechanisms = []
@@ -77,13 +73,12 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     request,
                     "spf_generator/partials/error.html",
                     {"error": "Combined SPF record exceeds 255 characters"},
-                    headers={"HX-Retarget": "#result"},
                 )
 
             all_mechanism = SpfAllMechanism(form.cleaned_data["all_mechanism"])
 
             # Success - render SPF record
-            response = render(
+            return render(
                 request,
                 "spf_generator/partials/result.html",
                 {
@@ -92,17 +87,13 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
                     "all_mechanism_description": all_mechanism.description,
                 },
             )
-            response["HX-Retarget"] = "#result"
-            return response
 
         # Form validation failed - must be the IP address if this point is reached
-        response = render(
+        return render(
             request,
             "spf_generator/partials/error.html",
             {"error": "Invalid form submission - please check if you've entered an invalid IP address"},
         )
-        response["HX-Retarget"] = "#result"
-        return response
 
     # GET request - display form
     providers = {provider.id: provider for provider in EmailProvider.objects.filter(active=True)}
