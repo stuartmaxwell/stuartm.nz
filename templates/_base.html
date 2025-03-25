@@ -52,6 +52,10 @@
     {% endblock main %}
 
     {% block body_close %}
+      <div class="modal fade" id="contactFormModal" tabindex="-1" aria-labelledby="contactFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="contactForm"></div>
+      </div>
+      <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
     {% endblock body_close %}
   </body>
 </html>

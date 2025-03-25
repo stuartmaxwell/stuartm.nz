@@ -29,7 +29,7 @@
         </li>
       {% endif %}
       <li class="nav-item">
-        <a href="{% url "contact_form:contact_form" %}" hx-get="{% url 'contact_form:contact_form' %}" hx-target="#result" class="nav-link icon-link">
+        <a href="{% url "contact_form:contact_form" %}" hx-get="{% url 'contact_form:contact_form' %}" hx-target="#contactForm"  data-bs-toggle="modal" data-bs-target="#contactFormModal" class="nav-link icon-link">
           {% include "svg/email-heart.svg" %}
           Email
         </a>

@@ -14,6 +14,7 @@ class ContactForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Your name",
+                "class": "form-control",
             },
         ),
     )
@@ -25,6 +26,7 @@ class ContactForm(forms.Form):
         widget=forms.EmailInput(
             attrs={
                 "placeholder": "Your email",
+                "class": "form-control",
             },
         ),
     )
@@ -35,6 +37,7 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 "placeholder": "Your message",
+                "class": "form-control",
             },
         ),
     )
