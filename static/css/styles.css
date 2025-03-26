@@ -39,3 +39,13 @@ a.sidebar-link {
 a.sidebar-link:hover {
   background-color: var(--bs-primary-bg-subtle);
 }
+
+/* blog styles */
+article {
+  margin-bottom: 3rem;
+}
+
+article footer p {
+  color: var(--bs-secondary);
+  margin: 0;
+}
