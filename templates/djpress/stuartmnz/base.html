@@ -4,11 +4,11 @@
 {% block content %}
 
   <div class="row">
-    <div class="col-8">
+    <div class="col col-md-8">
       {% block djpress_content %}{% endblock %}
     </div>
 
-    <div class="col-4">
+    <div class="col-4 d-none d-md-block">
       <h3>Recent Posts</h3>
       <ul>
         {% get_recent_posts as posts %}

@@ -11,17 +11,17 @@
 {% block main %}
   <main class="container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col-12 col-lg-6">
         <div class="border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
-          <div class="fw-bold fst-italic ms-1 text-body-secondary">Markdown Editor <span id="loading" aria-busy="true">(Loading...)</span></div>
+          <div class="fw-bold fst-italic ms-1 text-body-secondary">Markdown Editor <small class="d-lg-none">(Scroll down to see the preview.)</small><span id="loading" aria-busy="true"> loading...</span></div>
           <button type="button" class="btn btn-outline-secondary fw-bold fst-italic border-0 py-1 px-2 rounded-0 rounded-top rounded-start-0" id="copymarkdown">
             Copy
           </button>
         </div>
-        <textarea class="font-monospace form-control w-100 overflow-auto border border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); resize: none; overflow-y: auto;" id="editor" py-keyup="preview"></textarea>
+        <textarea class="form-control w-100 overflow-auto border border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); resize: none; overflow-y: auto;" id="editor" py-keyup="preview"></textarea>
       </div>
 
-      <div class="col">
+      <div class="col-12 col-lg-6">
         <div class="border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
           <div class="fw-bold fst-italic ms-1 text-body-secondary">HTML Preview</div>
           <button type="button" class="btn btn-outline-secondary fw-bold fst-italic border-0 py-1 px-2 rounded-0 rounded-top rounded-start-0" id="copyhtml">
