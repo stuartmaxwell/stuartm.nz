@@ -474,9 +474,31 @@ output {
   width: 33.33333333%;
 }
 
-.col-8 {
+.col-12 {
   flex: 0 0 auto;
-  width: 66.66666667%;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .col-md-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 992px) {
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+  .col-lg-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .col-xl-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
 }
 .table {
   --bs-table-color-type: initial;
@@ -679,7 +701,6 @@ textarea.form-control {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
@@ -688,7 +709,6 @@ textarea.form-control {
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-
 :not(.btn-check) + .btn:active:focus-visible,
 .btn:first-child:active:focus-visible,
 .btn.active:focus-visible,
@@ -805,7 +825,6 @@ textarea.form-control {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 84, 43, 0.25);
 }
-
 .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
@@ -1245,6 +1264,10 @@ textarea.form-control {
   display: flex !important;
 }
 
+.d-none {
+  display: none !important;
+}
+
 .border {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
 }
@@ -1267,6 +1290,10 @@ textarea.form-control {
 
 .align-items-center {
   align-items: center !important;
+}
+
+.me-0 {
+  margin-right: 0 !important;
 }
 
 .me-auto {
@@ -1297,6 +1324,16 @@ textarea.form-control {
   padding: 0.5rem !important;
 }
 
+.px-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.px-1 {
+  padding-right: 0.25rem !important;
+  padding-left: 0.25rem !important;
+}
+
 .px-2 {
   padding-right: 0.5rem !important;
   padding-left: 0.5rem !important;
@@ -1311,8 +1348,8 @@ textarea.form-control {
   padding-bottom: 1rem !important;
 }
 
-.font-monospace {
-  font-family: var(--bs-font-monospace) !important;
+.fs-4 {
+  font-size: calc(1.275rem + 0.3vw) !important;
 }
 
 .fs-5 {
@@ -1370,4 +1407,40 @@ textarea.form-control {
 .rounded-start-0 {
   border-bottom-left-radius: 0 !important;
   border-top-left-radius: 0 !important;
+}
+
+@media (min-width: 576px) {
+  .me-sm-3 {
+    margin-right: 1rem !important;
+  }
+  .px-sm-0 {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+  .px-sm-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+  .px-sm-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+}
+@media (min-width: 768px) {
+  .d-md-inline {
+    display: inline !important;
+  }
+  .d-md-block {
+    display: block !important;
+  }
+}
+@media (min-width: 992px) {
+  .d-lg-none {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .fs-4 {
+    font-size: 1.5rem !important;
+  }
 }

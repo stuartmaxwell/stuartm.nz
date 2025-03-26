@@ -27,6 +27,7 @@ pre {
   color: #d8dee9;
   padding: 0.5rem;
   border-radius: 0.25rem;
+  font-size: 0.8rem;
 }
 
 /* link with hover effect: rounded subtle background */
@@ -48,4 +49,17 @@ article {
 article footer p {
   color: var(--bs-secondary);
   margin: 0;
+}
+
+blockquote {
+  border-left: 0.25rem solid var(--bs-primary);
+  padding-left: 1rem;
+  margin-left: 1rem;
+  font-style: italic;
+}
+
+/* Markdown editor */
+textarea#editor {
+  font-size: 0.8rem;
+  font-family: var(--bs-font-monospace);
 }

@@ -10,7 +10,7 @@
     {% csrf_token %}
     <div class="row">
       {% for category, category_name in categories %}
-        <div class="col">
+        <div class="col-12 col-lg-4">
           <h2>{{ category_name }}</h2>
           <ul>
             {% for field in form %}
@@ -34,13 +34,13 @@
 
     <h2>Custom Server</h2>
     <div class="row">
-      <div class="col">
+      <div class="col-12 col-lg-6">
         <p>Optionally, you can add the IP address of your own server to your SPF record. This is useful if you have a server that sends emails directly to the internet.</p>
         {% if form.custom_ip.errors %}
           <small class="error">{{ form.custom_ip.errors.0 }}</small>
         {% endif %}
       </div>
-      <div class="col">
+      <div class="col-12 col-lg-6">
         {{ form.custom_ip }}
         {% if form.custom_ip.help_text %}
           <small>{{ form.custom_ip.help_text }}</small>
@@ -50,14 +50,14 @@
 
     <h2>Default Policy</h2>
     <div class="row">
-      <div class="col">
+      <div class="col-12 col-lg-6">
         <p>Now select the policy you want to apply with this SPF record. This is an important choice and is explained below.</p>
         {{ form.all_policy }}
         {% if form.all_policy.help_text %}
           <small>{{ form.all_policy.help_text|safe }}</small>
         {% endif %}
       </div>
-      <div class="col">
+      <div class="col-12 col-lg-6">
         {{ form.all_mechanism }}
         {% if form.all_mechanism.help_text %}
           <small>{{ form.all_mechanism.help_text|safe }}</small>
