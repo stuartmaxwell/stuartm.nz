@@ -11,5 +11,9 @@ $primary: $green;
 $headings-font-weight: 900;
 $headings-font-style: italic;
 
+// Make all images responsive
+img {
+  @extend .img-fluid;
+}
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
