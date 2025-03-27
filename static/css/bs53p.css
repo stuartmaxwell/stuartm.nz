@@ -156,8 +156,8 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-h3,
-.h3,
+h4,
+.h4,
 h2,
 .h2,
 h1,
@@ -192,14 +192,14 @@ h2,
   }
 }
 
-h3,
-.h3 {
-  font-size: calc(1.3rem + 0.6vw);
+h4,
+.h4 {
+  font-size: calc(1.275rem + 0.3vw);
 }
 @media (min-width: 1200px) {
-  h3,
-  .h3 {
-    font-size: 1.75rem;
+  h4,
+  .h4 {
+    font-size: 1.5rem;
   }
 }
 
@@ -701,6 +701,7 @@ textarea.form-control {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
+
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
@@ -709,6 +710,7 @@ textarea.form-control {
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
+
 :not(.btn-check) + .btn:active:focus-visible,
 .btn:first-child:active:focus-visible,
 .btn.active:focus-visible,
@@ -825,6 +827,7 @@ textarea.form-control {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 84, 43, 0.25);
 }
+
 .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
