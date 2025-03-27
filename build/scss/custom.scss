@@ -16,4 +16,9 @@ img {
   @extend .img-fluid;
 }
 
+// Make all tables Bootstrap tables
+table {
+  @extend .table;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
