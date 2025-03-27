@@ -4,9 +4,7 @@
 {% block title %}Timezone Converter{% endblock %}
 
 {% comment %} This removes the RSS link {% endcomment %}
-{% block head %}
-  <script src="{% static "js/htmx_203.min.js" %}"></script>
-{% endblock head %}
+{% block head_close %}{% endblock %}
 
 {% block content %}
 
@@ -34,4 +32,5 @@
       <span id="converted"></span>
     </div>
   </div>
+
 {% endblock content %}

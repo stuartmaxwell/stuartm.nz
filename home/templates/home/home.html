@@ -3,7 +3,7 @@
 
 {% block title %}Home{% endblock %}
 
-{% block head %}
+{% block head_close %}
   <style>
     body {
       margin: 0;
@@ -33,7 +33,7 @@
       color: var(--bs-gray-500);
     }
   </style>
-{% endblock head %}
+{% endblock head_close %}
 
 {% block header %}{% endblock %}
 
@@ -42,7 +42,9 @@
   <div id="date"></div>
 {% endblock main %}
 
-{% block body_close %}
+{% block body_close %}{% endblock %}
+
+{% block js_body_close %}
 
   <script>
     function updateClock() {
@@ -65,4 +67,4 @@
     setInterval(updateClock, 1000);
   </script>
 
-{% endblock body_close %}
+{% endblock js_body_close %}

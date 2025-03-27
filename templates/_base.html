@@ -70,10 +70,9 @@
       <script async src="https://u.amanzi.nz/script.js" data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
     {% endif %}
 
-    {% block head %}
+    {% block head_close %}
       {% rss_link %}
-      <script src="{% static "js/bundle.min.js" %}"></script>
-    {% endblock head %}
+    {% endblock head_close %}
   </head>
   <body>
     {% block header %}
@@ -92,5 +91,9 @@
         <div class="modal-dialog" id="contactForm"></div>
       </div>
     {% endblock body_close %}
+
+    {% block js_body_close %}
+      <script src="{% static "js/bundle.min.js" %}"></script>
+    {% endblock js_body_close %}
   </body>
 </html>
