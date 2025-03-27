@@ -1,9 +1,11 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "htmx.org": "^2.0.4"
   },
   "scripts": {
     "build-css": "sass build/scss/custom.scss build/css/bootstrap.custom.css",
+    "build-js": "webpack --mode production",
     "watch-css": "sass --watch build/scss/custom.scss:build/css/bootstrap.custom.css",
     "purge-css": "purgecss --css build/css/bootstrap.custom.css --output static/css/bs53p.css --content ./templates/**/*.html ./**/templates/**/*.html",
     "build": "npm run build-css && npm run purge-css"
