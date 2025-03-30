@@ -1,5 +1,47 @@
+// Font variables
+$font-path: "/static/fonts";
+$font-family-sans: "Fira Sans";
+$font-display: fallback;
+
+// Font face definitions
+@font-face {
+  font-family: $font-family-sans;
+  src: url("#{$font-path}/firasans-regular.woff2") format("woff2"),
+  url("#{$font-path}/firasans-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: $font-display;
+}
+
+@font-face {
+  font-family: $font-family-sans;
+  src: url("#{$font-path}/firasans-italic.woff2") format("woff2"),
+  url("#{$font-path}/firasans-italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: $font-display;
+}
+
+@font-face {
+  font-family: $font-family-sans;
+  src: url("#{$font-path}/firasans-bold.woff2") format("woff2"),
+  url("#{$font-path}/firasans-bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: $font-display;
+}
+
+@font-face {
+  font-family: $font-family-sans;
+  src: url("#{$font-path}/firasans-bolditalic.woff2") format("woff2"),
+  url("#{$font-path}/firasans-bolditalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: $font-display;
+}
+
 // Fonts
-$font-family-sans-serif: "Fira Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-family-sans-serif: $font-family-sans, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 $font-family-base: $font-family-sans-serif;
 
 // Colours

@@ -77,7 +77,7 @@ class EmailProvider(models.Model):
 
     category = models.CharField(
         max_length=20,
-        choices=ProviderCategory.choices,
+        choices=ProviderCategory,
         help_text="Category of email provider",
     )
 
@@ -88,7 +88,7 @@ class EmailProvider(models.Model):
 
     mechanism_type = models.CharField(
         max_length=10,
-        choices=SpfMechanism.choices,
+        choices=SpfMechanism,
         help_text="Type of SPF mechanism used",
     )
 
