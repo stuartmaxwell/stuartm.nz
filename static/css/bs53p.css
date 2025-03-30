@@ -1,4 +1,36 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-regular.woff2") format("woff2"),
+    url("/static/fonts/firasans-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-italic.woff2") format("woff2"),
+    url("/static/fonts/firasans-italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: fallback;
+}
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-bold.woff2") format("woff2"),
+    url("/static/fonts/firasans-bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: fallback;
+}
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/static/fonts/firasans-bolditalic.woff2") format("woff2"),
+    url("/static/fonts/firasans-bolditalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: fallback;
+}
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -402,6 +434,7 @@ output {
   font-weight: 300;
 }
 
+.img-fluid,
 img {
   max-width: 100%;
   height: auto;
