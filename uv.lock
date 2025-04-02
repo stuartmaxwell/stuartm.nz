@@ -108,16 +108,16 @@ wheels = [
 
 [[package]]
 name = "django"
-version = "5.1.7"
+version = "5.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "sqlparse" },
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5f/57/11186e493ddc5a5e92cc7924a6363f7d4c2b645f7d7cb04a26a63f9bfb8b/Django-5.1.7.tar.gz", hash = "sha256:30de4ee43a98e5d3da36a9002f287ff400b43ca51791920bfb35f6917bfe041c", size = 10716510 }
+sdist = { url = "https://files.pythonhosted.org/packages/4c/1b/c6da718c65228eb3a7ff7ba6a32d8e80fa840ca9057490504e099e4dd1ef/Django-5.2.tar.gz", hash = "sha256:1a47f7a7a3d43ce64570d350e008d2949abe8c7e21737b351b6a1611277c6d89", size = 10824891 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/0f/7e042df3d462d39ae01b27a09ee76653692442bc3701fbfa6cb38e12889d/Django-5.1.7-py3-none-any.whl", hash = "sha256:1323617cb624add820cb9611cdcc788312d250824f92ca6048fda8625514af2b", size = 8276912 },
+    { url = "https://files.pythonhosted.org/packages/63/e0/6a5b5ea350c5bd63fe94b05e4c146c18facb51229d9dee42aa39f9fc2214/Django-5.2-py3-none-any.whl", hash = "sha256:91ceed4e3a6db5aedced65e3c8f963118ea9ba753fc620831c77074e620e7d83", size = 8301361 },
 ]
 
 [[package]]
@@ -144,15 +144,15 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.16.0"
+version = "0.16.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fb/80/e9f93300bfdc9b01617344c0567421488388e10ec9d24b5254be36ba2504/djpress-0.16.0.tar.gz", hash = "sha256:cc661b45668575e5f333c871c99cab1b14b099eee8ab5e1912d1505779258e7a", size = 135618 }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/18/aa4c315405892ce9cb1b7c0374d5bfcc0d1ccfd4fafa83f4f00869081ef4/djpress-0.16.1.tar.gz", hash = "sha256:411b0665a869edbf809799c4bbd913bf8fd21372f320fa21ada770c204b5b2a1", size = 135603 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/22/22/3bf2ed94fbdda7ad78acb5d835d3e2d47c812ee46c7a89f3fe065549c468/djpress-0.16.0-py3-none-any.whl", hash = "sha256:a95fd4494370afb4fabda52cb7d04e2ea747e2916a3de92a3ebc667a1432ac0a", size = 53913 },
+    { url = "https://files.pythonhosted.org/packages/21/5b/e99f14bf5000a71482ec6932791015c59cc9dad47e1c1c0d777c4330c3d1/djpress-0.16.1-py3-none-any.whl", hash = "sha256:f8d6251d4121cac8fb240dfe91086e4e03981d09d3b3648501a47f571cd641bb", size = 53914 },
 ]
 
 [[package]]
@@ -283,7 +283,7 @@ wheels = [
 
 [[package]]
 name = "logfire"
-version = "3.11.0"
+version = "3.12.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "executing" },
@@ -294,9 +294,9 @@ dependencies = [
     { name = "rich" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/38/06/fcde41240092e5b28f4a213da653f773441fe9ac1cbbc59d45b16e691a15/logfire-3.11.0.tar.gz", hash = "sha256:2ce9e58d6a7eb6fb9888fe12464d2284d16479e49ade766846fcb84e1c4a1abe", size = 464360 }
+sdist = { url = "https://files.pythonhosted.org/packages/b6/13/3f8efed24ac44c86831917f06c3f03af156b3dc816dd049c4f9344db3040/logfire-3.12.0.tar.gz", hash = "sha256:1c8c21f33e94a63106c38bdf51c0bad554430d0581f1cfbb0e8bb1741a5bd43b", size = 470112 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/66/64/8bfc71ef2fa44190e7a8b10c3aabddf72df2944a0bce04bbe27a500566ac/logfire-3.11.0-py3-none-any.whl", hash = "sha256:bd20e697030510cfc834b1805945b1ad62ac057679d01d13579ed2f454f0e979", size = 190143 },
+    { url = "https://files.pythonhosted.org/packages/08/04/a46bb34107dbe3ceea5562b0ba1720eeb25c19a10277cbc9c9f9b39d4cc7/logfire-3.12.0-py3-none-any.whl", hash = "sha256:d1812d96e5a88d3aa364947075af7a8bc2791e6e2474893fe02ce57b2a417a69", size = 191451 },
 ]
 
 [package.optional-dependencies]
@@ -574,14 +574,14 @@ wheels = [
 
 [[package]]
 name = "pytest-django"
-version = "4.10.0"
+version = "4.11.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a5/10/a096573b4b896f18a8390d9dafaffc054c1f613c60bf838300732e538890/pytest_django-4.10.0.tar.gz", hash = "sha256:1091b20ea1491fd04a310fc9aaff4c01b4e8450e3b157687625e16a6b5f3a366", size = 84710 }
+sdist = { url = "https://files.pythonhosted.org/packages/61/37/cd00619f8f486e53362d17c98fa90455c079bd75541ea44e812d7f49d144/pytest_django-4.11.0.tar.gz", hash = "sha256:35b339b9a231a99de226789c3e45d4d19d6c09ca9f3c236b3b5024afbf1f68b5", size = 86063 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/58/4c/a4fe18205926216e1aebe1f125cba5bce444f91b6e4de4f49fa87e322775/pytest_django-4.10.0-py3-none-any.whl", hash = "sha256:57c74ef3aa9d89cae5a5d73fbb69a720a62673ade7ff13b9491872409a3f5918", size = 23975 },
+    { url = "https://files.pythonhosted.org/packages/27/36/21537f69e37dd83d2b7a44b6978f480505ba75b9b66d49479d2ba426de8c/pytest_django-4.11.0-py3-none-any.whl", hash = "sha256:ab969cc86585a1763fd4a2fa1bc0f3015abbbcb823667af48320f1a1d2053291", size = 25277 },
 ]
 
 [[package]]
@@ -644,15 +644,15 @@ wheels = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.24.1"
+version = "2.25.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f1/ef/4847dcd63e3f3c451cf701a825d21200f1322d46ac97586d5c90a13dfea1/sentry_sdk-2.24.1.tar.gz", hash = "sha256:8ba3c29990fa48865b908b3b9dc5ae7fa7e72407c7c9e91303e5206b32d7b8b1", size = 318124 }
+sdist = { url = "https://files.pythonhosted.org/packages/85/2f/a0f732270cc7c1834f5ec45539aec87c360d5483a8bd788217a9102ccfbd/sentry_sdk-2.25.1.tar.gz", hash = "sha256:f9041b7054a7cf12d41eadabe6458ce7c6d6eea7a97cfe1b760b6692e9562cf0", size = 322190 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/65/95/91137ffe7a5956496155af5ffbe45ee4ddfa795a569136147e766abd14b1/sentry_sdk-2.24.1-py2.py3-none-any.whl", hash = "sha256:36baa6a1128b9d98d2adc5e9b2f887eff0a6af558fc2b96ed51919042413556d", size = 336945 },
+    { url = "https://files.pythonhosted.org/packages/96/b6/84049ab0967affbc7cc7590d86ae0170c1b494edb69df8786707100420e5/sentry_sdk-2.25.1-py2.py3-none-any.whl", hash = "sha256:60b016d0772789454dc55a284a6a44212044d4a16d9f8448725effee97aaf7f6", size = 339851 },
 ]
 
 [[package]]
@@ -684,7 +684,7 @@ wheels = [
 
 [[package]]
 name = "stuartm-nz"
-version = "0.15.0"
+version = "0.16.1"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
@@ -709,7 +709,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = "~=5.1.0" },
+    { name = "django", specifier = "~=5.2.0" },
     { name = "django-debug-toolbar", specifier = ">=4.4.6" },
     { name = "django-environ", specifier = ">=0.11.2" },
     { name = "djpress", specifier = "~=0.16.0" },
