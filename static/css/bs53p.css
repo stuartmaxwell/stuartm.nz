@@ -383,13 +383,11 @@ select:disabled {
 
 button,
 [type="button"],
-[type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
 }
 button:not(:disabled),
 [type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
 [type="submit"]:not(:disabled) {
   cursor: pointer;
 }
@@ -436,10 +434,6 @@ textarea {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
-}
-
-output {
-  display: inline-block;
 }
 
 .lead {
@@ -755,7 +749,6 @@ textarea.form-control {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
@@ -764,7 +757,6 @@ textarea.form-control {
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-
 :not(.btn-check) + .btn:active:focus-visible,
 .btn:first-child:active:focus-visible,
 .btn.active:focus-visible,
@@ -923,7 +915,6 @@ textarea.form-control {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 84, 43, 0.25);
 }
-
 .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
