@@ -12,10 +12,49 @@
   <main class="container-fluid">
     <div class="row">
       <div class="col-12 col-lg-6">
-        <div class="border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
+        <div id="markdown-editor-toolbar" class="btn-toolbar mb-1 border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
           <div class="fw-bold fst-italic ms-1 text-body-secondary">Markdown Editor <small class="d-lg-none">(Preview below)</small><span id="loading" aria-busy="true"> loading...</span></div>
-          <button type="button" class="btn btn-outline-secondary fw-bold fst-italic border-0 py-1 px-2 rounded-0 rounded-top rounded-start-0" id="copymarkdown">
-            Copy
+          <div class="btn-group">
+            <button type="button" class="btn btn-light py-1 px-2" id="h1-button">
+              {% include "markdown_editor/svg/h1.svg" %}
+              <span class="visually-hidden">H! Button</span>
+            </button>
+            <button type="button" class="btn btn-light py-1 px-2" id="h2-button">
+              {% include "markdown_editor/svg/h2.svg" %}
+              <span class="visually-hidden">H2 Button</span>
+            </button>
+            <button type="button" class="btn btn-light py-1 px-2" id="h3-button">
+              {% include "markdown_editor/svg/h3.svg" %}
+              <span class="visually-hidden">H3 Button</span>
+            </button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-light py-1 px-2" id="bold-button">
+              {% include "markdown_editor/svg/bold.svg" %}
+              <span class="visually-hidden">Bold Button</span>
+            </button>
+            <button type="button" class="btn btn-light py-1 px-2" id="italic-button">
+              {% include "markdown_editor/svg/italic.svg" %}
+              <span class="visually-hidden">Italic Button</span>
+            </button>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-light py-1 px-2" id="ul-button">
+              {% include "markdown_editor/svg/list-ul.svg" %}
+              <span class="visually-hidden">H! Button</span>
+            </button>
+            <button type="button" class="btn btn-light py-1 px-2" id="ol-button">
+              {% include "markdown_editor/svg/list-ol.svg" %}
+              <span class="visually-hidden">H2 Button</span>
+            </button>
+          </div>
+          <button type="button" class="btn btn-light py-1 px-2" id="link-button">
+            {% include "markdown_editor/svg/link.svg" %}
+            <span class="visually-hidden">Link Button</span>
+          </button>
+          <button type="button" class="btn btn-light py-1 px-2" id="copymarkdown-button">
+            {% include "markdown_editor/svg/copy.svg" %}
+            <span class="visually-hidden">Copy Markdown Button</span>
           </button>
         </div>
         <textarea class="form-control w-100 overflow-auto border border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); resize: none; overflow-y: auto;" id="editor" py-keyup="preview"></textarea>
@@ -24,8 +63,9 @@
       <div class="col-12 col-lg-6">
         <div class="border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
           <div class="fw-bold fst-italic ms-1 text-body-secondary">HTML Preview</div>
-          <button type="button" class="btn btn-outline-secondary fw-bold fst-italic border-0 py-1 px-2 rounded-0 rounded-top rounded-start-0" id="copyhtml">
-            Copy
+          <button type="button" class="btn btn-light py-1 px-2" id="copyhtml-button">
+            {% include "markdown_editor/svg/copy.svg" %}
+            <span class="visually-hidden">Copy HTML Button</span>
           </button>
         </div>
         <div id="preview" class="w-100 overflow-auto border rounded border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); word-wrap: anywhere;"></div>
@@ -51,10 +91,10 @@
       const editor = document.getElementById('editor');
       const preview = document.getElementById('preview');
       const loading = document.getElementById('loading');
-      const copyHtmlBtn = document.getElementById('copyhtml');
-      const copyMarkdownBtn = document.getElementById('copymarkdown');
+      const copyHtmlBtn = document.getElementById('copyhtml-button');
+      const copyMarkdownBtn = document.getElementById('copymarkdown-button');
 
-
+      // Loading indicator
       window.addEventListener('py:ready', function() {
         loading.style.display = 'none';
         setTimeout(() => {
@@ -65,39 +105,149 @@
       // Copy Markdown button
       copyMarkdownBtn.addEventListener('click', function() {
         editor.select();
-        const markdownCopySuccess = document.execCommand('copy');
-        const copyMarkdownBtnText = copyMarkdownBtn.textContent;
-
-        if (markdownCopySuccess) {
-          copyMarkdownBtn.textContent = '👍';
-        } else {
-          copyMarkdownBtn.textContent = '😢';
-        }
-
-        setTimeout(() => {
-          copyMarkdownBtn.textContent = copyMarkdownBtnText;
-        }, 3000);
+        document.execCommand('copy');
       });
 
       // Copy HTML button
       copyHtmlBtn.addEventListener('click', function() {
-        const previewContent = preview.innerHTML;
-        const copyHtmlBtnText = copyHtmlBtn.textContent;
-
-        navigator.clipboard.writeText(previewContent).then(() => {
-          copyHtmlBtn.textContent = '👍';
-          setTimeout(() => {
-            copyHtmlBtn.textContent = copyHtmlBtnText;
-          }, 3000);
-        }).catch(err => {
-          console.error('Failed to copy: ', err);
-          copyHtmlBtn.textContent = '😢';
-          setTimeout(() => {
-            copyHtmlBtn.textContent = copyHtmlBtnText;
-          }, 3000);
-        });
+        navigator.clipboard.writeText(preview.innerHTML)
       });
 
+      // Function to wrap selected text with formatting markers
+      function applyInlineFormatting(marker) {
+        // Get current selection
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const selectedText = editor.value.substring(start, end);
+
+        // Only proceed if something is selected
+        if (start !== end) {
+          // Create formatted text by wrapping selection with markers
+          const formattedText = `${marker}${selectedText}${marker}`;
+
+          // Insert the formatted text
+          editor.value =
+              editor.value.substring(0, start) +
+              formattedText +
+              editor.value.substring(end);
+
+          // Restore focus to the editor
+          editor.focus();
+
+          // Set selection to include the new formatting
+          const markerLength = marker.length;
+          editor.setSelectionRange(start + markerLength, end + markerLength);
+
+          // Trigger keyup event to update the preview
+          triggerKeyupEvent();
+        }
+      }
+
+      // Function to apply line-based formatting (headers, lists)
+      function applyLineFormatting(prefix, ensureLineStart = true) {
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const value = editor.value;
+
+        // Find the start of the line where the cursor/selection begins
+        let lineStart = start;
+        while (lineStart > 0 && value[lineStart - 1] !== '\n') {
+          lineStart--;
+        }
+
+        // Find all lines in the selection
+        const selectedLines = value.substring(lineStart, end).split('\n');
+
+        // Apply formatting to each line
+        const formattedLines = selectedLines.map((line, index) => {
+            // For the first line, consider the possibility that we're in the middle of a line
+          if (index === 0 && !ensureLineStart) {
+              return line;
+          }
+
+          // If line already has the prefix, don't add it again
+          if (line.trimStart().startsWith(prefix.trimStart())) {
+              return line;
+          }
+
+          // For numbered lists, we add the index + 1 to create sequential numbers
+          if (prefix === '1. ' && index > 0) {
+              return `${index + 1}. ${line.trimStart()}`;
+          }
+
+          return `${prefix}${line.trimStart()}`;
+        });
+
+        // Replace the text
+        const replacement = formattedLines.join('\n');
+        editor.value =
+          value.substring(0, lineStart) +
+          replacement +
+          value.substring(end);
+
+        // Restore cursor position
+        editor.focus();
+        const newEnd = lineStart + replacement.length;
+        editor.setSelectionRange(newEnd, newEnd);
+      }
+
+      function insertLink() {
+        const url = prompt('Enter the URL:', 'https://');
+        if (!url) return;
+
+        const selectionStart = editor.selectionStart;
+        const selectionEnd = editor.selectionEnd;
+
+        let selectedText = editor.value.substring(selectionStart, selectionEnd).trim();
+        if (!selectedText) {
+            selectedText = prompt('Enter the link text:');
+        }
+
+        if (selectedText) {
+            const linkText = `[${selectedText}](${url})`;
+            editor.value =
+                editor.value.substring(0, selectionStart) +
+                linkText +
+                editor.value.substring(selectionEnd);
+
+            editor.focus();
+            const cursorPos = selectionStart + linkText.length;
+            editor.setSelectionRange(cursorPos, cursorPos);
+            triggerKeyupEvent();
+        }
+      }
+
+      // Add event listeners for inline formatting
+      document.getElementById('bold-button').addEventListener('click', () => {
+        applyInlineFormatting('**');
+      });
+
+      document.getElementById('italic-button').addEventListener('click', () => {
+        applyInlineFormatting('*');
+      });
+
+      // Add event listeners for line-based formatting
+      document.getElementById('h1-button').addEventListener('click', () => {
+        applyLineFormatting('# ');
+      });
+
+      document.getElementById('h2-button').addEventListener('click', () => {
+        applyLineFormatting('## ');
+      });
+
+      document.getElementById('h3-button').addEventListener('click', () => {
+        applyLineFormatting('### ');
+      });
+
+      document.getElementById('ul-button').addEventListener('click', () => {
+        applyLineFormatting('- ');
+      });
+
+      document.getElementById('ol-button').addEventListener('click', () => {
+        applyLineFormatting('1. ');
+      });
+
+      document.getElementById('link-button').addEventListener('click', insertLink);
     </script>
 
   </main>
