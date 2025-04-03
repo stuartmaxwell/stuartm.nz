@@ -1,10 +1,13 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.3",
-    "htmx.org": "^2.0.4"
+    "highlight.js": "^11.11.1",
+    "htmx.org": "^2.0.4",
+    "markdown-it": "^14.1.0"
   },
   "scripts": {
     "build-css": "sass build/scss/custom.scss build/css/bootstrap.custom.css",
+    "build-highlight-css": "sass build/scss/highlight.scss static/css/highlight.custom.css",
     "build-js": "webpack --mode production",
     "watch-css": "sass --watch build/scss/custom.scss:build/css/bootstrap.custom.css",
     "purge-css": "purgecss --css build/css/bootstrap.custom.css --output static/css/bs53p.css --content ./templates/**/*.html ./**/templates/**/*.html",

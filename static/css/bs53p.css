@@ -190,6 +190,8 @@ body {
 
 h4,
 .h4,
+h3,
+.h3,
 h2,
 .h2,
 h1,
@@ -221,6 +223,17 @@ h2,
   h2,
   .h2 {
     font-size: 2rem;
+  }
+}
+
+h3,
+.h3 {
+  font-size: calc(1.3rem + 0.6vw);
+}
+@media (min-width: 1200px) {
+  h3,
+  .h3 {
+    font-size: 1.75rem;
   }
 }
 
@@ -370,13 +383,11 @@ select:disabled {
 
 button,
 [type="button"],
-[type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
 }
 button:not(:disabled),
 [type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
 [type="submit"]:not(:disabled) {
   cursor: pointer;
 }
@@ -423,10 +434,6 @@ textarea {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
-}
-
-output {
-  display: inline-block;
 }
 
 .lead {
@@ -798,21 +805,21 @@ textarea.form-control {
   --bs-btn-disabled-border-color: #6c757d;
 }
 
-.btn-outline-secondary {
-  --bs-btn-color: #6c757d;
-  --bs-btn-border-color: #6c757d;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #6c757d;
-  --bs-btn-hover-border-color: #6c757d;
-  --bs-btn-focus-shadow-rgb: 108, 117, 125;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #6c757d;
-  --bs-btn-active-border-color: #6c757d;
+.btn-light {
+  --bs-btn-color: #000;
+  --bs-btn-bg: #f8f9fa;
+  --bs-btn-border-color: #f8f9fa;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: rgb(210.8, 211.65, 212.5);
+  --bs-btn-hover-border-color: rgb(198.4, 199.2, 200);
+  --bs-btn-focus-shadow-rgb: 211, 212, 213;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: rgb(198.4, 199.2, 200);
+  --bs-btn-active-border-color: rgb(186, 186.75, 187.5);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #6c757d;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #6c757d;
-  --bs-gradient: none;
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #f8f9fa;
+  --bs-btn-disabled-border-color: #f8f9fa;
 }
 
 .fade {
@@ -825,6 +832,48 @@ textarea.form-control {
 }
 .fade:not(.show) {
   opacity: 0;
+}
+
+.btn-group {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+.btn-group > .btn {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.btn-group > .btn:hover,
+.btn-group > .btn:focus,
+.btn-group > .btn:active,
+.btn-group > .btn.active {
+  z-index: 1;
+}
+
+.btn-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.btn-group {
+  border-radius: var(--bs-border-radius);
+}
+.btn-group > :not(.btn-check:first-child) + .btn,
+.btn-group > .btn-group:not(:first-child) {
+  margin-left: calc(var(--bs-border-width) * -1);
+}
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn-group:not(:last-child) > .btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn:nth-child(n + 3),
+.btn-group > :not(.btn-check) + .btn,
+.btn-group > .btn-group:not(:first-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .nav {
@@ -1297,6 +1346,20 @@ textarea.form-control {
   backface-visibility: hidden;
 }
 
+.visually-hidden {
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.visually-hidden:not(caption) {
+  position: absolute !important;
+}
+
 .overflow-auto {
   overflow: auto !important;
 }
@@ -1311,10 +1374,6 @@ textarea.form-control {
 
 .border {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
-}
-
-.border-0 {
-  border: 0 !important;
 }
 
 .border-top-0 {
@@ -1339,6 +1398,10 @@ textarea.form-control {
 
 .me-auto {
   margin-right: auto !important;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem !important;
 }
 
 .mb-2 {
@@ -1426,15 +1489,6 @@ textarea.form-control {
   border-radius: var(--bs-border-radius) !important;
 }
 
-.rounded-0 {
-  border-radius: 0 !important;
-}
-
-.rounded-top {
-  border-top-left-radius: var(--bs-border-radius) !important;
-  border-top-right-radius: var(--bs-border-radius) !important;
-}
-
 .rounded-top-0 {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
@@ -1443,11 +1497,6 @@ textarea.form-control {
 .rounded-bottom-0 {
   border-bottom-right-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
-}
-
-.rounded-start-0 {
-  border-bottom-left-radius: 0 !important;
-  border-top-left-radius: 0 !important;
 }
 
 @media (min-width: 576px) {
