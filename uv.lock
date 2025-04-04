@@ -144,15 +144,15 @@ wheels = [
 
 [[package]]
 name = "djpress"
-version = "0.16.1"
+version = "0.16.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c7/18/aa4c315405892ce9cb1b7c0374d5bfcc0d1ccfd4fafa83f4f00869081ef4/djpress-0.16.1.tar.gz", hash = "sha256:411b0665a869edbf809799c4bbd913bf8fd21372f320fa21ada770c204b5b2a1", size = 135603 }
+sdist = { url = "https://files.pythonhosted.org/packages/01/1e/a9aa14aea65776106d21cbd86d2171f412c7c465344ac71ee9923a5f4d6a/djpress-0.16.2.tar.gz", hash = "sha256:3f8ad034c7f82f7fa4f095c770812eeb59714e04f1eb6496725cc567e0ab7384", size = 135570 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/21/5b/e99f14bf5000a71482ec6932791015c59cc9dad47e1c1c0d777c4330c3d1/djpress-0.16.1-py3-none-any.whl", hash = "sha256:f8d6251d4121cac8fb240dfe91086e4e03981d09d3b3648501a47f571cd641bb", size = 53914 },
+    { url = "https://files.pythonhosted.org/packages/2f/4c/8776222e7aa1b261320b40f1134962ada6358079f195197d0bd56c3ab0ee/djpress-0.16.2-py3-none-any.whl", hash = "sha256:700e0f1474530b7302e0781217a715b4cd56bd8d58f50fb9b5c2a1ebad07a8e9", size = 53929 },
 ]
 
 [[package]]
@@ -574,14 +574,14 @@ wheels = [
 
 [[package]]
 name = "pytest-django"
-version = "4.11.0"
+version = "4.11.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/37/cd00619f8f486e53362d17c98fa90455c079bd75541ea44e812d7f49d144/pytest_django-4.11.0.tar.gz", hash = "sha256:35b339b9a231a99de226789c3e45d4d19d6c09ca9f3c236b3b5024afbf1f68b5", size = 86063 }
+sdist = { url = "https://files.pythonhosted.org/packages/b1/fb/55d580352db26eb3d59ad50c64321ddfe228d3d8ac107db05387a2fadf3a/pytest_django-4.11.1.tar.gz", hash = "sha256:a949141a1ee103cb0e7a20f1451d355f83f5e4a5d07bdd4dcfdd1fd0ff227991", size = 86202 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/27/36/21537f69e37dd83d2b7a44b6978f480505ba75b9b66d49479d2ba426de8c/pytest_django-4.11.0-py3-none-any.whl", hash = "sha256:ab969cc86585a1763fd4a2fa1bc0f3015abbbcb823667af48320f1a1d2053291", size = 25277 },
+    { url = "https://files.pythonhosted.org/packages/be/ac/bd0608d229ec808e51a21044f3f2f27b9a37e7a0ebaca7247882e67876af/pytest_django-4.11.1-py3-none-any.whl", hash = "sha256:1b63773f648aa3d8541000c26929c1ea63934be1cfa674c76436966d73fe6a10", size = 25281 },
 ]
 
 [[package]]
@@ -731,11 +731,11 @@ requires-dist = [
 
 [[package]]
 name = "typing-extensions"
-version = "4.13.0"
+version = "4.13.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/0e/3e/b00a62db91a83fff600de219b6ea9908e6918664899a2d85db222f4fbf19/typing_extensions-4.13.0.tar.gz", hash = "sha256:0a4ac55a5820789d87e297727d229866c9650f6521b64206413c4fbada24d95b", size = 106520 }
+sdist = { url = "https://files.pythonhosted.org/packages/76/ad/cd3e3465232ec2416ae9b983f27b9e94dc8171d56ac99b345319a9475967/typing_extensions-4.13.1.tar.gz", hash = "sha256:98795af00fb9640edec5b8e31fc647597b4691f099ad75f469a2616be1a76dff", size = 106633 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/86/39b65d676ec5732de17b7e3c476e45bb80ec64eb50737a8dce1a4178aba1/typing_extensions-4.13.0-py3-none-any.whl", hash = "sha256:c8dd92cc0d6425a97c18fbb9d1954e5ff92c1ca881a309c45f06ebc0b79058e5", size = 45683 },
+    { url = "https://files.pythonhosted.org/packages/df/c5/e7a0b0f5ed69f94c8ab7379c599e6036886bffcde609969a5325f47f1332/typing_extensions-4.13.1-py3-none-any.whl", hash = "sha256:4b6cf02909eb5495cfbc3f6e8fd49217e6cc7944e145cdda8caa3734777f9e69", size = 45739 },
 ]
 
 [[package]]
