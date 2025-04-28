@@ -63,3 +63,9 @@ textarea#editor {
   font-size: 0.8rem;
   font-family: var(--bs-font-monospace);
 }
+
+textarea#editor.form-control:focus {
+  outline: none;
+  border-top-color: transparent;
+  box-shadow: none;
+}
