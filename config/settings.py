@@ -42,6 +42,11 @@ env = environ.Env(
     LOGFIRE_ENVIRONMENT=(str, "dev"),
     BLUESKY_APP_PASSWORD=(str, ""),
     HEALTHCHECK_PATH=(str, ""),
+    AWS_ACCESS_KEY_ID=(str, ""),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_STORAGE_BUCKET_NAME=(str, ""),
+    AWS_ENDPOINT_URL=(str, ""),
+    S3_BUCKET=(str, ""),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -77,6 +82,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "djpress.apps.DjpressConfig",
+    "storages",
     "healthcheck_app",
     "timezone_converter",
     "markdown_editor",
@@ -334,3 +340,33 @@ logfire.instrument_django(
 
 # Healthcheck app
 HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
+
+# Django Storages
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY
+# AWS_STORAGE_BUCKET_NAME
+# AWS_ENDPOINT_URL
+# S3_BUCKET
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": env("AWS_ACCESS_KEY_ID"),
+            "secret_key": env("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": "stuartmnz-public",
+            "endpoint_url": env("AWS_ENDPOINT_URL"),
+            "custom_domain": "s.stuartm.nz",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": env("AWS_ACCESS_KEY_ID"),
+            "secret_key": env("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": "stuartmnz-public",
+            "endpoint_url": env("AWS_ENDPOINT_URL"),
+            "custom_domain": "s.stuartm.nz",
+        },
+    },
+}
