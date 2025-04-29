@@ -367,6 +367,7 @@ STORAGES = {
             "bucket_name": "stuartmnz-public",
             "endpoint_url": env("AWS_ENDPOINT_URL"),
             "custom_domain": "s.stuartm.nz",
+            "location": "static",
         },
     },
 }
