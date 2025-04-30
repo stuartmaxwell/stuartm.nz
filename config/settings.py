@@ -361,14 +361,6 @@ if not DEBUG:
             },
         },
         "staticfiles": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "access_key": env("AWS_ACCESS_KEY_ID"),
-                "secret_key": env("AWS_SECRET_ACCESS_KEY"),
-                "bucket_name": "stuartmnz-public",
-                "endpoint_url": env("AWS_ENDPOINT_URL"),
-                "custom_domain": "s.stuartm.nz",
-                "location": "static",
-            },
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
