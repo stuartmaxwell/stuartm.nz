@@ -348,26 +348,27 @@ HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
 # AWS_ENDPOINT_URL
 # S3_BUCKET
 
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "access_key": env("AWS_ACCESS_KEY_ID"),
-            "secret_key": env("AWS_SECRET_ACCESS_KEY"),
-            "bucket_name": "stuartmnz-public",
-            "endpoint_url": env("AWS_ENDPOINT_URL"),
-            "custom_domain": "s.stuartm.nz",
+if not DEBUG:
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "access_key": env("AWS_ACCESS_KEY_ID"),
+                "secret_key": env("AWS_SECRET_ACCESS_KEY"),
+                "bucket_name": "stuartmnz-public",
+                "endpoint_url": env("AWS_ENDPOINT_URL"),
+                "custom_domain": "s.stuartm.nz",
+            },
         },
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "access_key": env("AWS_ACCESS_KEY_ID"),
-            "secret_key": env("AWS_SECRET_ACCESS_KEY"),
-            "bucket_name": "stuartmnz-public",
-            "endpoint_url": env("AWS_ENDPOINT_URL"),
-            "custom_domain": "s.stuartm.nz",
-            "location": "static",
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "access_key": env("AWS_ACCESS_KEY_ID"),
+                "secret_key": env("AWS_SECRET_ACCESS_KEY"),
+                "bucket_name": "stuartmnz-public",
+                "endpoint_url": env("AWS_ENDPOINT_URL"),
+                "custom_domain": "s.stuartm.nz",
+                "location": "static",
+            },
         },
-    },
-}
+    }
