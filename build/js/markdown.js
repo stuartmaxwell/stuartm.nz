@@ -127,31 +127,29 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function insertLink() {
-    const url = prompt('Enter the URL:', 'https://');
-    if (!url) return;
-
     const selectionStart = editor.selectionStart;
     const selectionEnd = editor.selectionEnd;
 
     let selectedText = editor.value.substring(selectionStart, selectionEnd).trim();
     if (!selectedText) {
-      selectedText = prompt('Enter the link text:');
+      selectedText = 'link text';
     }
 
-    if (selectedText) {
-      const linkText = `[${selectedText}](${url})`;
-      editor.value =
-        editor.value.substring(0, selectionStart) +
-        linkText +
-        editor.value.substring(selectionEnd);
+    const linkText = `[${selectedText}](url)`;
+    editor.value =
+      editor.value.substring(0, selectionStart) +
+      linkText +
+      editor.value.substring(selectionEnd);
 
-      editor.focus();
-      const cursorPos = selectionStart + linkText.length;
-      editor.setSelectionRange(cursorPos, cursorPos);
+    editor.focus();
 
-      // Manually trigger update
-      updatePreview();
-    }
+    // Position cursor to select just the "url" text
+    const urlStartPos = selectionStart + selectedText.length + 3; // +3 for "[](""
+    const urlEndPos = urlStartPos + 3; // "url" is 3 characters
+    editor.setSelectionRange(urlStartPos, urlEndPos);
+
+    // Manually trigger update
+    updatePreview();
   }
 
   // Buttons
@@ -195,4 +193,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
   document.getElementById('link-button').addEventListener('click', insertLink);
+
+  document.getElementById('blockquote-button').addEventListener('click', () => {
+    applyLineFormatting('> ');
+  });
+
+  document.getElementById('code-button')?.addEventListener('click', () => {
+    applyInlineFormatting('`');
+  });
 });
