@@ -5,7 +5,11 @@
 
   {% for post in posts %}
 
-    {% if author or category %}
+    {% if category.slug == "microblog" %}
+
+      {% include "djpress/stuartmnz/snippets/post_microblog.html" %}
+
+    {% elif author or category %}
 
       {% include "djpress/stuartmnz/snippets/post_title.html" %}
 

@@ -4,7 +4,7 @@
 {% block content %}
 
   <div class="row">
-    <div class="col col-md-8">
+    <div class="col col-md-8 pt-3">
       {% block djpress_content %}{% endblock %}
     </div>
 
@@ -15,7 +15,11 @@
         {% for post in posts %}
           <li class="mb-2">
             <a href="{{ post.url }}" class="sidebar-link">
-              {{ post.title }}
+              {% if post.title %}
+                {{ post.title }}
+              {% else %}
+                {{ post.content|truncatewords:5 }}
+              {% endif %}
             </a>
           </li>
         {% endfor %}
