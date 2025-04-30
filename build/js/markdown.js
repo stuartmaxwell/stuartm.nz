@@ -193,4 +193,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   });
 
   document.getElementById('link-button').addEventListener('click', insertLink);
+
+  document.getElementById('blockquote-button').addEventListener('click', () => {
+    applyLineFormatting('> ');
+  });
+
+  document.getElementById('code-button')?.addEventListener('click', () => {
+    applyInlineFormatting('`');
+  });
 });
