@@ -189,15 +189,15 @@ s3 = [
 
 [[package]]
 name = "djpress"
-version = "0.18.0"
+version = "0.18.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a8/59/839cba799954638ca00e15c614990ada8bb4273a044d7352a2436127b9d7/djpress-0.18.0.tar.gz", hash = "sha256:32832c38690b5940ff811cd8bdeb85d530ca67f40e88092de80a60d213f52d55", size = 144643, upload_time = "2025-04-30T09:47:08.517Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ab/a8/6c4c479887990b870499a8e4cd677bb6145617698a148a90656fbdf4e4d3/djpress-0.18.1.tar.gz", hash = "sha256:35473508901c627e2135d598ab8c20b2a3bc2e051014e67dfd723087ed7e4a3a", size = 145893, upload_time = "2025-04-30T12:05:27.814Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cd/1c/a08c005258a8b32b97127e335cd34eaec3c86154bf0ad8d1fd3665cba853/djpress-0.18.0-py3-none-any.whl", hash = "sha256:ba7304280ec5a821298c3e8b1bf680db87827c6b93126d451024c39988b86045", size = 56853, upload_time = "2025-04-30T09:47:06.701Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/5c/fafe050e36db4ec6bb6b48282cd6eba3f7036d21e022056dae9c307e569b/djpress-0.18.1-py3-none-any.whl", hash = "sha256:b6172b891e00764bfbf37747b2661a68e605682e7f0504223daafab956a657ab", size = 57851, upload_time = "2025-04-30T12:05:25.863Z" },
 ]
 
 [[package]]
@@ -215,15 +215,15 @@ wheels = [
 
 [[package]]
 name = "djpress-publish-mastodon"
-version = "1.0.3"
+version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "djpress" },
     { name = "mastodon-py" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1b/34/a3253c2b271938c5c65a46a5211a2843f42def3a96e7db8cebc9359c9ace/djpress_publish_mastodon-1.0.3.tar.gz", hash = "sha256:003960b85edcc3294e3fc46dee4ff2ccd7f6de243fec3e97c33da0c89e257666", size = 15862, upload_time = "2024-12-04T04:55:24.357Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/96/90/5ef8e3f67585ca7bc725389fccac668ffa4c7f514add310ace279f7a1205/djpress_publish_mastodon-1.1.0.tar.gz", hash = "sha256:8de0cc2235883a37f329447f37f77d9357d41f255404c35e4742382c7f713232", size = 15947, upload_time = "2025-04-30T12:09:58.683Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/89/82/5577138148f734be6b110fdd2770f0dae86a5488bb11f00969a44b9f7eb6/djpress_publish_mastodon-1.0.3-py3-none-any.whl", hash = "sha256:5f42e75a54b5eda258287692ab109e6a85628577b75e8764d9c543fb56e41137", size = 4489, upload_time = "2024-12-04T04:55:22.099Z" },
+    { url = "https://files.pythonhosted.org/packages/51/24/e374f9e595535e3ddcf95458edd6fa46aae0711178db4c6de44d80cc4ea1/djpress_publish_mastodon-1.1.0-py3-none-any.whl", hash = "sha256:d4d0e39d70a194b6469f2f3bcfb21df0f55b9aff2c8db5b4373f2fdd462c700f", size = 4503, upload_time = "2025-04-30T12:09:57.144Z" },
 ]
 
 [[package]]

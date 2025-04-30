@@ -15,11 +15,7 @@
         {% for post in posts %}
           <li class="mb-2">
             <a href="{{ post.url }}" class="sidebar-link">
-              {% if post.title %}
-                {{ post.title }}
-              {% else %}
-                {{ post.content|truncatewords:5 }}
-              {% endif %}
+              {{ post.post_title }}
             </a>
           </li>
         {% endfor %}
