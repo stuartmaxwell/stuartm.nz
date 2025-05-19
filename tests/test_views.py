@@ -6,6 +6,8 @@ from django.test import Client
 from django.urls import reverse
 from django.utils import timezone
 
+from djpress.models import Post
+
 
 @pytest.mark.django_db
 def test_index(client, test_post1) -> None:
@@ -16,9 +18,9 @@ def test_index(client, test_post1) -> None:
 
 
 @pytest.mark.django_db
-def test_archives(client, test_post1) -> None:
+def test_archives(client, test_post1: Post) -> None:
     """Test archives views."""
-    test_post1.date = timezone.make_aware(timezone.datetime(2024, 6, 1))
+    test_post1.published_at = timezone.make_aware(timezone.datetime(2024, 6, 1))
     test_post1.save()
 
     url = "/2024/"
@@ -35,13 +37,13 @@ def test_archives(client, test_post1) -> None:
 @pytest.mark.django_db
 def test_single_post(client, test_post1) -> None:
     """Test single post view."""
-    url = f"/{test_post1.date.year}/{test_post1.date.month:02}/test-post1/"
+    url = f"/{test_post1._date.year}/{test_post1._date.month:02}/test-post1/"
     # response: HttpResponse = client.get(url)
     # assert test_post1.url == "/2025/04/test-post1/"
     # assert response.status_code == 200
     # assert "Test Post1" in str(response.content)
 
-    test_post1.date = timezone.make_aware(timezone.datetime(2024, 6, 15))
+    test_post1.published_at = timezone.make_aware(timezone.datetime(2024, 6, 15))
     test_post1.save()
     url = "/2024/06/test-post1/"
     response: HttpResponse = client.get(url)
