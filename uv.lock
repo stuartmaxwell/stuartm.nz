@@ -189,15 +189,15 @@ s3 = [
 
 [[package]]
 name = "djpress"
-version = "0.19.0b0"
+version = "0.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/84/a6/ce2ea55cd696329b1c1bd33b7d1084041935fc98822cc4d839f3c1bc0781/djpress-0.19.0b0.tar.gz", hash = "sha256:90b128e8de35facd4b16e7cd3bfe264595206f229b18f76c3d1840d453a9265e", size = 148540, upload-time = "2025-05-19T09:53:22.227Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/0a/538f1f39f5ea7d851d6389529d048291278306ca0ab96a04dbdbfc38529e/djpress-0.19.0.tar.gz", hash = "sha256:4d2fc02db7cf935836655603db19ffb5315d0664cc787b12fa118d5589d19581", size = 148561, upload-time = "2025-05-19T10:37:37.524Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/31/e9/90c520d9e82d6ddb8d64240aca73d48e14352fe42c6220c6b4acbdaf5a82/djpress-0.19.0b0-py3-none-any.whl", hash = "sha256:f4f85cc38498c920cf418b77dda6bb673b3d061bcf88a8d1f1a651fad4ae87bf", size = 60474, upload-time = "2025-05-19T09:53:20.557Z" },
+    { url = "https://files.pythonhosted.org/packages/14/b7/0dd46851c50a9a99f5bf96754927e4ca3549e6e95f2d56cbf4162c3f74f9/djpress-0.19.0-py3-none-any.whl", hash = "sha256:f0f4fad0e1a64c33f90e0b77f675ebfbab1d4f7e3f53f52f1ef892c1ad92271e", size = 60449, upload-time = "2025-05-19T10:37:35.852Z" },
 ]
 
 [[package]]
@@ -750,7 +750,7 @@ wheels = [
 
 [[package]]
 name = "stuartm-nz"
-version = "0.19.0b0"
+version = "0.19"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
@@ -780,7 +780,7 @@ requires-dist = [
     { name = "django-debug-toolbar", specifier = ">=4.4.6" },
     { name = "django-environ", specifier = ">=0.11.2" },
     { name = "django-storages", extras = ["s3"], specifier = ">=1.14.6" },
-    { name = "djpress", specifier = "~=0.19.0b0" },
+    { name = "djpress", specifier = "~=0.19" },
     { name = "djpress-publish-bluesky", specifier = ">=1.0.0" },
     { name = "djpress-publish-mastodon", specifier = ">=1.0.0" },
     { name = "gunicorn", specifier = ">=23.0.0" },
