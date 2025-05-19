@@ -11,9 +11,9 @@ PYGMENTS_AVAILABLE = find_spec("pygments") is not None
 
 if PYGMENTS_AVAILABLE:
     # Ignore Pylance for missing imports
-    from pygments import highlight, lexers  # type: ignore  # noqa: PGH003
-    from pygments.formatters import html  # type: ignore  # noqa: PGH003
-    from pygments.util import ClassNotFound  # type: ignore  # noqa: PGH003
+    from pygments import highlight, lexers
+    from pygments.formatters import html
+    from pygments.util import ClassNotFound
 
 
 class CustomRenderer(mistune.HTMLRenderer):
