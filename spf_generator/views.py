@@ -96,7 +96,7 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
         )
 
     # GET request - display form
-    providers = {provider.id: provider for provider in EmailProvider.objects.filter(active=True)}
+    providers = {provider.pk: provider for provider in EmailProvider.objects.filter(active=True)}
 
     context = {
         "form": ProviderSelectForm(),
