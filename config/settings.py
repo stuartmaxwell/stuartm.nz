@@ -52,12 +52,24 @@ env = environ.Env(
 environ.Env.read_env(Path(BASE_DIR / ".env"))
 
 SENTRY_DSN = env("SENTRY_DSN")
+SENTRY_ENVIRONMENT = env("SENTRY_ENVIRONMENT")
+SENTRY_TRACES_SAMPLE_RATE = env("SENTRY_TRACES_SAMPLE_RATE")
+if not isinstance(SENTRY_DSN, str):
+    msg = "SENTRY_DSN must be a string"
+    raise TypeError(msg)
+if not isinstance(SENTRY_ENVIRONMENT, str):
+    msg = "SENTRY_ENVIRONMENT must be a string"
+    raise TypeError(msg)
+if not isinstance(SENTRY_TRACES_SAMPLE_RATE, float):
+    msg = "SENTRY_TRACES_SAMPLE_RATE must be a float"
+    raise TypeError(msg)
+
 if SENTRY_DSN:
     sentry_sdk.init(
-        dsn=env("SENTRY_DSN"),
+        dsn=SENTRY_DSN,
         integrations=[DjangoIntegration()],
-        environment=str(env("SENTRY_ENVIRONMENT")),
-        traces_sample_rate=env("SENTRY_TRACES_SAMPLE_RATE"),
+        environment=SENTRY_ENVIRONMENT,
+        traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
     )
 
 APP_NAME = "stuartm.nz"
@@ -67,6 +79,9 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+if not isinstance(ALLOWED_HOSTS, list):
+    msg = "ALLOWED_HOSTS must be a list"
+    raise TypeError(msg)
 
 
 ADMIN_URL = env("ADMIN_URL")
@@ -149,7 +164,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
 # Database
-DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
+DB_ENGINE = env("DB_ENGINE")
+if not isinstance(DB_ENGINE, str):
+    msg = "DB_ENGINE must be a string"
+    raise TypeError(msg)
+
+DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in DB_ENGINE else env("DB_NAME")
 SQLITE_OPTIONS = {
     "init_command": (
         "PRAGMA foreign_keys=ON;"
@@ -173,7 +193,7 @@ DATABASES = {
         "PORT": env("DB_PORT"),
     },
 }
-if "sqlite" in env("DB_ENGINE"):
+if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -332,6 +352,9 @@ DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
 
 # Logfire
 LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
+if not isinstance(LOGFIRE_ENVIRONMENT, str):
+    msg = "LOGFIRE_ENVIRONMENT must be a string"
+    raise TypeError(msg)
 logfire.configure(environment=LOGFIRE_ENVIRONMENT)
 logfire.instrument_django(
     capture_headers=True,

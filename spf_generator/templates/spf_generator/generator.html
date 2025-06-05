@@ -4,7 +4,7 @@
 {% block content %}
   <h1>SPF Record Generator</h1>
   <p><strong>Please note:</strong> I have made best efforts to ensure the information below is correct. But I highly recommend checking and validating the SPF record before updating it in your DNS. Please contact me if you spot any mistakes.</p>
-  <p>Select the email services that you use with your domain from the lists below. If you don't see the service you want, please <a href="{% url 'spf_generator:contact_form' %}" hx-get="{% url 'spf_generator:contact_form' %}" hx-target="#result">send me a message to let me know</a>.</p>
+  <p>Select the email services that you use with your domain from the lists below. If you don't see the service you want, please send me a message to let me know.</p>
 
   <form hx-post="{% url 'spf_generator:spf_generator' %}" hx-target="#spfResults" class="mb-5">
     {% csrf_token %}

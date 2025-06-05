@@ -83,7 +83,7 @@ class ProviderSelectForm(forms.Form):
             )
 
             for provider in providers:
-                field_name = f"provider_{provider.id}"
+                field_name = f"provider_{provider.pk}"
                 self.fields[field_name] = forms.BooleanField(
                     required=False,
                     label=provider.name,

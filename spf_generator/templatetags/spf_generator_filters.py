@@ -35,8 +35,11 @@ def get_provider(providers_dict: dict[int, EmailProvider], field_name: str) -> E
     Returns:
         EmailProvider: The provider object or None
     """
-    try:
-        provider_id = int(field_name.split("_")[1])
-        return providers_dict.get(provider_id)
-    except (IndexError, ValueError):
-        return None
+    provider_id = int(field_name.split("_")[1])
+
+    provider = providers_dict.get(provider_id)
+    if not provider:
+        msg = f"Provider with ID {provider_id} not found."
+        raise ValueError(msg)
+
+    return provider

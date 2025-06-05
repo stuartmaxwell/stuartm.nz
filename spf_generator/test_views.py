@@ -97,7 +97,7 @@ class TestSpfGenerator:
         data = {
             "all_mechanism": "-all",
             f"provider_{email_providers[0].id}": True,  # 2 lookups
-            f"provider_{high_lookup_provider.id}": True,  # 9 lookups
+            f"provider_{high_lookup_provider.pk}": True,  # 9 lookups
         }
         response = client.post(url, data)
         assert b"exceeds maximum of 10" in response.content

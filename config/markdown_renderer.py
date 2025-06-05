@@ -21,7 +21,7 @@ class CustomRenderer(mistune.HTMLRenderer):
 
     def __init__(self, *, escape: bool = False, **kwargs: dict) -> None:
         """Initialize the renderer."""
-        super().__init__(**kwargs)
+        super().__init__(escape=escape, allow_harmful_protocols=None, **kwargs)
 
         if PYGMENTS_AVAILABLE:
             # create a cache for lexers to improve performance
@@ -146,4 +146,6 @@ def mistune_renderer(markdown_text: str) -> str:
             "footnotes",
         ],
     )
-    return markdown(markdown_text)
+    markdown_content = markdown(markdown_text)
+
+    return str(markdown_content)
