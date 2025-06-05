@@ -7,7 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
   "django-environ>=0.11.2",
   "django~=5.2.0",
-  "djpress==0.19.1b0",
+  "djpress~=0.19",
   "whitenoise>=6.7.0",
   "gunicorn>=23.0.0",
   "rich>=13.8.1",
