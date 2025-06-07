@@ -4,8 +4,11 @@ from pathlib import Path
 
 import environ
 import logfire
+import posthog
 import sentry_sdk
 from django.contrib.messages import constants as messages
+from posthog import Posthog
+from posthog.exception_capture import Integrations
 from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +50,8 @@ env = environ.Env(
     AWS_STORAGE_BUCKET_NAME=(str, ""),
     AWS_ENDPOINT_URL=(str, ""),
     S3_BUCKET=(str, ""),
+    POSTHOG_PROJECT_API_KEY=(str, ""),
+    POSTHOG_HOST=(str, "https://us.i.posthog.com"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
@@ -387,3 +392,16 @@ if not DEBUG:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+
+# PostHog
+POSTHOG_PROJECT_API_KEY = str(env("POSTHOG_PROJECT_API_KEY"))
+POSTHOG_HOST = str(env("POSTHOG_HOST"))
+if POSTHOG_PROJECT_API_KEY and POSTHOG_HOST:
+    posthog.project_api_key = POSTHOG_PROJECT_API_KEY
+    posthog.host = POSTHOG_HOST
+    Posthog(
+        api_key=POSTHOG_PROJECT_API_KEY,
+        host=POSTHOG_HOST,
+        enable_exception_autocapture=True,
+        exception_autocapture_integrations=[Integrations.Django],
+    )
