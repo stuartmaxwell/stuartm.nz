@@ -12,3 +12,9 @@ insert_final_newline = true
 
 [*.py]
 indent_size = 4
+
+[*.min.css]
+insert_final_newline = false
+
+[*.min.js]
+insert_final_newline = false

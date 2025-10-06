@@ -98,11 +98,19 @@ startapp APPNAME:
 
 # Build the CSS from SCSS
 build-css:
-  sass build/scss/custom.scss build/css/bootstrap.custom.css
+  npm run build-css
 
 # Purge CSS
 purge-css:
-  purgecss --css build/css/bootstrap.custom.css --output static/css/bs53p.css --content ./templates/**/*.html ./**/templates/**/*.html
+  npm run purge-css
 
-# Purge and build CSS
-css: build-css purge-css
+# Minify CSS
+minify-css:
+  npm run minify-css
+
+# build and purge CSS
+css: build-css purge-css minify-css
+
+# build all the node stuff
+build:
+  npm run build

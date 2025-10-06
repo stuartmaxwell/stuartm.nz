@@ -57,3 +57,13 @@ convention = "google" # Accepts: "google", "numpy", or "pep257".
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings_testing"
 python_files = "tests.py test_*.py *_tests.py"
+
+[tool.djlint]
+ignore = "D018,T003,H021"
+profile = "django"
+blank_line_after_tag = "load,include,block,endblock,endfor,endif"
+blank_line_before_tag = "include,block,endblock,for,if"
+format_css = true
+format_js = true
+indent = 2
+max_line_length = 120
