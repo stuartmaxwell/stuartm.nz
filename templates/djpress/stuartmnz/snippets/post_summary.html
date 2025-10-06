@@ -1,45 +1,50 @@
 {% load djpress_tags %}
 
 {% if not post.title %}
+  {% post_wrap class="rounded bg-success-subtle p-3 shadow-sm" %}
+  <h2 class="fs-6">
+    <a href="{% get_post_url %}">{% get_post_date %}</a>
+  </h2>
+  {% post_content outer_tag="section" %}
+  <footer>
+    <p>{% post_categories "span" link_class="badge bg-primary" %}</p>
 
-  {% post_wrap class="rounded bg-success-subtle p-3" %}
+    {% if user.is_authenticated and user.is_staff %}
+      <p>
+        <a href="{% url 'admin:djpress_post_change' post.id %}"
+           class="icon-link">
 
-    <h2 class="fs-6"><a href="{% get_post_url %}">{% get_post_date %}</a></h2>
+          {% include "svg/pencil.svg" %}
 
-    {% post_content outer_tag="section" %}
+          Edit this
+        </a>
+      </p>
+    {% endif %}
 
-    <footer>
-      <p>{% post_categories "span" link_class="badge bg-primary" %}</p>
-      {% if user.is_authenticated and user.is_staff %}
-        <p>
-          <a href="{% url 'admin:djpress_post_change' post.id %}" class="icon-link">
-            {% include "svg/pencil.svg" %} Edit this
-          </a>
-        </p>
-      {% endif %}
-    </footer>
-
-  {% end_post_wrap %}
-
+  </footer>
+{% end_post_wrap %}
 {% else %}
-  {% post_wrap %}
+{% post_wrap %}
+{% post_title outer_tag="h1" %}
+{% post_content outer_tag="section" %}
+<footer>
+  <p>
+    Posted on <a href="{% get_post_url %}">{% get_post_date %}</a>
+  </p>
+  <p>Categories: {% post_categories "span" link_class="badge bg-primary" %}</p>
 
-    {% post_title outer_tag="h1" %}
+  {% if user.is_authenticated and user.is_staff %}
+    <p>
+      <a href="{% url 'admin:djpress_post_change' post.id %}"
+         class="icon-link">
 
-    {% post_content outer_tag="section" %}
+        {% include "svg/pencil.svg" %}
 
-    <footer>
-      <p>Posted on <a href="{% get_post_url %}">{% get_post_date %}</a></p>
-      <p>Categories: {% post_categories "span" link_class="badge bg-primary" %}</p>
-      {% if user.is_authenticated and user.is_staff %}
-        <p>
-          <a href="{% url 'admin:djpress_post_change' post.id %}" class="icon-link">
-            {% include "svg/pencil.svg" %} Edit this
-          </a>
-        </p>
-      {% endif %}
-    </footer>
+        Edit this
+      </a>
+    </p>
+  {% endif %}
 
-  {% end_post_wrap %}
-
+</footer>
+{% end_post_wrap %}
 {% endif %}

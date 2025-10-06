@@ -10,7 +10,16 @@
     "build-highlight-css": "sass build/scss/highlight.scss static/css/highlight.custom.css",
     "build-js": "webpack --mode production",
     "watch-css": "sass --watch build/scss/custom.scss:build/css/bootstrap.custom.css",
-    "purge-css": "purgecss --css build/css/bootstrap.custom.css --output static/css/bs53p.css --content ./templates/**/*.html ./**/templates/**/*.html",
-    "build": "npm run build-css && npm run purge-css"
+    "purge-css": "purgecss --config purgecss.config.mjs",
+    "minify-css": "node-minify --compressor clean-css  --input 'static/css/bs53p.css' --output 'static/css/bs53p.min.css'",
+    "build": "npm run build-css && npm run build-highlight-css && npm run build-js && npm run purge-css && npm run minify-css"
+  },
+  "devDependencies": {
+    "@node-minify/clean-css": "^9.0.1",
+    "@node-minify/cli": "^9.0.2",
+    "purgecss": "^7.0.2",
+    "sass": "^1.93.2",
+    "webpack": "^5.102.0",
+    "webpack-cli": "^6.0.1"
   }
 }

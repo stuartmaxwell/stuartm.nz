@@ -1,18 +1,20 @@
-{% extends 'djpress/stuartmnz/base.html' %}
+{% extends "djpress/stuartmnz/base.html" %}
 {% load djpress_tags %}
-
 
 {% block djpress_content %}
 
   <article>
     {% post_title outer_tag="h1" %}
-
     {% post_content outer_tag="section" %}
 
     {% if user.is_authenticated and user.is_staff %}
       <p>
-        <a href="{% url 'admin:djpress_post_change' post.id %}" class="icon-link">
-          {% include "svg/pencil.svg" %} Edit this
+        <a href="{% url "admin:djpress_post_change" post.id %}"
+           class="icon-link">
+
+          {% include "svg/pencil.svg" %}
+
+          Edit this
         </a>
       </p>
     {% endif %}

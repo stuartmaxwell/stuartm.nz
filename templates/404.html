@@ -1,8 +1,18 @@
-{% extends '_base.html' %}
+{% extends "_base.html" %}
 {% load static %}
 
 {% block content %}
+
   <h1>An error occurred</h1>
-  <p class="lead">Sorry, that page cannot be found. The error has already been reported and will be investigated soon.</p>
-  <p><a href="/" class="icon-link">{% include "svg/house-fill.svg" %}  Return to home</a></p>
+  <p class="lead">
+    Sorry, that page cannot be found. The error has already been reported and will be investigated soon.
+  </p>
+  <p>
+    <a href="/" class="icon-link">
+
+      {% include "svg/house-fill.svg" %}
+
+    Return to home</a>
+  </p>
+
 {% endblock content %}

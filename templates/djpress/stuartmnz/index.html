@@ -1,15 +1,11 @@
-{% extends 'djpress/stuartmnz/base.html' %}
+{% extends "djpress/stuartmnz/base.html" %}
 {% load djpress_tags %}
 
 {% block djpress_content %}
 
   {% for post in posts %}
 
-    {% if category.slug == "microblog" %}
-
-      {% include "djpress/stuartmnz/snippets/post_microblog.html" %}
-
-    {% elif author or category %}
+    {% if author or category %}
 
       {% include "djpress/stuartmnz/snippets/post_title.html" %}
 
@@ -19,38 +15,35 @@
 
     {% endif %}
 
+    <hr class="border border-primary-subtle border-1 opacity-75 mb-5">
   {% empty %}
-
     <p>No posts available.</p>
-
   {% endfor %}
 
   {% is_paginated as paginated %}
-  {% if paginated %}
 
+  {% if paginated %}
     {% get_pagination_range as page_range %}
     {% get_pagination_current_page as current_page %}
-
     <nav aria-label="Page navigation">
       <ul class="pagination">
 
         {% for page in page_range %}
 
           {% if page == current_page %}
-
-            <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
           {% else %}
-
-            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
-
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
           {% endif %}
+
         {% endfor %}
 
       </ul>
     </nav>
-
   {% endif %}
-
 
 {% endblock djpress_content %}
