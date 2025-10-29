@@ -26,9 +26,11 @@ class CustomRenderer(mistune.HTMLRenderer):
         if PYGMENTS_AVAILABLE:
             # create a cache for lexers to improve performance
             self._lexer_cache = {
+                # pyrefly: ignore [missing-attribute]
                 "example": lexers.TextLexer(),
             }
             self._formatter = html.HtmlFormatter()
+            # pyrefly: ignore [missing-attribute]
             self._text_lexer = lexers.TextLexer()
 
         self._escape = escape
@@ -69,6 +71,7 @@ class CustomRenderer(mistune.HTMLRenderer):
                         lexer = self._text_lexer
 
                 highlighted = highlight(code, lexer, self._formatter)
+                # pyrefly: ignore [bad-return, unsupported-operation, unsupported-operation]
                 return highlighted + "\n"
 
         # Fallback to basic code block

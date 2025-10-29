@@ -1,93 +1,131 @@
 {% extends "_base.html" %}
 {% load static %}
-
 {% block title %}Markdown Editor{% endblock %}
-
 {% block head_close %}
   <link href="{% static "css/highlight.custom.css" %}" rel="stylesheet">
 {% endblock head_close %}
-
 {% block main_classes %}container-fluid{% endblock %}
-
 {% block main %}
   <main class="container-fluid">
     <div class="row">
       <div class="col-12 col-lg-6">
-        <div id="markdown-editor-toolbar" class="btn-toolbar mb-0 border rounded rounded-bottom-0 p-0 text-bg-light d-flex align-items-center">
-          <div class="fw-bold fst-italic px-2 text-body-secondary">Markdown Editor <small class="d-lg-none">(Preview below)</small></div>
+        <div id="markdown-editor-toolbar"
+             class="btn-toolbar mb-0 border rounded rounded-bottom-0 p-0 text-bg-light d-flex align-items-center">
+          <div class="fw-bold fst-italic px-2 text-body-secondary">
+            Markdown Editor <small class="d-lg-none">(Preview below)</small>
+          </div>
           <div class="btn-group">
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="h1-button" title="Header 1">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="h1-button"
+                    title="Header 1">
               {% include "markdown_editor/svg/h1.svg" %}
               <span class="visually-hidden">Header 1 Button</span>
             </button>
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="h2-button" title="Header 2">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="h2-button"
+                    title="Header 2">
               {% include "markdown_editor/svg/h2.svg" %}
               <span class="visually-hidden">Header 2 Button</span>
             </button>
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="h3-button" title="Header 3">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="h3-button"
+                    title="Header 3">
               {% include "markdown_editor/svg/h3.svg" %}
               <span class="visually-hidden">Header 3 Button</span>
             </button>
           </div>
           <div class="vr"></div>
           <div class="btn-group">
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="bold-button" title="Bold">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="bold-button"
+                    title="Bold">
               {% include "markdown_editor/svg/bold.svg" %}
               <span class="visually-hidden">Bold Button</span>
             </button>
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="italic-button" title="Italic">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="italic-button"
+                    title="Italic">
               {% include "markdown_editor/svg/italic.svg" %}
               <span class="visually-hidden">Italic Button</span>
             </button>
           </div>
           <div class="vr"></div>
           <div class="btn-group">
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="ul-button" title="Unordered List">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="ul-button"
+                    title="Unordered List">
               {% include "markdown_editor/svg/list-ul.svg" %}
               <span class="visually-hidden">Unordered List Button</span>
             </button>
-            <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="ol-button" title="Ordered List">
+            <button type="button"
+                    class="btn btn-light rounded-0 py-1 px-2"
+                    id="ol-button"
+                    title="Ordered List">
               {% include "markdown_editor/svg/list-ol.svg" %}
               <span class="visually-hidden">Ordered List Button</span>
             </button>
           </div>
           <div class="vr"></div>
-          <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="blockquote-button" title="Blockquote">
+          <button type="button"
+                  class="btn btn-light rounded-0 py-1 px-2"
+                  id="blockquote-button"
+                  title="Blockquote">
             {% include "markdown_editor/svg/quote.svg" %}
             <span class="visually-hidden">Blockquote Button</span>
           </button>
-          <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="code-button" title="Inline code">
+          <button type="button"
+                  class="btn btn-light rounded-0 py-1 px-2"
+                  id="code-button"
+                  title="Inline code">
             {% include "markdown_editor/svg/code.svg" %}
             <span class="visually-hidden">Inline Code Button</span>
           </button>
-          <button type="button" class="btn btn-light rounded-0 py-1 px-2" id="link-button" title="Insert Link">
+          <button type="button"
+                  class="btn btn-light rounded-0 py-1 px-2"
+                  id="link-button"
+                  title="Insert Link">
             {% include "markdown_editor/svg/link.svg" %}
             <span class="visually-hidden">Link Button</span>
           </button>
           <div class="btn-group  ms-auto">
-            <button type="button" class="btn btn-light rounded-0 rounded-top-1 rounded-start-0 py-1 px-2" id="copymarkdown-button">
-            {% include "markdown_editor/svg/copy.svg" %}
-            <span class="visually-hidden">Copy Markdown Button</span>
-          </button>
+            <button type="button"
+                    class="btn btn-light rounded-0 rounded-top-1 rounded-start-0 py-1 px-2"
+                    id="copymarkdown-button">
+              {% include "markdown_editor/svg/copy.svg" %}
+              <span class="visually-hidden">Copy Markdown Button</span>
+            </button>
+          </div>
         </div>
+        <textarea class="form-control w-100 overflow-auto border border-top-0 rounded-top-0 p-2"
+                  style="height: calc(100vh - 140px);
+                         resize: none;
+                         overflow-y: auto"
+                  id="editor"></textarea>
       </div>
-      <textarea class="form-control w-100 overflow-auto border border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); resize: none; overflow-y: auto;" id="editor"></textarea>
-      </div>
-
       <div class="col-12 col-lg-6">
         <div class="border rounded rounded-bottom-0 p-0 text-bg-light d-flex justify-content-between align-items-center">
           <div class="fw-bold fst-italic px-2 text-body-secondary">HTML Preview</div>
-          <button type="button" class="btn btn-light py-1 px-2 rounded-0 rounded-top-1 rounded-start-0" id="copyhtml-button">
+          <button type="button"
+                  class="btn btn-light py-1 px-2 rounded-0 rounded-top-1 rounded-start-0"
+                  id="copyhtml-button">
             {% include "markdown_editor/svg/copy.svg" %}
             <span class="visually-hidden">Copy HTML Button</span>
           </button>
         </div>
-        <div id="preview" class="w-100 overflow-auto border rounded border-top-0 rounded-top-0 p-2" style="height: calc(100vh - 140px); word-wrap: anywhere;"></div>
+        <div id="preview"
+             class="w-100 overflow-auto border rounded border-top-0 rounded-top-0 p-2"
+             style="height: calc(100vh - 140px);
+                    word-wrap: anywhere"></div>
       </div>
     </div>
   </main>
 {% endblock main %}
-
 {% block js_body_close %}
   <script src="{% static "js/main.bundle.min.js" %}"></script>
   <script src="{% static "js/markdown.bundle.min.js" %}"></script>

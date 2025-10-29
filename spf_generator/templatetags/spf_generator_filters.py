@@ -1,10 +1,13 @@
 """Custom template filters for spf_generator app."""
 # your_app_name/templatetags/spf_generator_filters.py
 
+from typing import TYPE_CHECKING
+
 from django import template
 from django.template.defaultfilters import stringfilter
 
-from spf_generator.models import EmailProvider
+if TYPE_CHECKING:
+    from spf_generator.models import EmailProvider
 
 register = template.Library()
 

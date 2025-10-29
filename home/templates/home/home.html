@@ -1,70 +1,71 @@
 {% extends "_base.html" %}
 {% load static %}
-
 {% block title %}Home{% endblock %}
-
 {% block head_close %}
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-image: url('{% static "img/wallpaper/dark-ferns-hnysCJrPpkc.jpeg" %}');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
+      body {
+          margin: 0;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url('{% static "img/wallpaper/dark-ferns-hnysCJrPpkc.jpeg" %}');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          font-family: system-ui, -apple-system, sans-serif;
+      }
 
-    main {
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 2rem;
-      border-radius: 1rem;
-    }
+      main {
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 2rem;
+          border-radius: 1rem;
+      }
 
-    time {
-      color: var(--bs-gray-500);
-      font-size: 4rem;
-      font-weight: bold;
-    }
-    div#date {
-      color: var(--bs-gray-500);
-    }
+      time {
+          color: var(--bs-gray-500);
+          font-size: 4rem;
+          font-weight: bold;
+      }
+
+      div#date {
+          color: var(--bs-gray-500);
+      }
   </style>
 {% endblock head_close %}
-
 {% block header %}{% endblock %}
-
 {% block main %}
   <time id="clock"></time>
   <div id="date"></div>
 {% endblock main %}
-
 {% block body_close %}{% endblock %}
-
 {% block js_body_close %}
-
   <script>
-    function updateClock() {
-      const now = new Date();
-      const baseTitle = "Home";
+      function updateClock() {
+          const now = new Date();
+          const baseTitle = "Home";
 
-      const timeOptions = { hour12: false, hour: '2-digit', minute: '2-digit' };
-      const timeStr = now.toLocaleTimeString('en-NZ', timeOptions);
+          const timeOptions = {
+              hour12: false,
+              hour: '2-digit',
+              minute: '2-digit'
+          };
+          const timeStr = now.toLocaleTimeString('en-NZ', timeOptions);
 
-      const dateOptions = { weekday: 'long', month: 'short', day: 'numeric' };
-      const dateStr = now.toLocaleDateString('en-NZ', dateOptions);
+          const dateOptions = {
+              weekday: 'long',
+              month: 'short',
+              day: 'numeric'
+          };
+          const dateStr = now.toLocaleDateString('en-NZ', dateOptions);
 
-      document.getElementById('clock').textContent = timeStr;
-      document.getElementById('date').textContent = dateStr;
-      document.title = `Home ${timeStr}`;
+          document.getElementById('clock').textContent = timeStr;
+          document.getElementById('date').textContent = dateStr;
+          document.title = `Home ${timeStr}`;
 
-    }
+      }
 
-    updateClock();
-    setInterval(updateClock, 1000);
+      updateClock();
+      setInterval(updateClock, 1000);
   </script>
-
 {% endblock js_body_close %}

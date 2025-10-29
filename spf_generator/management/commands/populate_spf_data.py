@@ -15,6 +15,7 @@ class Command(BaseCommand):
 
     help = "Populates the database with common email provider SPF records"
 
+    # pyrefly: ignore [bad-override]
     def handle(self, *args: Any, **options: Any) -> None:  # noqa: ANN401, ARG002
         """Handle the command execution."""
         # Email Hosting Providers
@@ -245,10 +246,12 @@ class Command(BaseCommand):
 
         # Create providers in database
         for provider_data in all_providers:
+            # pyrefly: ignore [missing-attribute]
             EmailProvider.objects.get_or_create(
                 name=provider_data["name"],
                 defaults=provider_data,
             )
             self.stdout.write(
+                # pyrefly: ignore [missing-attribute]
                 self.style.SUCCESS(f'Created provider: {provider_data["name"]}'),
             )

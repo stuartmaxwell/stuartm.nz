@@ -1,20 +1,22 @@
 <div class="modal-content">
   <div class="modal-header">
     <h1 class="modal-title fs-5" id="spfModalLabel">Your SPF Record</h1>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <button type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
   </div>
   <div class="modal-body">
     <pre><code id="spf-record">"{{ spf_record }}"</code></pre>
     <p>Add this record as a TXT record in your domain's DNS settings.</p>
-    <p><strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.<br>
-      <small>{{ all_mechanism_help|safe }}</small></p>
+    <p>
+      <strong>Note:</strong> This record uses <em>{{ all_mechanism }}</em> as the default policy.
+      <br>
+      <small>{{ all_mechanism_help|safe }}</small>
+    </p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" onclick="copySpfRecord(this)">
-      📋 Copy SPF Record
-    </button>
-    <button class="btn btn-secondary" data-bs-dismiss="modal">
-      Close
-    </button>
+    <button class="btn btn-secondary" onclick="copySpfRecord(this)">📋 Copy SPF Record</button>
+    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
   </div>
 </div>

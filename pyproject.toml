@@ -3,9 +3,9 @@ name = "stuartm-nz"
 version = "0.21.1"
 description = "stuartm.nz"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
-  "django-environ>=0.11.2",
+  "environs[django]>=14.3.0",
   "django~=5.2.0",
   "djpress~=0.20",
   "whitenoise>=6.7.0",
@@ -24,7 +24,6 @@ dependencies = [
   "logfire[asgi,django]>=2.5.0",
   "djpress-publish-bluesky>=1.1.0",
   "django-storages[s3]>=1.14.6",
-  "posthog>=4.4.0",
 ]
 
 [tool.curlylint.rules]
@@ -32,7 +31,7 @@ image_alt = true
 
 [tool.ruff]
 line-length = 120
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -57,13 +56,3 @@ convention = "google" # Accepts: "google", "numpy", or "pep257".
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings_testing"
 python_files = "tests.py test_*.py *_tests.py"
-
-[tool.djlint]
-ignore = "D018,T003,H021"
-profile = "django"
-blank_line_after_tag = "load,include,block,endblock,endfor,endif"
-blank_line_before_tag = "include,block,endblock,for,if"
-format_css = true
-format_js = true
-indent = 2
-max_line_length = 120
