@@ -1,36 +1,39 @@
 {% extends "_base.html" %}
 {% load static %}
-
 {% block title %}Timezone Converter{% endblock %}
-
 {% comment %} This removes the RSS link {% endcomment %}
 {% block head_close %}{% endblock %}
-
 {% block content %}
-
   <h1>Timezone Converter</h1>
   <div class="row">
     <div class="col-12 col-xl-6">
       <form>
-        <label for="timestamp" class="form-label">Enter a timestamp in ISO 8601 format:
-          <input class="form-control" type="text" name="timestamp" id="timestamp" value="2024-01-01T00:00:00Z" />
+        <label for="timestamp" class="form-label">
+          Enter a timestamp in ISO 8601 format:
+          <input class="form-control"
+                 type="text"
+                 name="timestamp"
+                 id="timestamp"
+                 value="2024-01-01T00:00:00Z" />
         </label>
-        <label for="timezone" class="form-label">Enter a timezone to conver to:
-          <input class="form-control" type="text" name="timezone" id="timezone" value="Pacific/Auckland" />
+        <label for="timezone" class="form-label">
+          Enter a timezone to conver to:
+          <input class="form-control"
+                 type="text"
+                 name="timezone"
+                 id="timezone"
+                 value="Pacific/Auckland" />
         </label>
-        <button
-          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-          hx-post="{% url 'timezone_converter:convert' %}"
-          hx-params="timestamp, timezone"
-          hx-target="#converted"
-          type="button"
-          class="btn btn-primary">
-          Convert</button>
+        <button hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                hx-post="{% url 'timezone_converter:convert' %}"
+                hx-params="timestamp, timezone"
+                hx-target="#converted"
+                type="button"
+                class="btn btn-primary">Convert</button>
       </form>
     </div>
     <div class="col-12 col-xl-6">
       <span id="converted"></span>
     </div>
   </div>
-
 {% endblock content %}

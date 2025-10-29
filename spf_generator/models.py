@@ -127,6 +127,7 @@ class EmailProvider(models.Model):
 
     def __str__(self) -> str:
         """Returns the name of the provider when converted to a string."""
+        # pyrefly: ignore [bad-return]
         return self.name
 
     def get_mechanism(self) -> str:
@@ -138,7 +139,7 @@ class EmailProvider(models.Model):
         return f"{self.mechanism_type}:{self.mechanism_value}"
 
     @staticmethod
-    def validate_combination(providers: list["EmailProvider"]) -> tuple[bool, str | None]:
+    def validate_combination(providers: list[EmailProvider]) -> tuple[bool, str | None]:
         """Validates whether a combination of providers can be used together.
 
         Args:

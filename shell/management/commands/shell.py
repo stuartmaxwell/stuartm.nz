@@ -8,10 +8,11 @@ from django.core.management.commands.shell import Command as BaseShellCommand
 class Command(BaseShellCommand):
     """Custom shell command to support the pyrepl shell."""
 
+    # pyrefly: ignore [bad-override]
     shells: ClassVar = ["ipython", "bpython", "pyrepl", "python"]
 
     def pyrepl(self, _) -> None:  # noqa: ANN001
         """Start a Python 3.13 REPL using the _pyrepl module."""
-        from _pyrepl.main import interactive_console
+        from _pyrepl.main import interactive_console  # noqa: PLC0415
 
         interactive_console()

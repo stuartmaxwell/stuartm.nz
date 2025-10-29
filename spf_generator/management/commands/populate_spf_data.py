@@ -15,6 +15,7 @@ class Command(BaseCommand):
 
     help = "Populates the database with common email provider SPF records"
 
+    # pyrefly: ignore [bad-override]
     def handle(self, *args: Any, **options: Any) -> None:  # noqa: ANN401, ARG002
         """Handle the command execution."""
         # Email Hosting Providers
@@ -152,8 +153,7 @@ class Command(BaseCommand):
                 "lookup_count": 1,
                 "priority": 20,
                 "notes": (
-                    "Covers all Postmark sending servers\n"
-                    "https://postmarkapp.com/guides/spf#2-create-your-spf-record"
+                    "Covers all Postmark sending servers\nhttps://postmarkapp.com/guides/spf#2-create-your-spf-record"
                 ),
             },
             {
@@ -245,10 +245,12 @@ class Command(BaseCommand):
 
         # Create providers in database
         for provider_data in all_providers:
+            # pyrefly: ignore [missing-attribute]
             EmailProvider.objects.get_or_create(
                 name=provider_data["name"],
                 defaults=provider_data,
             )
             self.stdout.write(
-                self.style.SUCCESS(f'Created provider: {provider_data["name"]}'),
+                # pyrefly: ignore [missing-attribute]
+                self.style.SUCCESS(f"Created provider: {provider_data['name']}"),
             )

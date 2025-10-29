@@ -1,5 +1,4 @@
 {% load djpress_tags static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,62 +21,39 @@
           content="Stuart Maxwell, Django, Python, Web Development, Blog">
     <meta name="author" content="Stuart Maxwell">
     <title>
-
       {% block title %}
-
         {% page_title post_text="| " %}{% site_title %}
-
       {% endblock title %}
-
     </title>
     <link rel="icon"
           href="{% static 'img/favicon-32x32.png' %}"
           sizes="32x32"
           type="image/png">
-
     {% block css %}
-
       <link href="{% static "css/bs53p.css" %}" rel="stylesheet">
       <link href="{% static "css/pygments/nord.min.css" %}" rel="stylesheet">
       <link href="{% static "css/styles.css" %}" rel="stylesheet">
-
     {% endblock css %}
-
     {% if not DEBUG and not user.is_authenticated %}
       <script async
               src="https://u.amanzi.nz/script.js"
               data-website-id="d5f479d8-65fb-4f80-9823-5fe5ca2e17aa"></script>
     {% endif %}
-
     {% block head_close %}
-
       {% rss_link %}
-
     {% endblock head_close %}
-
   </head>
   <body>
-
     {% block header %}
-
       {% include "snippets/header.html" %}
-
     {% endblock header %}
-
     {% block main %}
-
       <main class="container pb-3">
-
         {% include "snippets/messages.html" %}
-
         {% block content %}{% endblock %}
-
       </main>
-
     {% endblock main %}
-
     {% block body_close %}
-
       <div class="modal fade"
            id="contactFormModal"
            tabindex="-1"
@@ -85,14 +61,9 @@
            aria-hidden="true">
         <div class="modal-dialog" id="contactForm"></div>
       </div>
-
     {% endblock body_close %}
-
     {% block js_body_close %}
-
       <script src="{% static "js/main.bundle.min.js" %}"></script>
-
     {% endblock js_body_close %}
-
   </body>
 </html>

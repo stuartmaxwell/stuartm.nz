@@ -74,11 +74,11 @@ pc-run:
 
 # Run Docker compose up on the development environment
 dc-up-dev:
-    docker-compose --file docker-compose-dev.yml up -d --build
+    docker compose --file docker-compose-dev.yml up -d --build
 
 # Run Docker compose logs on the development environment
 dc-logs-dev:
-    docker-compose --file docker-compose-dev.yml logs -f
+    docker compose --file docker-compose-dev.yml logs -f
 
 # Run a terminal on the development environment
 dc-exec-dev:

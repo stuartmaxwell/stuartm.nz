@@ -16,6 +16,7 @@ def client():
 def email_providers():
     """Create some test email providers."""
     providers = [
+        # pyrefly: ignore [missing-attribute]
         EmailProvider.objects.create(
             name="Google Workspace",
             category=ProviderCategory.EMAIL_HOSTING,
@@ -24,6 +25,7 @@ def email_providers():
             lookup_count=2,
             priority=10,
         ),
+        # pyrefly: ignore [missing-attribute]
         EmailProvider.objects.create(
             name="SendGrid",
             category=ProviderCategory.TRANSACTIONAL,
@@ -32,6 +34,7 @@ def email_providers():
             lookup_count=1,
             priority=20,
         ),
+        # pyrefly: ignore [missing-attribute]
         EmailProvider.objects.create(
             name="Office 365",
             category=ProviderCategory.EMAIL_HOSTING,
@@ -84,6 +87,7 @@ class TestSpfGenerator:
     def test_lookup_count_limit(self, client, email_providers):
         """Test that the 10 lookup limit is enforced."""
         # Create a provider with 9 lookups
+        # pyrefly: ignore [missing-attribute]
         high_lookup_provider = EmailProvider.objects.create(
             name="High Lookup Provider",
             category=ProviderCategory.OTHER,

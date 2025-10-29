@@ -33,10 +33,12 @@ def health_check(_: HttpRequest) -> JsonResponse:
         status, error = check_function()
 
         # Update the component's status in the health data
+        # pyrefly: ignore [unsupported-operation]
         health_data["details"][check_name] = {"status": status}
 
         # If there's an error, add it to the component's data
         if error:
+            # pyrefly: ignore [bad-index]
             health_data["details"][check_name]["error"] = error
 
         # If any component is unhealthy, set overall status to 'unhealthy'

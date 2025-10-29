@@ -1,10 +1,14 @@
 """Custom template filters for spf_generator app."""
-# your_app_name/templatetags/spf_generator_filters.py
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from django import template
 from django.template.defaultfilters import stringfilter
 
-from spf_generator.models import EmailProvider
+if TYPE_CHECKING:
+    from spf_generator.models import EmailProvider
 
 register = template.Library()
 
@@ -25,7 +29,7 @@ def startswith(text: str, starts: str) -> bool:
 
 
 @register.filter
-def get_provider(providers_dict: dict[int, EmailProvider], field_name: str) -> EmailProvider:
+def get_provider(providers_dict: dict, field_name: str) -> EmailProvider:
     """Template filter to get provider object from field name.
 
     Args:
@@ -33,7 +37,7 @@ def get_provider(providers_dict: dict[int, EmailProvider], field_name: str) -> E
         field_name: Form field name (e.g., 'provider_1')
 
     Returns:
-        EmailProvider: The provider object or None
+        EmailProvider: The provider object
     """
     provider_id = int(field_name.split("_")[1])
 

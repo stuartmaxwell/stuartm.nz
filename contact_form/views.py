@@ -1,13 +1,16 @@
 """Views for the contact_form app."""
 
 import asyncio
+from typing import TYPE_CHECKING
 
 from django.forms import ValidationError
-from django.http import HttpRequest, HttpResponse
 from django.template.response import TemplateResponse
 
 from contact_form.forms import ContactForm
 from contact_form.tasks import send_email_async
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse
 
 background_tasks = set()
 

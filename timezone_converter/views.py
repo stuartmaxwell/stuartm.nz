@@ -1,10 +1,13 @@
 """Views for the timezone_converter app."""
 
 from datetime import datetime
+from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse
 
 
 # A simple view to display the converter HTML template.
@@ -21,7 +24,9 @@ def converter(request: HttpRequest) -> HttpResponse:
 def convert(request: HttpRequest) -> HttpResponse:
     """Convert a timestamp to a different timezone and display the result."""
     # Get the timestamp and timezone from the POST request.
+    # pyrefly: ignore [bad-assignment]
     timestamp: str | None = request.POST.get("timestamp")
+    # pyrefly: ignore [bad-assignment]
     timezone: str | None = request.POST.get("timezone")
 
     error_message: str = ""
@@ -48,8 +53,7 @@ def convert(request: HttpRequest) -> HttpResponse:
     # Check the converted timestamp is timezone aware
     if datetime_obj.tzinfo is None:
         error_message = (
-            "The timestamp provided must be timezone aware. For example, "
-            "use 'Z' for UTC, or provide an offset."
+            "The timestamp provided must be timezone aware. For example, use 'Z' for UTC, or provide an offset."
         )
         return render(
             request,

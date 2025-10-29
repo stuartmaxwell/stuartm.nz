@@ -1,10 +1,14 @@
 """Views for the SPF Generator app."""
 
-from django.http import HttpRequest, HttpResponse
+from typing import TYPE_CHECKING
+
 from django.shortcuts import render
 
 from spf_generator.forms import ProviderSelectForm
 from spf_generator.models import EmailProvider, ProviderCategory, SpfAllMechanism
+
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse
 
 
 def generate_spf_record(request: HttpRequest) -> HttpResponse:
@@ -27,6 +31,7 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
             for field_name, value in form.cleaned_data.items():
                 if value and field_name.startswith("provider_"):
                     provider_id = int(field_name.split("_")[1])
+                    # pyrefly: ignore [missing-attribute]
                     provider = EmailProvider.objects.get(id=provider_id)
                     selected_providers.append(provider)
 
@@ -96,6 +101,7 @@ def generate_spf_record(request: HttpRequest) -> HttpResponse:
         )
 
     # GET request - display form
+    # pyrefly: ignore [missing-attribute]
     providers = {provider.pk: provider for provider in EmailProvider.objects.filter(active=True)}
 
     context = {

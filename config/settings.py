@@ -2,67 +2,55 @@
 
 from pathlib import Path
 
-import environ
 import logfire
 import sentry_sdk
 from django.contrib.messages import constants as messages
+from environs import env
 from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    # set casting, default value
-    SECRET_KEY=(str, "this_is_just_a_temporary_secret_key"),
-    DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list, ["127.0.0.1"]),
-    SENTRY_DSN=(str, ""),
-    SENTRY_ENVIRONMENT=(str, "development"),
-    SENTRY_TRACES_SAMPLE_RATE=(float, 0.0),
-    EMAIL_HOST=(str, ""),
-    EMAIL_PORT=(str, ""),
-    EMAIL_HOST_USER=(str, ""),
-    EMAIL_HOST_PASSWORD=(str, ""),
-    EMAIL_USE_TLS=(bool, True),
-    DEFAULT_FROM_EMAIL=(str, ""),
-    DB_ENGINE=(str, "django.db.backends.sqlite3"),
-    DB_NAME=(str, "db"),
-    DB_USER=(str, ""),
-    DB_PASSWORD=(str, ""),
-    DB_HOST=(str, ""),
-    DB_PORT=(str, ""),
-    WHITENOISE_STATIC=(bool, False),
-    ADMIN_URL=(str, "admin"),
-    SITE_TITLE=(str, "stuartm.nz"),
-    POST_PREFIX=(str, "{{ year }}/{{ month }}"),
-    MASTODON_ACCESS_TOKEN=(str, ""),
-    RESEND_API_KEY=(str, ""),
-    CONTACT_FORM_TO=(str, ""),
-    CONTACT_FORM_FROM=(str, ""),
-    DEBUGGING_APP_PATH=(str, "this-is-just-a-temporary-debugging-app-path"),
-    LOGFIRE_ENVIRONMENT=(str, "dev"),
-    BLUESKY_APP_PASSWORD=(str, ""),
-    HEALTHCHECK_PATH=(str, ""),
-    AWS_ACCESS_KEY_ID=(str, ""),
-    AWS_SECRET_ACCESS_KEY=(str, ""),
-    AWS_STORAGE_BUCKET_NAME=(str, ""),
-    AWS_ENDPOINT_URL=(str, ""),
-    S3_BUCKET=(str, ""),
-)
+# The following line isn't necessary if reading environment variables from memory!
+env.read_env()
 
-environ.Env.read_env(Path(BASE_DIR / ".env"))
+# set casting, default value
+SECRET_KEY = env.str("SECRET_KEY", "this_is_just_a_temporary_secret_key")
+DEBUG = env.bool("DEBUG", False)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1"])
+SENTRY_DSN = env.str("SENTRY_DSN", "")
+SENTRY_ENVIRONMENT = env.str("SENTRY_ENVIRONMENT", "development")
+SENTRY_TRACES_SAMPLE_RATE = env.float("SENTRY_TRACES_SAMPLE_RATE", 0.0)
+EMAIL_HOST = env.str("EMAIL_HOST", "")
+EMAIL_PORT = env.str("EMAIL_PORT", "")
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", "")
+DB_ENGINE = env.str("DB_ENGINE", "django.db.backends.sqlite3")
+DB_NAME = env.str("DB_NAME", "db")
+DB_USER = env.str("DB_USER", "")
+DB_PASSWORD = env.str("DB_PASSWORD", "")
+DB_HOST = env.str("DB_HOST", "")
+DB_PORT = env.str("DB_PORT", "")
+WHITENOISE_STATIC = env.bool("WHITENOISE_STATIC", False)
+ADMIN_URL = env.str("ADMIN_URL", "admin")
+SITE_TITLE = env.str("SITE_TITLE", "stuartm.nz")
+POST_PREFIX = env.str("POST_PREFIX", "{{ year }}/{{ month }}")
+MASTODON_ACCESS_TOKEN = env.str("MASTODON_ACCESS_TOKEN", "")
+RESEND_API_KEY = env.str("RESEND_API_KEY", "")
+CONTACT_FORM_TO = env.str("CONTACT_FORM_TO", "")
+CONTACT_FORM_FROM = env.str("CONTACT_FORM_FROM", "")
+DEBUGGING_APP_PATH = env.str("DEBUGGING_APP_PATH", "this-is-just-a-temporary-debugging-app-path")
+LOGFIRE_API_KEY = env.str("LOGFIRE_API_KEY", "")
+LOGFIRE_ENVIRONMENT = env.str("LOGFIRE_ENVIRONMENT", "dev")
+BLUESKY_APP_PASSWORD = env.str("BLUESKY_APP_PASSWORD", "")
+HEALTHCHECK_PATH = env.str("HEALTHCHECK_PATH", "")
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", "")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", "")
+AWS_ENDPOINT_URL = env.str("AWS_ENDPOINT_URL", "")
+S3_BUCKET = env.str("S3_BUCKET", "")
 
-SENTRY_DSN = env("SENTRY_DSN")
-SENTRY_ENVIRONMENT = env("SENTRY_ENVIRONMENT")
-SENTRY_TRACES_SAMPLE_RATE = env("SENTRY_TRACES_SAMPLE_RATE")
-if not isinstance(SENTRY_DSN, str):
-    msg = "SENTRY_DSN must be a string"
-    raise TypeError(msg)
-if not isinstance(SENTRY_ENVIRONMENT, str):
-    msg = "SENTRY_ENVIRONMENT must be a string"
-    raise TypeError(msg)
-if not isinstance(SENTRY_TRACES_SAMPLE_RATE, float):
-    msg = "SENTRY_TRACES_SAMPLE_RATE must be a float"
-    raise TypeError(msg)
 
 if SENTRY_DSN:
     sentry_sdk.init(
@@ -73,18 +61,6 @@ if SENTRY_DSN:
     )
 
 APP_NAME = "stuartm.nz"
-
-SECRET_KEY = env("SECRET_KEY")
-
-DEBUG = env("DEBUG")
-
-ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-if not isinstance(ALLOWED_HOSTS, list):
-    msg = "ALLOWED_HOSTS must be a list"
-    raise TypeError(msg)
-
-
-ADMIN_URL = env("ADMIN_URL")
 
 CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
@@ -120,7 +96,6 @@ MIDDLEWARE = [
 ]
 
 # Whitenoise
-WHITENOISE_STATIC = env("WHITENOISE_STATIC")
 if WHITENOISE_STATIC:
     MIDDLEWARE += [
         "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -164,12 +139,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
 # Database
-DB_ENGINE = env("DB_ENGINE")
-if not isinstance(DB_ENGINE, str):
-    msg = "DB_ENGINE must be a string"
-    raise TypeError(msg)
-
-DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in DB_ENGINE else env("DB_NAME")
+DB_NAME = BASE_DIR / "db" / f"{DB_NAME}.sqlite3" if "sqlite" in DB_ENGINE else DB_NAME
 SQLITE_OPTIONS = {
     "init_command": (
         "PRAGMA foreign_keys=ON;"
@@ -185,12 +155,12 @@ SQLITE_OPTIONS = {
 }
 DATABASES = {
     "default": {
-        "ENGINE": env("DB_ENGINE"),
+        "ENGINE": DB_ENGINE,
         "NAME": DB_NAME,
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
     },
 }
 if "sqlite" in DB_ENGINE:
@@ -236,15 +206,6 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = "djpress:index"
 LOGOUT_REDIRECT_URL = "djpress:index"
-
-# Email configuration
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = env("EMAIL_USE_TLS")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 # django-debug-toolbar
 INTERNAL_IPS = ["127.0.0.1"]
@@ -294,11 +255,20 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+if LOGFIRE_API_KEY:
+    # pyrefly: ignore  # unsupported-operation
+    LOGGING["handlers"]["logfire"] = {
+        "level": "INFO",
+        "class": "logfire.LogfireLoggingHandler",
+    }
+    # pyrefly: ignore  # index-error, missing-attribute
+    LOGGING["root"]["handlers"].append("logfire")
+
 
 # DJPress settings
 DJPRESS_SETTINGS = {
-    "SITE_TITLE": env("SITE_TITLE"),
-    "POST_PREFIX": env("POST_PREFIX"),
+    "SITE_TITLE": SITE_TITLE,
+    "POST_PREFIX": POST_PREFIX,
     "THEME": "stuartmnz",
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
@@ -308,14 +278,14 @@ DJPRESS_SETTINGS = {
     "PLUGIN_SETTINGS": {
         "djpress_publish_mastodon": {
             "instance_url": "https://fosstodon.org",
-            "access_token": env("MASTODON_ACCESS_TOKEN"),
+            "access_token": MASTODON_ACCESS_TOKEN,
             "status_message": "🚀 I created a new blog post!\n\n",
             "base_url": "https://stuartm.nz/",
             "microblog_category": "microblog",
         },
         "djpress_publish_bluesky": {
             "handle": "stuartm.nz",
-            "app_password": env("BLUESKY_APP_PASSWORD"),
+            "app_password": BLUESKY_APP_PASSWORD,
             "site_url": "https://stuartm.nz/",
             "post_message": "🚀 I created a new blog post!",
         },
@@ -324,17 +294,6 @@ DJPRESS_SETTINGS = {
 
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = env("EMAIL_USE_TLS")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
-
-# Contact Form
-RESEND_API_KEY = env("RESEND_API_KEY")
-CONTACT_FORM_TO = env("CONTACT_FORM_TO")
-CONTACT_FORM_FROM = env("CONTACT_FORM_FROM")
 
 # Securtiy settings
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -348,22 +307,14 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-# Debugging app
-DEBUGGING_APP_PATH = env("DEBUGGING_APP_PATH")
-
 # Logfire
-LOGFIRE_ENVIRONMENT = env("LOGFIRE_ENVIRONMENT")
-if not isinstance(LOGFIRE_ENVIRONMENT, str):
-    msg = "LOGFIRE_ENVIRONMENT must be a string"
-    raise TypeError(msg)
-logfire.configure(environment=LOGFIRE_ENVIRONMENT)
-logfire.instrument_django(
-    capture_headers=True,
-    excluded_urls="/healthcheck",
-)
-
-# Healthcheck app
-HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
+# Logfire
+if LOGFIRE_API_KEY:
+    logfire.configure(environment=LOGFIRE_ENVIRONMENT, token=LOGFIRE_API_KEY)
+    logfire.instrument_django(
+        capture_headers=True,
+        excluded_urls="/healthcheck",
+    )
 
 # Django Storages
 # AWS_ACCESS_KEY_ID
@@ -377,10 +328,10 @@ if not DEBUG:
         "default": {
             "BACKEND": "storages.backends.s3.S3Storage",
             "OPTIONS": {
-                "access_key": env("AWS_ACCESS_KEY_ID"),
-                "secret_key": env("AWS_SECRET_ACCESS_KEY"),
+                "access_key": AWS_ACCESS_KEY_ID,
+                "secret_key": AWS_SECRET_ACCESS_KEY,
                 "bucket_name": "stuartmnz-public",
-                "endpoint_url": env("AWS_ENDPOINT_URL"),
+                "endpoint_url": AWS_ENDPOINT_URL,
                 "custom_domain": "s.stuartm.nz",
             },
         },
