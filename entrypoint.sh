@@ -5,7 +5,7 @@ set -euf -o pipefail
 
 # Debugging
 #echo `ls -al /tmp`
-
+DB_NAME="${DB_NAME:-db}"
 BACKUP_PATH="/app/db"  # This must match the path in the Dockerfile and backup.sh
 DB_PATH="${BACKUP_PATH}/${DB_NAME}.sqlite3"
 TEMP_RESTORE_FILE="${BACKUP_PATH}/latest-backup.tar.gz"
@@ -34,7 +34,11 @@ download_latest_backup() {
 # Check if the database file exists - if it doesn't, download the latest backup
 echo "Checking if SQLite database file exists"
 if [ ! -f "${DB_PATH}" ]; then
-    download_latest_backup
+    if [ -n "${AWS_ENDPOINT_URL:-}" ]; then
+        download_latest_backup
+    else
+        echo "AWS_ENDPOINT_URL is not set; skipping backup download"
+    fi
 fi
 
 # Apply database migrations
