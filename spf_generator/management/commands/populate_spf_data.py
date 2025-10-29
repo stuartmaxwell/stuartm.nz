@@ -153,8 +153,7 @@ class Command(BaseCommand):
                 "lookup_count": 1,
                 "priority": 20,
                 "notes": (
-                    "Covers all Postmark sending servers\n"
-                    "https://postmarkapp.com/guides/spf#2-create-your-spf-record"
+                    "Covers all Postmark sending servers\nhttps://postmarkapp.com/guides/spf#2-create-your-spf-record"
                 ),
             },
             {
@@ -253,5 +252,5 @@ class Command(BaseCommand):
             )
             self.stdout.write(
                 # pyrefly: ignore [missing-attribute]
-                self.style.SUCCESS(f'Created provider: {provider_data["name"]}'),
+                self.style.SUCCESS(f"Created provider: {provider_data['name']}"),
             )
