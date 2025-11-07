@@ -23,6 +23,12 @@
         </li>
       {% endif %}
       <li class="nav-item">
+        <a href="{% search_url %}" class="nav-link icon-link px-sm-2 px-1">
+          {% include "svg/search.svg" %}
+          <span class="d-none d-md-inline">Search</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{% url "contact_form:contact_form" %}"
            hx-get="{% url 'contact_form:contact_form' %}"
            hx-target="#contactForm"
