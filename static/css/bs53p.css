@@ -423,6 +423,11 @@ textarea {
   height: auto;
 }
 
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
 /* rtl:raw:
 [type="tel"],
 [type="url"],
@@ -718,6 +723,7 @@ textarea.form-control {
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
+
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
@@ -726,6 +732,7 @@ textarea.form-control {
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
+
 :not(.btn-check) + .btn:active:focus-visible,
 .btn:first-child:active:focus-visible,
 .btn.active:focus-visible,
@@ -884,6 +891,7 @@ textarea.form-control {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(13, 84, 43, 0.25);
 }
+
 .nav-link:disabled {
   color: var(--bs-nav-link-disabled-color);
   pointer-events: none;
@@ -1081,6 +1089,32 @@ textarea.form-control {
 .btn .badge {
   position: relative;
   top: -1px;
+}
+
+.alert {
+  --bs-alert-bg: transparent;
+  --bs-alert-padding-x: 1rem;
+  --bs-alert-padding-y: 1rem;
+  --bs-alert-margin-bottom: 1rem;
+  --bs-alert-color: inherit;
+  --bs-alert-border-color: transparent;
+  --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+  --bs-alert-border-radius: var(--bs-border-radius);
+  --bs-alert-link-color: inherit;
+  position: relative;
+  padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+  margin-bottom: var(--bs-alert-margin-bottom);
+  color: var(--bs-alert-color);
+  background-color: var(--bs-alert-bg);
+  border: var(--bs-alert-border);
+  border-radius: var(--bs-alert-border-radius);
+}
+
+.alert-danger {
+  --bs-alert-color: var(--bs-danger-text-emphasis);
+  --bs-alert-bg: var(--bs-danger-bg-subtle);
+  --bs-alert-border-color: var(--bs-danger-border-subtle);
+  --bs-alert-link-color: var(--bs-danger-text-emphasis);
 }
 
 @keyframes progress-bar-stripes {
@@ -1285,6 +1319,19 @@ textarea.form-control {
   }
 }
 
+.placeholder {
+  display: inline-block;
+  min-height: 1em;
+  vertical-align: middle;
+  cursor: wait;
+  background-color: currentcolor;
+  opacity: 0.5;
+}
+.placeholder.btn::before {
+  display: inline-block;
+  content: "";
+}
+
 @keyframes placeholder-glow {
   50% {
     opacity: 0.2;
@@ -1399,6 +1446,11 @@ textarea.form-control {
 
 .align-items-center {
   align-items: center !important;
+}
+
+.my-3 {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .me-0 {

@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+{% load djpress_tags %}
+{% block content %}
+  <div class="row">
+    <div class="col col-md-8 pt-3">
+      {% search_title outer="h3" outer_class="search-heading" pre_text="Search Results for '" post_text="'" %}
+      {% search_form placeholder="Search posts..." button_text="Search" form_class="search-form" input_class="form-control" button_class="btn btn-primary my-3" %}
+      {% search_errors error_class="alert alert-danger" %}
+      {% for post in posts %}
+        {% post_wrap %}
+        {% post_title outer_tag="h4" include_empty=True %}
+        <footer>
+          <p>Posted on {% post_date %}</p>
+        </footer>
+      {% end_post_wrap %}
+    {% empty %}
+      {% if search_query %}<p>No posts available.</p>{% endif %}
+    {% endfor %}
+    {% is_paginated as paginated %}
+    {% if paginated %}
+      {% get_pagination_range as page_range %}
+      {% get_pagination_current_page as current_page %}
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          {% for page in page_range %}
+            {% if page == current_page %}
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
