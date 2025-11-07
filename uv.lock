@@ -201,15 +201,15 @@ s3 = [
 
 [[package]]
 name = "djpress"
-version = "0.22.0"
+version = "0.22.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/13/57/53f765124602e3f1049c868b14a8fe2342acc38eee0e773098d6f34cb54e/djpress-0.22.0.tar.gz", hash = "sha256:bf155b567feb91efe54851e6c9ed6414606c3ae57c92ac02ce697c6e852fa246", size = 197824, upload-time = "2025-11-07T06:52:19.959Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/6e/00/afeace2faf4afccaf2b2976503d8504d3413614fd500589cd64bbcafe045/djpress-0.22.1.tar.gz", hash = "sha256:d1c85e29bbfd751db49c2b384427f835f75bed91b2739fc66a59f4e40e8a78ff", size = 198246, upload-time = "2025-11-07T09:34:14.675Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/a1/c91a5c0786de6b90ca16a6c0a52f67f2cddbc39d95808567f73fcfea6995/djpress-0.22.0-py3-none-any.whl", hash = "sha256:837bd57ea2d3329f3dcd5f1e817758ade340bd1fd10cbce516cc3a6d5d6aba33", size = 79746, upload-time = "2025-11-07T06:52:18.38Z" },
+    { url = "https://files.pythonhosted.org/packages/50/d5/61502ed13ea442043644e3d6542f15334ff848077a828e197fdf8c3a608d/djpress-0.22.1-py3-none-any.whl", hash = "sha256:bf3bda634f2d4221d68ad43a1f8e0d6f71f033678c306126dff276078d2e4572", size = 79949, upload-time = "2025-11-07T09:34:12.85Z" },
 ]
 
 [[package]]
@@ -803,7 +803,7 @@ wheels = [
 
 [[package]]
 name = "stuartm-nz"
-version = "0.22.0"
+version = "0.22.1"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
