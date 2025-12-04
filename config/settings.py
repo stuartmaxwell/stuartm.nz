@@ -166,7 +166,6 @@ DATABASES = {
 if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -256,12 +255,10 @@ LOGGING = {
     },
 }
 if LOGFIRE_API_KEY:
-    # pyrefly: ignore  # unsupported-operation
     LOGGING["handlers"]["logfire"] = {
         "level": "INFO",
         "class": "logfire.LogfireLoggingHandler",
     }
-    # pyrefly: ignore  # index-error, missing-attribute
     LOGGING["root"]["handlers"].append("logfire")
 
 

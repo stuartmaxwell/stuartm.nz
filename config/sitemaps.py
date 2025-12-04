@@ -8,7 +8,6 @@ class StaticSitemap(Sitemap):
     """Sitemap for stuartm.nz."""
 
     changefreq = "monthly"
-    # pyrefly: ignore [bad-override]
     protocol = "https"
 
     def items(self) -> list:

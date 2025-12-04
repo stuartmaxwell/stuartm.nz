@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    # pyrefly: ignore [bad-override]
     initial = True
 
     dependencies = []

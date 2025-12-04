@@ -12,7 +12,6 @@ from .models import EmailProvider
 class EmailProviderAdmin(admin.ModelAdmin):
     """Admin interface configuration for EmailProvider model."""
 
-    # pyrefly: ignore [bad-override]
     list_display: ClassVar = [
         "name",
         "category",
@@ -22,14 +21,12 @@ class EmailProviderAdmin(admin.ModelAdmin):
         "active",
     ]
 
-    # pyrefly: ignore [bad-override]
     list_filter: ClassVar = [
         "category",
         "active",
         "mechanism_type",
     ]
 
-    # pyrefly: ignore [bad-override]
     search_fields: ClassVar = [
         "name",
         "description",
@@ -37,13 +34,11 @@ class EmailProviderAdmin(admin.ModelAdmin):
         "notes",
     ]
 
-    # pyrefly: ignore [bad-override]
     readonly_fields: ClassVar = [
         "created_at",
         "updated_at",
     ]
 
-    # pyrefly: ignore [bad-override]
     fieldsets: ClassVar = [
         (
             None,
@@ -97,7 +92,6 @@ class EmailProviderAdmin(admin.ModelAdmin):
         Returns:
             str: HTML-formatted SPF mechanism
         """
-        # pyrefly: ignore [bad-return]
         return format_html(
             "<code>{}</code>",
             obj.get_mechanism(),

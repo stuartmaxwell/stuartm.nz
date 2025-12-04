@@ -24,9 +24,7 @@ def converter(request: HttpRequest) -> HttpResponse:
 def convert(request: HttpRequest) -> HttpResponse:
     """Convert a timestamp to a different timezone and display the result."""
     # Get the timestamp and timezone from the POST request.
-    # pyrefly: ignore [bad-assignment]
     timestamp: str | None = request.POST.get("timestamp")
-    # pyrefly: ignore [bad-assignment]
     timezone: str | None = request.POST.get("timezone")
 
     error_message: str = ""
