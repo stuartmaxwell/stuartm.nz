@@ -77,7 +77,6 @@ class ProviderSelectForm(forms.Form):
 
         # Group providers by category
         for category in ProviderCategory.choices:
-            # pyrefly: ignore [missing-attribute]
             providers = EmailProvider.objects.filter(
                 category=category[0],
                 active=True,

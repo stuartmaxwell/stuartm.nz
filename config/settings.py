@@ -255,12 +255,10 @@ LOGGING = {
     },
 }
 if LOGFIRE_API_KEY:
-    # pyrefly: ignore  # unsupported-operation
     LOGGING["handlers"]["logfire"] = {
         "level": "INFO",
         "class": "logfire.LogfireLoggingHandler",
     }
-    # pyrefly: ignore  # index-error, missing-attribute
     LOGGING["root"]["handlers"].append("logfire")
 
 
