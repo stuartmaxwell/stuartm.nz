@@ -3,3 +3,4 @@ format_js = true
 ignore = "T003,H021,H031,H030"
 indent = 2
 max_line_length = 120
+custom_blocks = "post_wrap"

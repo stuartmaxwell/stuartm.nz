@@ -200,15 +200,15 @@ s3 = [
 
 [[package]]
 name = "djpress"
-version = "0.22.1"
+version = "0.23.0b2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "markdown" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6e/00/afeace2faf4afccaf2b2976503d8504d3413614fd500589cd64bbcafe045/djpress-0.22.1.tar.gz", hash = "sha256:d1c85e29bbfd751db49c2b384427f835f75bed91b2739fc66a59f4e40e8a78ff", size = 198246, upload-time = "2025-11-07T09:34:14.675Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/63/96/5787fa8cc1243678150e20d5ae43f5696b989105cf6c2b323c19a54573b4/djpress-0.23.0b2.tar.gz", hash = "sha256:2b3598a794948da1394af07299ca6005f44a99a8110bb1dfc9f4bd51a6314553", size = 205829, upload-time = "2026-03-28T09:14:12.356Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/50/d5/61502ed13ea442043644e3d6542f15334ff848077a828e197fdf8c3a608d/djpress-0.22.1-py3-none-any.whl", hash = "sha256:bf3bda634f2d4221d68ad43a1f8e0d6f71f033678c306126dff276078d2e4572", size = 79949, upload-time = "2025-11-07T09:34:12.85Z" },
+    { url = "https://files.pythonhosted.org/packages/3c/aa/79fcd1dfd52926767c09b1cc8e6d74f1cc814aeaf0607b4050748ed91a89/djpress-0.23.0b2-py3-none-any.whl", hash = "sha256:68f4597b470b93526665425b11c28b32241da7ae8e73c6aa6dd88e97b7391438", size = 81835, upload-time = "2026-03-28T09:14:10.621Z" },
 ]
 
 [[package]]
@@ -822,7 +822,7 @@ requires-dist = [
     { name = "django", specifier = "~=6.0.0" },
     { name = "django-debug-toolbar", specifier = ">=4.4.6" },
     { name = "django-storages", extras = ["s3"], specifier = ">=1.14.6" },
-    { name = "djpress", specifier = "~=0.22" },
+    { name = "djpress", specifier = "==0.23.0b2" },
     { name = "djpress-publish-bluesky", specifier = ">=1.1.0" },
     { name = "djpress-publish-mastodon", specifier = ">=1.2.0" },
     { name = "environs", extras = ["django"], specifier = ">=14.3.0" },

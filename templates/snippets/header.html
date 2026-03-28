@@ -1,7 +1,7 @@
 {% load djpress_tags %}
 <header class="navbar navbar-expand navbar-dark mb-3 border-bottom border-1 border-success-subtle">
   <div class="container px-1 px-sm-3">
-    {% site_title_link link_class="navbar-brand fs-4 me-sm-3 me-0 px-sm-0 px-0" %}
+    {% site_title link=True link_class="navbar-brand fs-4 me-sm-3 me-0 px-sm-0 px-0" %}
     <ul class="navbar-nav me-auto">
       {% get_pages as pages %}
       {% for page in pages %}
@@ -23,7 +23,7 @@
         </li>
       {% endif %}
       <li class="nav-item">
-        <a href="{% search_url %}" class="nav-link icon-link px-sm-2 px-1">
+        <a href="{% get_search_url %}" class="nav-link icon-link px-sm-2 px-1">
           {% include "svg/search.svg" %}
           <span class="d-none d-md-inline">Search</span>
         </a>
