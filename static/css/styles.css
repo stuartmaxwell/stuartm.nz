@@ -5,20 +5,35 @@ body {
   font-size: 19px;
 }
 
-/* header has a background color of --bs-green */
-header {
-  background-color: var(--bs-green);
+button {
+  background-color: #005930;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header .navbar-brand {
-  font-weight: 900;
-  font-style: italic;
-  font-size: 1.5rem;
+dialog {
+  margin: auto; /* Restores native centering */
+  padding: 2rem; /* Restores internal spacing stripped by your reset */
+  border-radius: 0.5rem;
+  border: 0;
+  max-width: 64rem;
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px); /* Modern blur effect! */
 }
 
-header .nav-link {
-  font-weight: 900;
-  font-style: italic;
+.spf-content {
+  p {
+    margin-bottom: 1rem;
+  }
+  li {
+    list-style-type: none;
+  }
 }
 
 /* code blocks */
@@ -28,44 +43,89 @@ pre {
   padding: 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  text-wrap-mode: wrap;
 }
 
-/* link with hover effect: rounded subtle background */
-a.sidebar-link {
-  text-decoration: underline;
-  padding: 0.25rem;
-  border-radius: 0.25rem;
+table.table {
+  width: 100%;
+  border-collapse: collapse; /* The magic ingredient */
+}
+table.table th,
+table.table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
 }
 
-a.sidebar-link:hover {
-  background-color: var(--bs-primary-bg-subtle);
-}
+.markdown-editor {
+  .toolbar {
+    display: flex;
+    /*align-items: center;*/
+    justify-content: space-between;
+    gap: 4px; /* Space between buttons */
+    padding: 6px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-bottom: none; /* Merges with the text area below */
+    border-radius: 8px 8px 0 0; /* Rounds only the top corners */
+  }
 
-/* blog styles */
-article {
-  margin-bottom: 3rem;
-}
+  .toolbar button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #444;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
 
-article footer p {
-  color: var(--bs-secondary);
-  margin: 0;
-}
+  /* Hover effect */
+  .toolbar button:hover {
+    background-color: #f0f0f0;
+    color: #000;
+  }
 
-blockquote {
-  border-left: 0.25rem solid var(--bs-primary);
-  padding-left: 1rem;
-  margin-left: 1rem;
-  font-style: italic;
-}
+  /* Visual vertical line to group tools */
+  .separator {
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+    margin: 0 4px;
+  }
+  .toolbar-title {
+    font-weight: bold;
+    color: #666;
+  }
+  .button-cluster {
+    display: flex;
+    gap: 12px; /* Space between the distinct sub-groups */
+  }
+  .button-group {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden; /* Clips the inner button corners */
+  }
 
-/* Markdown editor */
-textarea#editor {
-  font-size: 0.8rem;
-  font-family: var(--bs-font-monospace);
-}
+  .button-group button {
+    border: none;
+    border-radius: 0;
+    border-right: 1px solid #ddd;
+  }
 
-textarea#editor.form-control:focus {
-  outline: none;
-  border-top-color: transparent;
-  box-shadow: none;
+  .button-group button:last-child {
+    border-right: none;
+  }
+  #preview {
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    padding: 0.5em;
+  }
 }

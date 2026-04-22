@@ -24,6 +24,7 @@ dependencies = [
   "logfire[asgi,django]>=2.5.0",
   "djpress-publish-bluesky>=1.1.0",
   "django-storages[s3]>=1.14.6",
+  "djpress-blog-theme>=0.3.0",
 ]
 
 [tool.curlylint.rules]
@@ -57,3 +58,6 @@ convention = "google" # Accepts: "google", "numpy", or "pep257".
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings_testing"
 python_files = "tests.py test_*.py *_tests.py"
+
+[tool.uv.sources]
+djpress-blog-theme = { path = "../../DJ_Press/djpress-blog-theme", editable = true }
