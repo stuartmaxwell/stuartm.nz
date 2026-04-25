@@ -43,6 +43,12 @@ requirements.in
 README.md
 media/
 .env
+djlint.toml
+package-lock.json
+package.json
+purgecss.config.mjs
+ruff.toml
+webpack.config.js
 
 # Macos yuck
 .DS_Store
@@ -55,3 +61,5 @@ media/
 # NPM stuff
 node_modules/
 build/
+
+#mi
