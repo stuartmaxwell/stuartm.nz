@@ -4,6 +4,7 @@
 set -euf -o pipefail
 
 # Infisical integration
+echo "Logging in to Infisical"
 INFISICAL_TOKEN=$(infisical login --method=universal-auth --client-id="${INFISICAL_MACHINE_CLIENT_ID}" --client-secret="${INFISICAL_MACHINE_CLIENT_SECRET}" --plain --silent)
 export INFISICAL_TOKEN
 
