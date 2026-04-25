@@ -29,7 +29,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 # Install system dependencies
 RUN apt-get update \
-  && apt-get install -y sqlite3 --no-install-recommends \
+  && apt-get install -y sqlite3 curl --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 

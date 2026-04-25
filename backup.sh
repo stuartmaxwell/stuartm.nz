@@ -10,3 +10,7 @@ export INFISICAL_TOKEN
 # Check and restore database
 echo "Backing up database"
 infisical run --token "${INFISICAL_TOKEN}" --projectId "${PROJECT_ID}" --env "${INFISICAL_SECRET_ENV}" -- scripts/db-backup.sh
+
+# Notifiy the healthcheck ping
+echo "Notifying healthcheck ping"
+curl -m 10 --retry 5 "${HEALTHCHECK_URL}"
