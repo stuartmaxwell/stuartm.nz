@@ -1,17 +1,17 @@
 [project]
 name = "stuartm.nz"
-version = "0.23.0"
-description = "Default template for PDM package"
+version = "0.25.0"
+description = "Stuart's blog"
 readme = "README.md"
 requires-python = "==3.14.*"
 dependencies = [
   "django~=6.0.0",
-  "djpress~=0.23.0",
+  "djpress~=0.25.0",
   "whitenoise~=6.12",
-  "gunicorn~=25.3",
+  "gunicorn~=26.0",
   "environs[django]~=15.0",
   "rich~=15.0",
-  "sentry-sdk~=2.58",
+  "sentry-sdk~=2.60",
   "django-debug-toolbar~=6.3",
   "pytest~=9.0",
   "pytest-django~=4.12",
@@ -19,10 +19,10 @@ dependencies = [
   "pygments~=2.20",
   "djpress-publish-mastodon~=1.3",
   "httpx~=0.28",
-  "logfire[asgi,django]~=4.32",
+  "logfire[asgi,django]~=4.34",
   "djpress-publish-bluesky~=1.1",
   "django-storages[s3]~=1.14",
-  "uvicorn[standard]~=0.44",
+  "uvicorn[standard]~=0.48",
 ]
 authors = [
     {name = "Stuart Maxwell", email = "stuart@amanzi.nz"},
