@@ -10,6 +10,10 @@ sync:
 lock:
     pdm lock --exclude-newer 7d
 
+# Resolve and lock dependencies with no restrictions
+lock-unsafe:
+    pdm lock
+
 # Run the Django development server
 run:
     pdm run manage.py runserver
