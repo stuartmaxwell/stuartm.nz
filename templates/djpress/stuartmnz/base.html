@@ -6,7 +6,8 @@
       {% block djpress_content %}{% endblock %}
     </div>
     <div class="col-4 d-none d-md-block">
-      <h2 class="h4">Recent Posts</h2>
+      {% site_archives pre_text='<h2 class="h4">Archives</h2>' show_post_count=True %}
+      <h2 class="h4">Posts</h2>
       <ul>
         {% get_recent_posts as posts %}
         {% for post in posts %}
