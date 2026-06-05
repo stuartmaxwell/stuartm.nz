@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:3200c8ae0bdbf00a066b8e99ec22da8ccebf7bf67898240a6b86a868d8efca12"
+content_hash = "sha256:119f1ef967a4d9c8a920293eb6c95b560c1ce2dd3598b0ae7927337800a208fd"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -260,7 +260,7 @@ files = [
 
 [[package]]
 name = "djpress"
-version = "0.27.0"
+version = "0.27.1"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
 groups = ["default"]
@@ -269,8 +269,8 @@ dependencies = [
     "markdown>=3.7",
 ]
 files = [
-    {file = "djpress-0.27.0-py3-none-any.whl", hash = "sha256:f1c4dc6a538007ba1d7fbeb1a4be2d08455e0e46cfa5362d47f3353361052abb"},
-    {file = "djpress-0.27.0.tar.gz", hash = "sha256:968c7fa02826b3da5fce0cb7fe39abee1ce1f258a9df6c705e4d1450a259a756"},
+    {file = "djpress-0.27.1-py3-none-any.whl", hash = "sha256:3e5888756ddcfc4e0312a535fa3375376ee0d618b6517069b3c9ceb12aaad9b3"},
+    {file = "djpress-0.27.1.tar.gz", hash = "sha256:7ec5964355beacb2bc50b88b25e2ea096231194c13c5bbf964d1e86e8e70f70c"},
 ]
 
 [[package]]
