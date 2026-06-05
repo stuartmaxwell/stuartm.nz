@@ -1,17 +1,17 @@
 [project]
 name = "stuartm.nz"
-version = "0.25.0"
+version = "0.27.0"
 description = "Stuart's blog"
 readme = "README.md"
 requires-python = "==3.14.*"
 dependencies = [
-  "django~=6.0.0",
-  "djpress~=0.25.0",
+  "django~=6.0",
+  "djpress~=0.27.0",
   "whitenoise~=6.12",
   "gunicorn~=26.0",
   "environs[django]~=15.0",
   "rich~=15.0",
-  "sentry-sdk~=2.60",
+  "sentry-sdk~=2.61",
   "django-debug-toolbar~=6.3",
   "pytest~=9.0",
   "pytest-django~=4.12",
@@ -19,10 +19,10 @@ dependencies = [
   "pygments~=2.20",
   "djpress-publish-mastodon~=1.3",
   "httpx~=0.28",
-  "logfire[asgi,django]~=4.34",
+  "logfire[asgi,django]~=4.35",
   "djpress-publish-bluesky~=1.1",
   "django-storages[s3]~=1.14",
-  "uvicorn[standard]~=0.48",
+  "uvicorn[standard]~=0.49",
 ]
 authors = [
     {name = "Stuart Maxwell", email = "stuart@amanzi.nz"},
