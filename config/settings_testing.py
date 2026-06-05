@@ -19,5 +19,7 @@ CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"
 # DJPress settings
 DJPRESS_SETTINGS = {
     "POST_PREFIX": "{{ year }}/{{ month }}",
+    "THEME": "stuartmnz",
+    "AUTHOR_ENABLED": True,
     "PLUGINS": [],
 }
