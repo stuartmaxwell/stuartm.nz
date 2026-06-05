@@ -12,6 +12,10 @@ export INFISICAL_TOKEN
 echo "Checking and restoring database"
 infisical run --token "${INFISICAL_TOKEN}" --projectId "${PROJECT_ID}" --env "${INFISICAL_SECRET_ENV}" -- scripts/db-restore.sh
 
+# Create cache table
+echo "Creating cache table"
+infisical run --token "${INFISICAL_TOKEN}" --projectId "${PROJECT_ID}" --env "${INFISICAL_SECRET_ENV}" -- python manage.py createcachetable
+
 # Apply database migrations
 echo "Applying database migrations"
 infisical run --token "${INFISICAL_TOKEN}" --projectId "${PROJECT_ID}" --env "${INFISICAL_SECRET_ENV}" -- python manage.py migrate --noinput

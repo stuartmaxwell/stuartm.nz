@@ -267,7 +267,7 @@ DJPRESS_SETTINGS = {
     "SITE_TITLE": SITE_TITLE,
     "POST_PREFIX": POST_PREFIX,
     "THEME": "stuartmnz",
-    "DATABASE_SETTINGS_ENABLED": False,
+    "DATABASE_SETTINGS_ENABLED": True,
     "AUTHOR_ENABLED": True,
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
@@ -338,3 +338,10 @@ if not DEBUG:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "stuartm_nz_django_cache",
+    }
+}
