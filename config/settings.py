@@ -267,6 +267,8 @@ DJPRESS_SETTINGS = {
     "SITE_TITLE": SITE_TITLE,
     "POST_PREFIX": POST_PREFIX,
     "THEME": "stuartmnz",
+    "DATABASE_SETTINGS_ENABLED": False,
+    "AUTHOR_ENABLED": True,
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
         "djpress_publish_mastodon",

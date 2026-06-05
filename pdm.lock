@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:b2cd7dd1b592a500fbea539c5c44e591e38ac027df8818df798450f3646b9b60"
+content_hash = "sha256:3200c8ae0bdbf00a066b8e99ec22da8ccebf7bf67898240a6b86a868d8efca12"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -42,23 +42,23 @@ files = [
 
 [[package]]
 name = "boto3"
-version = "1.43.15"
+version = "1.43.23"
 requires_python = ">=3.10"
 summary = "The AWS SDK for Python"
 groups = ["default"]
 dependencies = [
-    "botocore<1.44.0,>=1.43.15",
+    "botocore<1.44.0,>=1.43.23",
     "jmespath<2.0.0,>=0.7.1",
-    "s3transfer<0.18.0,>=0.17.0",
+    "s3transfer<0.19.0,>=0.18.0",
 ]
 files = [
-    {file = "boto3-1.43.15-py3-none-any.whl", hash = "sha256:67510ef57a79f0d53b963b0dd1d1741d1e3de1eb2ef6cf1737b6a6bddd34b8cb"},
-    {file = "boto3-1.43.15.tar.gz", hash = "sha256:8dbb1a129c693313218a099d4f086f3bb48f50159b74b5bd8869e1037fde4101"},
+    {file = "boto3-1.43.23-py3-none-any.whl", hash = "sha256:8afc058924ef8a5c62467fe2e1e2e0304c22018587a044714da89f9c602ba856"},
+    {file = "boto3-1.43.23.tar.gz", hash = "sha256:5d26498702ffd021dc0d57d0eefcc7101cd995ea0ed08c057c9b631efccbaa48"},
 ]
 
 [[package]]
 name = "botocore"
-version = "1.43.15"
+version = "1.43.23"
 requires_python = ">=3.10"
 summary = "Low-level, data-driven core of boto 3."
 groups = ["default"]
@@ -68,8 +68,8 @@ dependencies = [
     "urllib3!=2.2.0,<3,>=1.25.4",
 ]
 files = [
-    {file = "botocore-1.43.15-py3-none-any.whl", hash = "sha256:bda4923998d1bf17f8eb6bc767a0923fbb9e525ecd50f839b041e469b46e1c94"},
-    {file = "botocore-1.43.15.tar.gz", hash = "sha256:eed2e24962af03ec361a1dc6924f6b2cff0215a0a2f5c690eab655f43d1f700f"},
+    {file = "botocore-1.43.23-py3-none-any.whl", hash = "sha256:69ff3d951cb644d1d84db646663c7eb919dc9c0c47e5768e947c8a71121b3d77"},
+    {file = "botocore-1.43.23.tar.gz", hash = "sha256:a6737c598750f330bfa8ef2be2d9fa84b5d2d643b6bbb0d22e129e03b7535df1"},
 ]
 
 [[package]]
@@ -189,7 +189,7 @@ files = [
 
 [[package]]
 name = "django"
-version = "6.0.5"
+version = "6.0.6"
 requires_python = ">=3.12"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 groups = ["default"]
@@ -199,8 +199,8 @@ dependencies = [
     "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "django-6.0.5-py3-none-any.whl", hash = "sha256:9d58a7cb49244e74c8e161d5e403a46d6209f1009ba40f5a66d6aa0d0786a8f0"},
-    {file = "django-6.0.5.tar.gz", hash = "sha256:bc6d6872e98a2864c836e42edd644b362db311147dd5aa8d5b82ba7a032f5269"},
+    {file = "django-6.0.6-py3-none-any.whl", hash = "sha256:25148b1194c47c2e685e5f5e9c5d59c78b075dfd282cb9618861ba6c1708f4d2"},
+    {file = "django-6.0.6.tar.gz", hash = "sha256:ad03916ba59523d781ae5c3f631960c23d69a9d9c43cecda52fc23b47e953713"},
 ]
 
 [[package]]
@@ -260,7 +260,7 @@ files = [
 
 [[package]]
 name = "djpress"
-version = "0.25.0"
+version = "0.27.0"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
 groups = ["default"]
@@ -269,8 +269,8 @@ dependencies = [
     "markdown>=3.7",
 ]
 files = [
-    {file = "djpress-0.25.0-py3-none-any.whl", hash = "sha256:c0fab8fae09c139559607ec3f4150870d329e4702744b2e2bebf11593ca9de61"},
-    {file = "djpress-0.25.0.tar.gz", hash = "sha256:4ed29da335d72ca4ca008f8dadf2ab62d6d33f12b3502f6f88d33c8cb90b9730"},
+    {file = "djpress-0.27.0-py3-none-any.whl", hash = "sha256:f1c4dc6a538007ba1d7fbeb1a4be2d08455e0e46cfa5362d47f3353361052abb"},
+    {file = "djpress-0.27.0.tar.gz", hash = "sha256:968c7fa02826b3da5fce0cb7fe39abee1ce1f258a9df6c705e4d1450a259a756"},
 ]
 
 [[package]]
@@ -445,27 +445,13 @@ files = [
 
 [[package]]
 name = "idna"
-version = "3.16"
+version = "3.18"
 requires_python = ">=3.9"
 summary = "Internationalized Domain Names in Applications (IDNA)"
 groups = ["default"]
 files = [
-    {file = "idna-3.16-py3-none-any.whl", hash = "sha256:cc246e3a3f89580c3a951b5ad298ca4638078b2cdd4f115654332b5c26daded5"},
-    {file = "idna-3.16.tar.gz", hash = "sha256:d7a6da03db833450fca25d2358ac9ff06cd624577a4aea3a596d5c0f77b8e03d"},
-]
-
-[[package]]
-name = "importlib-metadata"
-version = "8.7.1"
-requires_python = ">=3.9"
-summary = "Read metadata from Python packages"
-groups = ["default"]
-dependencies = [
-    "zipp>=3.20",
-]
-files = [
-    {file = "importlib_metadata-8.7.1-py3-none-any.whl", hash = "sha256:5a1f80bf1daa489495071efbb095d75a634cf28a8bc299581244063b53176151"},
-    {file = "importlib_metadata-8.7.1.tar.gz", hash = "sha256:49fef1ae6440c182052f407c8d34a68f72efc36db9ca90dc0113398f2fdde8bb"},
+    {file = "idna-3.18-py3-none-any.whl", hash = "sha256:7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2"},
+    {file = "idna-3.18.tar.gz", hash = "sha256:ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848"},
 ]
 
 [[package]]
@@ -492,41 +478,41 @@ files = [
 
 [[package]]
 name = "logfire"
-version = "4.34.0"
+version = "4.35.0"
 requires_python = ">=3.10"
 summary = "The best Python observability tool! 🪵🔥"
 groups = ["default"]
 dependencies = [
     "executing>=2.0.1",
-    "opentelemetry-exporter-otlp-proto-http<1.42.0,>=1.39.0",
+    "opentelemetry-exporter-otlp-proto-http<1.43.0,>=1.39.0",
     "opentelemetry-instrumentation>=0.41b0",
-    "opentelemetry-sdk<1.42.0,>=1.39.0",
+    "opentelemetry-sdk<1.43.0,>=1.39.0",
     "protobuf>=4.23.4",
     "rich>=13.4.2",
     "tomli>=2.0.1; python_version < \"3.11\"",
     "typing-extensions>=4.1.0",
 ]
 files = [
-    {file = "logfire-4.34.0-py3-none-any.whl", hash = "sha256:b9d9fc71aec184b28c29a9a9e280c954a3ea52c399f1d7b95ce82bff6b177364"},
-    {file = "logfire-4.34.0.tar.gz", hash = "sha256:d88bb04f26a5ae0064d36eeb0fca5413599f0e2d068d629bcab25993ff405e25"},
+    {file = "logfire-4.35.0-py3-none-any.whl", hash = "sha256:9ae5c3f2dd81144ccf1ec6dba1a5de84aff5b2e2b8dd2190e53e87e47bc63711"},
+    {file = "logfire-4.35.0.tar.gz", hash = "sha256:6542aa4ac5e2d2369587deab57a0d1bb9cf6da49634c8cd9c5dbd7c7581f3d51"},
 ]
 
 [[package]]
 name = "logfire"
-version = "4.34.0"
+version = "4.35.0"
 extras = ["asgi", "django"]
 requires_python = ">=3.10"
 summary = "The best Python observability tool! 🪵🔥"
 groups = ["default"]
 dependencies = [
-    "logfire==4.34.0",
+    "logfire==4.35.0",
     "opentelemetry-instrumentation-asgi>=0.42b0",
     "opentelemetry-instrumentation-asgi>=0.42b0",
     "opentelemetry-instrumentation-django>=0.42b0",
 ]
 files = [
-    {file = "logfire-4.34.0-py3-none-any.whl", hash = "sha256:b9d9fc71aec184b28c29a9a9e280c954a3ea52c399f1d7b95ce82bff6b177364"},
-    {file = "logfire-4.34.0.tar.gz", hash = "sha256:d88bb04f26a5ae0064d36eeb0fca5413599f0e2d068d629bcab25993ff405e25"},
+    {file = "logfire-4.35.0-py3-none-any.whl", hash = "sha256:9ae5c3f2dd81144ccf1ec6dba1a5de84aff5b2e2b8dd2190e53e87e47bc63711"},
+    {file = "logfire-4.35.0.tar.gz", hash = "sha256:6542aa4ac5e2d2369587deab57a0d1bb9cf6da49634c8cd9c5dbd7c7581f3d51"},
 ]
 
 [[package]]
@@ -611,177 +597,176 @@ files = [
 
 [[package]]
 name = "opentelemetry-api"
-version = "1.41.1"
-requires_python = ">=3.9"
+version = "1.42.1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Python API"
 groups = ["default"]
 dependencies = [
-    "importlib-metadata<8.8.0,>=6.0",
     "typing-extensions>=4.5.0",
 ]
 files = [
-    {file = "opentelemetry_api-1.41.1-py3-none-any.whl", hash = "sha256:a22df900e75c76dc08440710e51f52f1aa6b451b429298896023e60db5b3139f"},
-    {file = "opentelemetry_api-1.41.1.tar.gz", hash = "sha256:0ad1814d73b875f84494387dae86ce0b12c68556331ce6ce8fe789197c949621"},
+    {file = "opentelemetry_api-1.42.1-py3-none-any.whl", hash = "sha256:51a69edacadbc03a8950ace1c4c21099cacc538820ac2c9e36277e78cebba714"},
+    {file = "opentelemetry_api-1.42.1.tar.gz", hash = "sha256:56c63bea9f77b62856be8c47600474acad853b2924b99b1687c4cb6297166716"},
 ]
 
 [[package]]
 name = "opentelemetry-exporter-otlp-proto-common"
-version = "1.41.1"
-requires_python = ">=3.9"
+version = "1.42.1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Protobuf encoding"
 groups = ["default"]
 dependencies = [
-    "opentelemetry-proto==1.41.1",
+    "opentelemetry-proto==1.42.1",
 ]
 files = [
-    {file = "opentelemetry_exporter_otlp_proto_common-1.41.1-py3-none-any.whl", hash = "sha256:10da74dad6a49344b9b7b21b6182e3060373a235fde1528616d5f01f92e66aa9"},
-    {file = "opentelemetry_exporter_otlp_proto_common-1.41.1.tar.gz", hash = "sha256:0e253156ea9c36b0bd3d2440c5c9ba7dd1f3fb64ba7a08fc85fbac536b56e1fb"},
+    {file = "opentelemetry_exporter_otlp_proto_common-1.42.1-py3-none-any.whl", hash = "sha256:f48d395ab815b444da118868977e9798ea354c25737d5cf39578ae894011c140"},
+    {file = "opentelemetry_exporter_otlp_proto_common-1.42.1.tar.gz", hash = "sha256:04f1f01fb597c4249dfcd7f8b861c902c2102369d376d9d346ff38de4469a2ee"},
 ]
 
 [[package]]
 name = "opentelemetry-exporter-otlp-proto-http"
-version = "1.41.1"
-requires_python = ">=3.9"
+version = "1.42.1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Collector Protobuf over HTTP Exporter"
 groups = ["default"]
 dependencies = [
     "googleapis-common-protos~=1.52",
     "opentelemetry-api~=1.15",
-    "opentelemetry-exporter-otlp-proto-common==1.41.1",
-    "opentelemetry-proto==1.41.1",
-    "opentelemetry-sdk~=1.41.1",
+    "opentelemetry-exporter-otlp-proto-common==1.42.1",
+    "opentelemetry-proto==1.42.1",
+    "opentelemetry-sdk~=1.42.1",
     "requests~=2.7",
     "typing-extensions>=4.5.0",
 ]
 files = [
-    {file = "opentelemetry_exporter_otlp_proto_http-1.41.1-py3-none-any.whl", hash = "sha256:1a21e8f49c7a946d935551e90947d6c3eb39236723c6624401da0f33d68edcb4"},
-    {file = "opentelemetry_exporter_otlp_proto_http-1.41.1.tar.gz", hash = "sha256:4747a9604c8550ab38c6fd6180e2fcb80de3267060bef2c306bad3cb443302bc"},
+    {file = "opentelemetry_exporter_otlp_proto_http-1.42.1-py3-none-any.whl", hash = "sha256:00a16da1b312a1d6c7233d600d557c91df71125af73020f3b9a7765bd699d59d"},
+    {file = "opentelemetry_exporter_otlp_proto_http-1.42.1.tar.gz", hash = "sha256:bf142a21035d7571ac3a09cb2e5639f49886f243972883cfe777ed3bf02b734d"},
 ]
 
 [[package]]
 name = "opentelemetry-instrumentation"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "Instrumentation Tools & Auto Instrumentation for OpenTelemetry Python"
 groups = ["default"]
 dependencies = [
     "opentelemetry-api~=1.4",
-    "opentelemetry-semantic-conventions==0.62b1",
+    "opentelemetry-semantic-conventions==0.63b1",
     "packaging>=18.0",
     "wrapt<3.0.0,>=1.0.0",
 ]
 files = [
-    {file = "opentelemetry_instrumentation-0.62b1-py3-none-any.whl", hash = "sha256:976fc6e640f2006599e97429c949e622c108d0c17c2059347d1e6c93c707f257"},
-    {file = "opentelemetry_instrumentation-0.62b1.tar.gz", hash = "sha256:90e92a905ba4f84db06ac3aec96701df6c079b2d66e9379f8739f0a1bdcc7f45"},
+    {file = "opentelemetry_instrumentation-0.63b1-py3-none-any.whl", hash = "sha256:f1986716d52cc316ea5f60189098726a9071d8ecc0eee96c9ed110be08bade9c"},
+    {file = "opentelemetry_instrumentation-0.63b1.tar.gz", hash = "sha256:32368d6ae52c8de20aa790a6ad86b10a76f09956092337ae37d675773990e541"},
 ]
 
 [[package]]
 name = "opentelemetry-instrumentation-asgi"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "ASGI instrumentation for OpenTelemetry"
 groups = ["default"]
 dependencies = [
     "asgiref~=3.0",
     "opentelemetry-api~=1.12",
-    "opentelemetry-instrumentation==0.62b1",
-    "opentelemetry-semantic-conventions==0.62b1",
-    "opentelemetry-util-http==0.62b1",
+    "opentelemetry-instrumentation==0.63b1",
+    "opentelemetry-semantic-conventions==0.63b1",
+    "opentelemetry-util-http==0.63b1",
 ]
 files = [
-    {file = "opentelemetry_instrumentation_asgi-0.62b1-py3-none-any.whl", hash = "sha256:b7f89be48528512619bd54fa2459f72afb1695ba71d7024d382ad96d467e7fa8"},
-    {file = "opentelemetry_instrumentation_asgi-0.62b1.tar.gz", hash = "sha256:7cf5f5d5c493bbb1edd2bd6d51fa879d964e94048904017258a32ffa47329310"},
+    {file = "opentelemetry_instrumentation_asgi-0.63b1-py3-none-any.whl", hash = "sha256:1a22453dfa965f14799b10a674b8acbcb897a8a75c79136060af54214cc7886e"},
+    {file = "opentelemetry_instrumentation_asgi-0.63b1.tar.gz", hash = "sha256:267b422416d768f3c7f4054883b41d9c3a7c943d86d20032b738c99a3dbb5862"},
 ]
 
 [[package]]
 name = "opentelemetry-instrumentation-django"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Instrumentation for Django"
 groups = ["default"]
 dependencies = [
     "opentelemetry-api~=1.12",
-    "opentelemetry-instrumentation-wsgi==0.62b1",
-    "opentelemetry-instrumentation==0.62b1",
-    "opentelemetry-semantic-conventions==0.62b1",
-    "opentelemetry-util-http==0.62b1",
+    "opentelemetry-instrumentation-wsgi==0.63b1",
+    "opentelemetry-instrumentation==0.63b1",
+    "opentelemetry-semantic-conventions==0.63b1",
+    "opentelemetry-util-http==0.63b1",
 ]
 files = [
-    {file = "opentelemetry_instrumentation_django-0.62b1-py3-none-any.whl", hash = "sha256:5ac96ef25019fbea5e2739c9b4b7ce17e4379e2b1ec9fdce6b696a5c09ceabbe"},
-    {file = "opentelemetry_instrumentation_django-0.62b1.tar.gz", hash = "sha256:268c9b3d234510ab835acea0524ba65361389f6e2c291b495ba8072c7bb59003"},
+    {file = "opentelemetry_instrumentation_django-0.63b1-py3-none-any.whl", hash = "sha256:909ea4afbb18f16eb811d7ac330ed0f6fda7765191d49bccb8cca38c4fbc005f"},
+    {file = "opentelemetry_instrumentation_django-0.63b1.tar.gz", hash = "sha256:f2071d2f92e4779c5a14dd452b0dfe426343599e6efa9d888304fb639a9f3101"},
 ]
 
 [[package]]
 name = "opentelemetry-instrumentation-wsgi"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "WSGI Middleware for OpenTelemetry"
 groups = ["default"]
 dependencies = [
     "opentelemetry-api~=1.12",
-    "opentelemetry-instrumentation==0.62b1",
-    "opentelemetry-semantic-conventions==0.62b1",
-    "opentelemetry-util-http==0.62b1",
+    "opentelemetry-instrumentation==0.63b1",
+    "opentelemetry-semantic-conventions==0.63b1",
+    "opentelemetry-util-http==0.63b1",
 ]
 files = [
-    {file = "opentelemetry_instrumentation_wsgi-0.62b1-py3-none-any.whl", hash = "sha256:a2df11de0113f504043e2b0fa0288238a93ee49ff607bd5100cb2d3a75bc771f"},
-    {file = "opentelemetry_instrumentation_wsgi-0.62b1.tar.gz", hash = "sha256:02a364fd9c940a46b19c825c5bfe386b007d5292ef91573894164836953fe831"},
+    {file = "opentelemetry_instrumentation_wsgi-0.63b1-py3-none-any.whl", hash = "sha256:86779715262227d3436bdfb16aabd1c524b0f236725a69e8754ceda76c6d79dc"},
+    {file = "opentelemetry_instrumentation_wsgi-0.63b1.tar.gz", hash = "sha256:03d61c4678ce82402e7f37b6a3dbd84cb97b85b3cb416a78c2e74c7c6d9451fa"},
 ]
 
 [[package]]
 name = "opentelemetry-proto"
-version = "1.41.1"
-requires_python = ">=3.9"
+version = "1.42.1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Python Proto"
 groups = ["default"]
 dependencies = [
     "protobuf<7.0,>=5.0",
 ]
 files = [
-    {file = "opentelemetry_proto-1.41.1-py3-none-any.whl", hash = "sha256:0496713b804d127a4147e32849fbaf5683fac8ee98550e8e7679cd706c289720"},
-    {file = "opentelemetry_proto-1.41.1.tar.gz", hash = "sha256:4b9d2eb631237ea43b80e16c073af438554e32bc7e9e3f8ca4a9582f900020e5"},
+    {file = "opentelemetry_proto-1.42.1-py3-none-any.whl", hash = "sha256:dedb74cba2886c59c7789b227a7a670613025a07489040050aedff6e5c0fb43c"},
+    {file = "opentelemetry_proto-1.42.1.tar.gz", hash = "sha256:c6a51e6b4f05ae63565f3a113217f3d2bfaec68f78c02d7a6c85f9010d1cfca6"},
 ]
 
 [[package]]
 name = "opentelemetry-sdk"
-version = "1.41.1"
-requires_python = ">=3.9"
+version = "1.42.1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Python SDK"
 groups = ["default"]
 dependencies = [
-    "opentelemetry-api==1.41.1",
-    "opentelemetry-semantic-conventions==0.62b1",
+    "opentelemetry-api==1.42.1",
+    "opentelemetry-semantic-conventions==0.63b1",
     "typing-extensions>=4.5.0",
 ]
 files = [
-    {file = "opentelemetry_sdk-1.41.1-py3-none-any.whl", hash = "sha256:edee379c126c1bce952b0c812b48fe8ff35b30df0eecf17e98afa4d598b7d85d"},
-    {file = "opentelemetry_sdk-1.41.1.tar.gz", hash = "sha256:724b615e1215b5aeacda0abb8a6a8922c9a1853068948bd0bd225a56d0c792e6"},
+    {file = "opentelemetry_sdk-1.42.1-py3-none-any.whl", hash = "sha256:083cd4bbfaa5aa7b5a9e552430d9951219967cfb27aa61feb13a77aba1fc839d"},
+    {file = "opentelemetry_sdk-1.42.1.tar.gz", hash = "sha256:8c834e8f8c9ba4171d4ec843d0cb8a67e4c7394d3f9e9297e582cbd9456ddbf7"},
 ]
 
 [[package]]
 name = "opentelemetry-semantic-conventions"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "OpenTelemetry Semantic Conventions"
 groups = ["default"]
 dependencies = [
-    "opentelemetry-api==1.41.1",
+    "opentelemetry-api==1.42.1",
     "typing-extensions>=4.5.0",
 ]
 files = [
-    {file = "opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl", hash = "sha256:cf506938103d331fbb78eded0d9788095f7fd59016f2bda813c3324e5a74a93c"},
-    {file = "opentelemetry_semantic_conventions-0.62b1.tar.gz", hash = "sha256:c5cc6e04a7f8c7cdd30be2ed81499fa4e75bfbd52c9cb70d40af1f9cd3619802"},
+    {file = "opentelemetry_semantic_conventions-0.63b1-py3-none-any.whl", hash = "sha256:dfe5ef4dee82586b746f522b818ceb298d00b3d59f660042bd79404bff8d0682"},
+    {file = "opentelemetry_semantic_conventions-0.63b1.tar.gz", hash = "sha256:3daf963611334b365e98a57438183eb012d3bfb40b2d931a9af613476b8701a9"},
 ]
 
 [[package]]
 name = "opentelemetry-util-http"
-version = "0.62b1"
-requires_python = ">=3.9"
+version = "0.63b1"
+requires_python = ">=3.10"
 summary = "Web util for OpenTelemetry"
 groups = ["default"]
 files = [
-    {file = "opentelemetry_util_http-0.62b1-py3-none-any.whl", hash = "sha256:c57e8a6c19fc422c288e6074e882f506f85030b69b7376182f74f9257b9261f0"},
-    {file = "opentelemetry_util_http-0.62b1.tar.gz", hash = "sha256:adf6facbb89aef8f8bc566e2f04624942ba08a7b678b3479a91051a8f4dc70a3"},
+    {file = "opentelemetry_util_http-0.63b1-py3-none-any.whl", hash = "sha256:6284194028c59cd439f8acfe388145069a6127f11dc077e1344a2094adacc3f8"},
+    {file = "opentelemetry_util_http-0.63b1.tar.gz", hash = "sha256:ba1268f00922ee522dba2ae38458060f99486e7385a8056985901ca9685adfff"},
 ]
 
 [[package]]
@@ -955,7 +940,7 @@ files = [
 
 [[package]]
 name = "s3transfer"
-version = "0.17.1"
+version = "0.18.0"
 requires_python = ">=3.10"
 summary = "An Amazon S3 Transfer Manager"
 groups = ["default"]
@@ -963,13 +948,13 @@ dependencies = [
     "botocore<2.0a.0,>=1.37.4",
 ]
 files = [
-    {file = "s3transfer-0.17.1-py3-none-any.whl", hash = "sha256:5b9827d1044159bbb01b86ef8902760ea39281927f5de31de75e1d657177bf4c"},
-    {file = "s3transfer-0.17.1.tar.gz", hash = "sha256:042dd5e3b1b512355e35a23f0223e426b7042e80b97830ea2680ddce327fc45e"},
+    {file = "s3transfer-0.18.0-py3-none-any.whl", hash = "sha256:239c13b09e65ad0346e1be7348b8a202dcad44ac7ea7c6eb858fc881dce739b6"},
+    {file = "s3transfer-0.18.0.tar.gz", hash = "sha256:3760b8b7ec1315da54048b2d626276732bee4300d054d492d4e1d43e20d4ecbd"},
 ]
 
 [[package]]
 name = "sentry-sdk"
-version = "2.60.0"
+version = "2.61.1"
 requires_python = ">=3.6"
 summary = "Python client for Sentry (https://sentry.io)"
 groups = ["default"]
@@ -978,8 +963,8 @@ dependencies = [
     "urllib3>=1.26.11",
 ]
 files = [
-    {file = "sentry_sdk-2.60.0-py3-none-any.whl", hash = "sha256:28a536c03291c8bcb363cf35c611b32738ec118ff64d8d6383b096448ac4c803"},
-    {file = "sentry_sdk-2.60.0.tar.gz", hash = "sha256:0bd25e54e78ca02d0be512529fa644bbbf9e8470d7b26371294012d4ca93c978"},
+    {file = "sentry_sdk-2.61.1-py3-none-any.whl", hash = "sha256:fa36eaf4b8ad708f718500d4bdcc1532637526a22beb874d88cbc0a46458b5ae"},
+    {file = "sentry_sdk-2.61.1.tar.gz", hash = "sha256:9c6adccb3feefa9ba032c8d295ca477575c2f11896046a2b0ad686c47c4af555"},
 ]
 
 [[package]]
@@ -1040,7 +1025,7 @@ files = [
 
 [[package]]
 name = "uvicorn"
-version = "0.48.0"
+version = "0.49.0"
 requires_python = ">=3.10"
 summary = "The lightning-fast ASGI server."
 groups = ["default"]
@@ -1050,30 +1035,30 @@ dependencies = [
     "typing-extensions>=4.0; python_version < \"3.11\"",
 ]
 files = [
-    {file = "uvicorn-0.48.0-py3-none-any.whl", hash = "sha256:48097851328b87ec36117d3d575234519eb58c2b22d79666e9bbc6c49a761dad"},
-    {file = "uvicorn-0.48.0.tar.gz", hash = "sha256:a5504207195d08c2511bf9125ede5ac4a4b71725d519e758d01dcf0bc2d31c37"},
+    {file = "uvicorn-0.49.0-py3-none-any.whl", hash = "sha256:ba3d14c3ee7e41c6c654c46c9eb489d33213cdd30aa1696eab1374337c13f68f"},
+    {file = "uvicorn-0.49.0.tar.gz", hash = "sha256:ebf4271aa580d9de97f93192d4595176df6e91f9aae919ca73e4fc07df1e66a3"},
 ]
 
 [[package]]
 name = "uvicorn"
-version = "0.48.0"
+version = "0.49.0"
 extras = ["standard"]
 requires_python = ">=3.10"
 summary = "The lightning-fast ASGI server."
 groups = ["default"]
 dependencies = [
     "colorama>=0.4; sys_platform == \"win32\"",
-    "httptools>=0.6.3",
+    "httptools>=0.8.0",
     "python-dotenv>=0.13",
     "pyyaml>=5.1",
-    "uvicorn==0.48.0",
+    "uvicorn==0.49.0",
     "uvloop>=0.15.1; (sys_platform != \"cygwin\" and sys_platform != \"win32\") and platform_python_implementation != \"PyPy\"",
     "watchfiles>=0.20",
     "websockets>=10.4",
 ]
 files = [
-    {file = "uvicorn-0.48.0-py3-none-any.whl", hash = "sha256:48097851328b87ec36117d3d575234519eb58c2b22d79666e9bbc6c49a761dad"},
-    {file = "uvicorn-0.48.0.tar.gz", hash = "sha256:a5504207195d08c2511bf9125ede5ac4a4b71725d519e758d01dcf0bc2d31c37"},
+    {file = "uvicorn-0.49.0-py3-none-any.whl", hash = "sha256:ba3d14c3ee7e41c6c654c46c9eb489d33213cdd30aa1696eab1374337c13f68f"},
+    {file = "uvicorn-0.49.0.tar.gz", hash = "sha256:ebf4271aa580d9de97f93192d4595176df6e91f9aae919ca73e4fc07df1e66a3"},
 ]
 
 [[package]]
@@ -1208,15 +1193,4 @@ files = [
     {file = "wrapt-2.2.1-cp314-cp314t-win_arm64.whl", hash = "sha256:f70db64e8266d7c45d3b735f2e08eeb434b5e03da9a479ae42b2e2e486a21a00"},
     {file = "wrapt-2.2.1-py3-none-any.whl", hash = "sha256:3aafea2975caef8ca49400640dde02cc7426e798f24870ed01f490bc3cffd32f"},
     {file = "wrapt-2.2.1.tar.gz", hash = "sha256:6744f504375775d7609c82c8d3d94af1c9a6f05586984536905908ba905277b9"},
-]
-
-[[package]]
-name = "zipp"
-version = "4.1.0"
-requires_python = ">=3.10"
-summary = "Backport of pathlib-compatible object wrapper for zip files"
-groups = ["default"]
-files = [
-    {file = "zipp-4.1.0-py3-none-any.whl", hash = "sha256:25ad4e16390cd314347dd8f1de67a2ac538ae658ed4ab9db16029c07c188e97f"},
-    {file = "zipp-4.1.0.tar.gz", hash = "sha256:4cb57381f544315db7688e976e922a2b18cdb513d21cc194eb42232ba2a3e602"},
 ]
