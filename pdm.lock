@@ -42,23 +42,23 @@ files = [
 
 [[package]]
 name = "boto3"
-version = "1.43.23"
+version = "1.43.24"
 requires_python = ">=3.10"
 summary = "The AWS SDK for Python"
 groups = ["default"]
 dependencies = [
-    "botocore<1.44.0,>=1.43.23",
+    "botocore<1.44.0,>=1.43.24",
     "jmespath<2.0.0,>=0.7.1",
     "s3transfer<0.19.0,>=0.18.0",
 ]
 files = [
-    {file = "boto3-1.43.23-py3-none-any.whl", hash = "sha256:8afc058924ef8a5c62467fe2e1e2e0304c22018587a044714da89f9c602ba856"},
-    {file = "boto3-1.43.23.tar.gz", hash = "sha256:5d26498702ffd021dc0d57d0eefcc7101cd995ea0ed08c057c9b631efccbaa48"},
+    {file = "boto3-1.43.24-py3-none-any.whl", hash = "sha256:b18ef745274ef548a9660d733d985d4a971b16bd8a6af88165ea9d0e40913b86"},
+    {file = "boto3-1.43.24.tar.gz", hash = "sha256:ba5afa266bf7265e0c1a454fcfd48bffe5939cb16ed223bebc669c3dc8ee0bc8"},
 ]
 
 [[package]]
 name = "botocore"
-version = "1.43.23"
+version = "1.43.24"
 requires_python = ">=3.10"
 summary = "Low-level, data-driven core of boto 3."
 groups = ["default"]
@@ -68,8 +68,8 @@ dependencies = [
     "urllib3!=2.2.0,<3,>=1.25.4",
 ]
 files = [
-    {file = "botocore-1.43.23-py3-none-any.whl", hash = "sha256:69ff3d951cb644d1d84db646663c7eb919dc9c0c47e5768e947c8a71121b3d77"},
-    {file = "botocore-1.43.23.tar.gz", hash = "sha256:a6737c598750f330bfa8ef2be2d9fa84b5d2d643b6bbb0d22e129e03b7535df1"},
+    {file = "botocore-1.43.24-py3-none-any.whl", hash = "sha256:42903b4bfafd8f15a735ed940473f28e4ba21b2ea67a9b9aaa11dfa7fcb19fd5"},
+    {file = "botocore-1.43.24.tar.gz", hash = "sha256:0c02f2b40e99419d496ece0ea2dcdedb5c45998c16fd1674276c7dbb30767a16"},
 ]
 
 [[package]]
@@ -260,7 +260,7 @@ files = [
 
 [[package]]
 name = "djpress"
-version = "0.27.1"
+version = "0.27.2"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
 groups = ["default"]
@@ -269,8 +269,8 @@ dependencies = [
     "markdown>=3.7",
 ]
 files = [
-    {file = "djpress-0.27.1-py3-none-any.whl", hash = "sha256:3e5888756ddcfc4e0312a535fa3375376ee0d618b6517069b3c9ceb12aaad9b3"},
-    {file = "djpress-0.27.1.tar.gz", hash = "sha256:7ec5964355beacb2bc50b88b25e2ea096231194c13c5bbf964d1e86e8e70f70c"},
+    {file = "djpress-0.27.2-py3-none-any.whl", hash = "sha256:aef8a1ee28e34958b0b738f945664b1112d257dfb6775d5b368d5017ac8b838a"},
+    {file = "djpress-0.27.2.tar.gz", hash = "sha256:5f5b5183eb56b272a987463c54e8a0b2bcfb205a963bd3f716f3fa16e75ae909"},
 ]
 
 [[package]]
