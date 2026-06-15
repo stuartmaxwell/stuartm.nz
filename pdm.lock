@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:119f1ef967a4d9c8a920293eb6c95b560c1ce2dd3598b0ae7927337800a208fd"
+content_hash = "sha256:57e06d5f108549f6155b630ba46f9db141df994afb8062fa8c46ae6fccd2427d"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -260,7 +260,7 @@ files = [
 
 [[package]]
 name = "djpress"
-version = "0.27.2"
+version = "0.29.1"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
 groups = ["default"]
@@ -269,8 +269,8 @@ dependencies = [
     "markdown>=3.7",
 ]
 files = [
-    {file = "djpress-0.27.2-py3-none-any.whl", hash = "sha256:aef8a1ee28e34958b0b738f945664b1112d257dfb6775d5b368d5017ac8b838a"},
-    {file = "djpress-0.27.2.tar.gz", hash = "sha256:5f5b5183eb56b272a987463c54e8a0b2bcfb205a963bd3f716f3fa16e75ae909"},
+    {file = "djpress-0.29.1-py3-none-any.whl", hash = "sha256:c99ff6d7da88a94edef7c18e824fc7631bd6391f71566986fb3d5f85deb8d22f"},
+    {file = "djpress-0.29.1.tar.gz", hash = "sha256:21d1b971def96b790730b91f35953525684db09f5dce86da6ee66bebcc964c0f"},
 ]
 
 [[package]]
@@ -478,7 +478,7 @@ files = [
 
 [[package]]
 name = "logfire"
-version = "4.35.0"
+version = "4.37.0"
 requires_python = ">=3.10"
 summary = "The best Python observability tool! 🪵🔥"
 groups = ["default"]
@@ -493,26 +493,26 @@ dependencies = [
     "typing-extensions>=4.1.0",
 ]
 files = [
-    {file = "logfire-4.35.0-py3-none-any.whl", hash = "sha256:9ae5c3f2dd81144ccf1ec6dba1a5de84aff5b2e2b8dd2190e53e87e47bc63711"},
-    {file = "logfire-4.35.0.tar.gz", hash = "sha256:6542aa4ac5e2d2369587deab57a0d1bb9cf6da49634c8cd9c5dbd7c7581f3d51"},
+    {file = "logfire-4.37.0-py3-none-any.whl", hash = "sha256:a20823e6dbb3204614a3ea5e79c91df42405c5112393ec9d8e34ef45b60d315f"},
+    {file = "logfire-4.37.0.tar.gz", hash = "sha256:7ee0cb64b59c356a41a1701fb84597037f8db1fa15df7a3715ef363e5a1de06a"},
 ]
 
 [[package]]
 name = "logfire"
-version = "4.35.0"
+version = "4.37.0"
 extras = ["asgi", "django"]
 requires_python = ">=3.10"
 summary = "The best Python observability tool! 🪵🔥"
 groups = ["default"]
 dependencies = [
-    "logfire==4.35.0",
+    "logfire==4.37.0",
     "opentelemetry-instrumentation-asgi>=0.42b0",
     "opentelemetry-instrumentation-asgi>=0.42b0",
     "opentelemetry-instrumentation-django>=0.42b0",
 ]
 files = [
-    {file = "logfire-4.35.0-py3-none-any.whl", hash = "sha256:9ae5c3f2dd81144ccf1ec6dba1a5de84aff5b2e2b8dd2190e53e87e47bc63711"},
-    {file = "logfire-4.35.0.tar.gz", hash = "sha256:6542aa4ac5e2d2369587deab57a0d1bb9cf6da49634c8cd9c5dbd7c7581f3d51"},
+    {file = "logfire-4.37.0-py3-none-any.whl", hash = "sha256:a20823e6dbb3204614a3ea5e79c91df42405c5112393ec9d8e34ef45b60d315f"},
+    {file = "logfire-4.37.0.tar.gz", hash = "sha256:7ee0cb64b59c356a41a1701fb84597037f8db1fa15df7a3715ef363e5a1de06a"},
 ]
 
 [[package]]
@@ -821,7 +821,7 @@ files = [
 
 [[package]]
 name = "pytest"
-version = "9.0.3"
+version = "9.1.0"
 requires_python = ">=3.10"
 summary = "pytest: simple powerful testing with Python"
 groups = ["default"]
@@ -835,8 +835,8 @@ dependencies = [
     "tomli>=1; python_version < \"3.11\"",
 ]
 files = [
-    {file = "pytest-9.0.3-py3-none-any.whl", hash = "sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9"},
-    {file = "pytest-9.0.3.tar.gz", hash = "sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c"},
+    {file = "pytest-9.1.0-py3-none-any.whl", hash = "sha256:8ebb0e7888bdf2bdfc602ec51f8f62d50200af37356c74e503c79a94f5c81f32"},
+    {file = "pytest-9.1.0.tar.gz", hash = "sha256:41dd9148c08072446394cefd3d79701701335a9f4cae69ba92e39f6c7f5c061c"},
 ]
 
 [[package]]
@@ -954,7 +954,7 @@ files = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.61.1"
+version = "2.62.0"
 requires_python = ">=3.6"
 summary = "Python client for Sentry (https://sentry.io)"
 groups = ["default"]
@@ -963,8 +963,8 @@ dependencies = [
     "urllib3>=1.26.11",
 ]
 files = [
-    {file = "sentry_sdk-2.61.1-py3-none-any.whl", hash = "sha256:fa36eaf4b8ad708f718500d4bdcc1532637526a22beb874d88cbc0a46458b5ae"},
-    {file = "sentry_sdk-2.61.1.tar.gz", hash = "sha256:9c6adccb3feefa9ba032c8d295ca477575c2f11896046a2b0ad686c47c4af555"},
+    {file = "sentry_sdk-2.62.0-py3-none-any.whl", hash = "sha256:27f61d13a86c3c1648dec666dd5a64f79772dd6a84b446f11866601ecab24f6f"},
+    {file = "sentry_sdk-2.62.0.tar.gz", hash = "sha256:3c870b9f50d9fd15b58c817dbde1c7cfaa9fe3f05df0a4c6edd5571cb82f5491"},
 ]
 
 [[package]]
