@@ -1,62 +1,80 @@
 {% extends "djpress/djpress_blog_theme/base.html" %}
 {% load static %}
 {% block head %}
-  <link href="{% static "css/styles.css" %}" rel="stylesheet">
-  <link href="{% static "css/highlight.custom.css" %}" rel="stylesheet">
-  <script src="{% static "js/main.bundle.min.js" %}"></script>
-  <script src="{% static "js/markdown.bundle.min.js" %}"></script>
+    <link href='{% static "markdown_editor/css/styles.css" %}' rel="stylesheet">
+    <link href='{% static "css/highlight.custom.css" %}' rel="stylesheet">
+    <script src='{% static "js/main.bundle.min.js" %}'></script>
+    <script src='{% static "js/markdown.bundle.min.js" %}'></script>
 {% endblock head %}
 {% block content %}
-  <main class="markdown-editor">
-    <div style="display: grid; grid-template-columns: 1fr 1 fr); gap: 20px">
-      <section>
-        <div class="toolbar">
-          <div class="toolbar-title">Markdown Editor</div>
-          <div class="button-cluster">
-            <div class="button-group">
-              <button type="button" id="h1-button" title="Header 1">{% include "markdown_editor/svg/h1.svg" %}</button>
-              <button type="button" id="h2-button" title="Header 2">{% include "markdown_editor/svg/h2.svg" %}</button>
-              <button type="button" id="h3-button" title="Header 3">{% include "markdown_editor/svg/h3.svg" %}</button>
-            </div>
-            <div class="seperator"></div>
-            <div class="button-group">
-              <button type="button" id="bold-button" title="Bold">{% include "markdown_editor/svg/bold.svg" %}</button>
-              <button type="button" id="italic-button" title="Italic">{% include "markdown_editor/svg/italic.svg" %}</button>
-            </div>
-            <div class="seperator"></div>
-            <div class="button-group">
-              <button type="button" id="ul-button" title="Unordered List">{% include "markdown_editor/svg/list-ul.svg" %}</button>
-              <button type="button" id="ol-button" title="Ordered List">{% include "markdown_editor/svg/list-ol.svg" %}</button>
-            </div>
-            <div class="seperator"></div>
-            <div class="button-group">
-              <button type="button" id="blockquote-button" title="Blockquote">{% include "markdown_editor/svg/quote.svg" %}</button>
-              <button type="button" id="code-button" title="Inline code">{% include "markdown_editor/svg/code.svg" %}</button>
-              <button type="button" id="link-button" title="Insert Link">{% include "markdown_editor/svg/link.svg" %}</button>
-            </div>
-          </div>
-          <div class="button-group">
-            <button type="button"  id="copymarkdown-button">{% include "markdown_editor/svg/copy.svg" %}</button>
-          </div>
+    <main class="markdown-editor">
+        <div style="display: grid; grid-template-columns: 1fr 1 fr); gap: 20px">
+            <section>
+                <div class="toolbar">
+                    <div class="toolbar-title">Markdown Editor</div>
+                    <div class="button-cluster">
+                        <div class="button-group">
+                            <button type="button" id="h1-button" title="Header 1">
+                                {% include "markdown_editor/svg/h1.svg" %}
+                            </button>
+                            <button type="button" id="h2-button" title="Header 2">
+                                {% include "markdown_editor/svg/h2.svg" %}
+                            </button>
+                            <button type="button" id="h3-button" title="Header 3">
+                                {% include "markdown_editor/svg/h3.svg" %}
+                            </button>
+                        </div>
+                        <div class="seperator"></div>
+                        <div class="button-group">
+                            <button type="button" id="bold-button" title="Bold">
+                                {% include "markdown_editor/svg/bold.svg" %}
+                            </button>
+                            <button type="button" id="italic-button" title="Italic">
+                                {% include "markdown_editor/svg/italic.svg" %}
+                            </button>
+                        </div>
+                        <div class="seperator"></div>
+                        <div class="button-group">
+                            <button type="button" id="ul-button" title="Unordered List">
+                                {% include "markdown_editor/svg/list-ul.svg" %}
+                            </button>
+                            <button type="button" id="ol-button" title="Ordered List">
+                                {% include "markdown_editor/svg/list-ol.svg" %}
+                            </button>
+                        </div>
+                        <div class="seperator"></div>
+                        <div class="button-group">
+                            <button type="button" id="blockquote-button" title="Blockquote">
+                                {% include "markdown_editor/svg/quote.svg" %}
+                            </button>
+                            <button type="button" id="code-button" title="Inline code">
+                                {% include "markdown_editor/svg/code.svg" %}
+                            </button>
+                            <button type="button" id="link-button" title="Insert Link">
+                                {% include "markdown_editor/svg/link.svg" %}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="copymarkdown-button">
+                            {% include "markdown_editor/svg/copy.svg" %}
+                        </button>
+                    </div>
+                </div>
+                <textarea
+                    style="height: calc(100vh - 140px); width: 100%; resize: none; overflow-y: auto"
+                    id="editor"
+                ></textarea>
+            </section>
+            <section>
+                <div class="toolbar">
+                    <div class="toolbar-title">HTML Preview</div>
+                    <div class="button-group">
+                        <button type="button" id="copyhtml-button">{% include "markdown_editor/svg/copy.svg" %}</button>
+                    </div>
+                </div>
+                <div id="preview" style="height: calc(100vh - 140px); word-wrap: anywhere" class="content-body"></div>
+            </section>
         </div>
-        <textarea style="height: calc(100vh - 140px);
-                         width: 100%;
-                         resize: none;
-                         overflow-y: auto"
-                  id="editor"></textarea>
-      </section>
-      <section>
-        <div class="toolbar">
-          <div class="toolbar-title">HTML Preview</div>
-          <div class="button-group">
-            <button type="button"  id="copyhtml-button">{% include "markdown_editor/svg/copy.svg" %}</button>
-          </div>
-        </div>
-        <div id="preview"
-             style="height: calc(100vh - 140px);
-                    word-wrap: anywhere"
-             class="content-body"></div>
-      </section>
-    </div>
-  </main>
+    </main>
 {% endblock content %}

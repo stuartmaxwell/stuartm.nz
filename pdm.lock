@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default"]
+groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:57e06d5f108549f6155b630ba46f9db141df994afb8062fa8c46ae6fccd2427d"
+content_hash = "sha256:e56d852b23327d30d0bfbe19c1394211bfc5b4e20c36fb525d83be847eef1eab"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -274,8 +274,22 @@ files = [
 ]
 
 [[package]]
+name = "djpress-blog-theme"
+version = "0.4.0"
+requires_python = ">=3.10"
+summary = "A simple but modern blog theme for DJ Press."
+groups = ["default"]
+dependencies = [
+    "djpress>=0.23.0",
+]
+files = [
+    {file = "djpress_blog_theme-0.4.0-py3-none-any.whl", hash = "sha256:5111d826368b9efe776c00ec9adb6e502b119b889133427592bd9928a8ad0eed"},
+    {file = "djpress_blog_theme-0.4.0.tar.gz", hash = "sha256:fbe5a019e592202e68e239f8a65ca80cfd4f87c6102545e98d62a38fca58808c"},
+]
+
+[[package]]
 name = "djpress-publish-bluesky"
-version = "1.1.0"
+version = "1.2.0"
 requires_python = ">=3.10"
 summary = "A plugin for DJ Press that publishes new posts to Bluesky."
 groups = ["default"]
@@ -284,13 +298,13 @@ dependencies = [
     "httpx>=0.28.0",
 ]
 files = [
-    {file = "djpress_publish_bluesky-1.1.0-py3-none-any.whl", hash = "sha256:fb22a822b0e720b3251a6f5c983a0308a138355da497a383749028f0b988bfd8"},
-    {file = "djpress_publish_bluesky-1.1.0.tar.gz", hash = "sha256:86a20107a17d65ceadd9f52908e6f8f9a60e7f36c58a3ee55c41409e0253cf12"},
+    {file = "djpress_publish_bluesky-1.2.0-py3-none-any.whl", hash = "sha256:c97618f942a15fe352f70136478ec54b948b9d53f82b185ed3a76aa7b7ab6d0d"},
+    {file = "djpress_publish_bluesky-1.2.0.tar.gz", hash = "sha256:1887f528d9a56f979050d452d89bffd6fde3b01f9a70004c2d83a51581c0310c"},
 ]
 
 [[package]]
 name = "djpress-publish-mastodon"
-version = "1.3.0"
+version = "1.4.0"
 requires_python = ">=3.10"
 summary = "A plugin for DJ Press that publishes new posts to Mastodon."
 groups = ["default"]
@@ -299,8 +313,8 @@ dependencies = [
     "mastodon-py>=1.8.1",
 ]
 files = [
-    {file = "djpress_publish_mastodon-1.3.0-py3-none-any.whl", hash = "sha256:69f33e08bcbbfcd9d2d4c8aa260870d70ab1bdc1f5f853456923a0af3556ca21"},
-    {file = "djpress_publish_mastodon-1.3.0.tar.gz", hash = "sha256:cda054006c2fa1eae5e4353476b4334e973435cfd38fa51a6325332297c753f4"},
+    {file = "djpress_publish_mastodon-1.4.0-py3-none-any.whl", hash = "sha256:847387ed7d893e2925b4b5bb619b6f7838aa0c74fa852d40288c894c94dad2b1"},
+    {file = "djpress_publish_mastodon-1.4.0.tar.gz", hash = "sha256:b3cfb532bfe20eea947f3c4c77ddde0b3e4dcbb4a28c7af53441eb703ddc0e4e"},
 ]
 
 [[package]]
