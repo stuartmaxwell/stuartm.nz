@@ -53,7 +53,6 @@ class ProviderSelectForm(forms.Form):
         widget=forms.Select(
             attrs={
                 "aria-label": "SPF All Mechanism",
-                "class": "form-select",
             },
         ),
     )
@@ -64,7 +63,6 @@ class ProviderSelectForm(forms.Form):
         help_text="If you have a server that sends email, enter its IP address here",
         widget=forms.TextInput(
             attrs={
-                "class": "form-control",
                 "placeholder": "e.g., 192.168.1.1 or 2001:db8::1",
                 "aria-label": "Custom IP Address",
             },

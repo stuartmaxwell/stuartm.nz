@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     "contact_form",
     "home",
     "debugging_app",
+    "djpress_blog_theme",
 ]
 
 if DEBUG:
@@ -266,7 +267,7 @@ if LOGFIRE_API_KEY:
 DJPRESS_SETTINGS = {
     "SITE_TITLE": SITE_TITLE,
     "POST_PREFIX": POST_PREFIX,
-    "THEME": "stuartmnz",
+    "THEME": "djpress_blog_theme",
     "DATABASE_SETTINGS_ENABLED": True,
     "AUTHOR_ENABLED": True,
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
@@ -276,6 +277,7 @@ DJPRESS_SETTINGS = {
     ],
     "PLUGIN_SETTINGS": {
         "djpress_publish_mastodon": {
+            "enabled": True,
             "instance_url": "https://fosstodon.org",
             "access_token": MASTODON_ACCESS_TOKEN,
             "status_message": "🚀 I created a new blog post!\n\n",
@@ -283,10 +285,27 @@ DJPRESS_SETTINGS = {
             "microblog_category": "microblog",
         },
         "djpress_publish_bluesky": {
+            "enabled": True,
             "handle": "stuartm.nz",
             "app_password": BLUESKY_APP_PASSWORD,
             "site_url": "https://stuartm.nz/",
             "post_message": "🚀 I created a new blog post!",
+        },
+    },
+    "THEME_SETTINGS": {
+        "djpress_blog_theme": {
+            "bg_sidebar": "#0C4B33",
+            "dark_bg_sidebar": "#041e14",
+            "avatar_url": "/static/img/avatar.jpg",
+            "email_address": "stuart@amanzi.nz",
+            "mastodon_profile": "https://fosstodon.org/@stuartm",
+            "github_username": "stuartmaxwell",
+            "linkedin_username": "smaxwell",
+            "copyright_message": (
+                "Content is "
+                '<a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. '
+                "Share away!"
+            ),
         },
     },
 }

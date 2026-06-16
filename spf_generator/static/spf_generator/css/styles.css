@@ -1,0 +1,17 @@
+.spf-content {
+  p {
+    margin-bottom: 1rem;
+  }
+  li {
+    list-style-type: none;
+  }
+  button {
+    background-color: #0c4b33;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
