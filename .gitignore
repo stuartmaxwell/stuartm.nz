@@ -96,3 +96,6 @@ GitHub.sublime-settings
 
 # NPM stuff
 node_modules/
+
+# PDM
+.pdm-python

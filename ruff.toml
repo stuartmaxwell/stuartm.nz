@@ -1,0 +1,23 @@
+line-length = 120
+target-version = "py314"
+
+[lint]
+select = ["ALL"]
+ignore = [
+  "G004",   # Logging statement uses f-string
+  "D203",   # 1 blank line required before class docstring
+  "D213",   # multi-line-summary-second-line
+  "TD003",  # Missing issue link on the line following this TODO
+  "FIX002", # Line contains TODO, consider resolving the issue
+  "TD002",  # Missing author in TODO
+  "S308",   # suspicious-mark-safe-usage
+  "COM812", # Trailing comma missing
+]
+
+[lint.per-file-ignores]
+"test*" = ["ALL"]
+"**/migrations/*" = ["ALL"]
+"manage.py" = ["ALL"]
+
+[lint.pydocstyle]
+convention = "google" # Accepts: "google", "numpy", or "pep257".

@@ -267,7 +267,9 @@ if LOGFIRE_API_KEY:
 DJPRESS_SETTINGS = {
     "SITE_TITLE": SITE_TITLE,
     "POST_PREFIX": POST_PREFIX,
-    "THEME": "djpress_blog_theme",
+    "THEME": "stuartmnz",
+    "DATABASE_SETTINGS_ENABLED": True,
+    "AUTHOR_ENABLED": True,
     "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
         "djpress_publish_mastodon",
@@ -353,3 +355,10 @@ if not DEBUG:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "stuartm_nz_django_cache",
+    }
+}
