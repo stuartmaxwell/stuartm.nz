@@ -39,6 +39,6 @@ rm "${EXPORT_FILE}"
 
 # Upload to S3
 echo "Uploading ${TAR_FILE} to S3: s3://${S3_BUCKET}/export-${TIMESTAMP}.tar.gz"
-s5cmd --endpoint-url ${AWS_ENDPOINT_URL} cp "${TAR_FILE}" "s3://${S3_BUCKET}/export-${TIMESTAMP}.tar.gz"
+infisical run --token "${INFISICAL_TOKEN}" --projectId "${PROJECT_ID}" --env "${INFISICAL_SECRET_ENV}" -- s5cmd --endpoint-url ${AWS_ENDPOINT_URL} cp "${TAR_FILE}" "s3://${S3_BUCKET}/export-${TIMESTAMP}.tar.gz"
 
 echo "Export and upload complete."
