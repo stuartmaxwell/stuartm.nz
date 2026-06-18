@@ -260,7 +260,7 @@ files = [
 
 [[package]]
 name = "djpress"
-version = "0.29.7"
+version = "0.29.9"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
 groups = ["default"]
@@ -269,8 +269,8 @@ dependencies = [
     "markdown>=3.7",
 ]
 files = [
-    {file = "djpress-0.29.7-py3-none-any.whl", hash = "sha256:63e398ddca69b6d0a6523ec2a2272958f7fb939cf0973af85d80fd84966d7cb0"},
-    {file = "djpress-0.29.7.tar.gz", hash = "sha256:2f89037fabe713ae5eb583d9218bc7c5faddaf3d95bf01ca9116c661109619a4"},
+    {file = "djpress-0.29.9-py3-none-any.whl", hash = "sha256:7420a3541541c2954b784d9adcebdd995d42469a631a69da6800cd3a79bc619a"},
+    {file = "djpress-0.29.9.tar.gz", hash = "sha256:f9ca8b440b82b419ec9393fa50f5eac23525eb8f07dd48b8a6c9f22895032322"},
 ]
 
 [[package]]
