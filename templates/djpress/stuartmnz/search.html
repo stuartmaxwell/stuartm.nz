@@ -8,17 +8,18 @@
       {% search_errors error_class="alert alert-danger" %}
       {% for post in posts %}
         {% post_wrap %}
-          {% post_title outer_tag="h4" include_empty=True %}
-          <footer>
-            <p>Posted on {% post_date %}</p>
-          </footer>
+        {% post_title outer_tag="h4" include_empty=True %}
+        <footer>
+          <p>Posted on {% post_date %}</p>
+        </footer>
         {% end_post_wrap %}
       {% empty %}
         {% if search_query %}<p>No posts available.</p>{% endif %}
       {% endfor %}
       {% is_paginated as paginated %}
       {% if paginated %}
-        {% get_pagination_range as page_range %} {% get_pagination_current_page as current_page %}
+        {% get_pagination_range as page_range %}
+        {% get_pagination_current_page as current_page %}
         <nav aria-label="Page navigation">
           <ul class="pagination">
             {% for page in page_range %}

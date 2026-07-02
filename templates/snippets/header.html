@@ -15,8 +15,7 @@
     <ul class="navbar-nav">
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a href="{% url 'admin:index' %}"
-             class="nav-link icon-link px-sm-2 px-1">
+          <a href="{% url 'admin:index' %}" class="nav-link icon-link px-sm-2 px-1">
             {% include "svg/house-gear.svg" %}
             <span class="d-none d-md-inline">Admin</span>
           </a>
@@ -29,20 +28,20 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{% url "contact_form:contact_form" %}"
-           hx-get="{% url 'contact_form:contact_form' %}"
-           hx-target="#contactForm"
-           data-bs-toggle="modal"
-           data-bs-target="#contactFormModal"
-           class="nav-link icon-link px-sm-2 px-1">
+        <a
+          href='{% url "contact_form:contact_form" %}'
+          hx-get="{% url 'contact_form:contact_form' %}"
+          hx-target="#contactForm"
+          data-bs-toggle="modal"
+          data-bs-target="#contactFormModal"
+          class="nav-link icon-link px-sm-2 px-1"
+        >
           {% include "svg/email-heart.svg" %}
           <span class="d-none d-md-inline">Email</span>
         </a>
       </li>
       <li class="nav-item">
-        <a rel="me"
-           href="https://fosstodon.org/@stuartm"
-           class="nav-link icon-link px-sm-2 px-1">
+        <a rel="me" href="https://fosstodon.org/@stuartm" class="nav-link icon-link px-sm-2 px-1">
           {% include "svg/mastodon.svg" %}
           <span class="d-none d-md-inline">Social</span>
         </a>
