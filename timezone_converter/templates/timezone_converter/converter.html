@@ -1,8 +1,8 @@
 {% extends "djpress/djpress_blog_theme/base.html" %}
 {% load static %}
 {% block head %}
-  <link href="{% static "css/styles.css" %}" rel="stylesheet">
-  <script src="{% static "js/htmx.min.js" %}"></script>
+  <link href='{% static "css/styles.css" %}' rel="stylesheet">
+  <script src='{% static "js/htmx.min.js" %}'></script>
 {% endblock head %}
 {% block title %}Timezone Converter{% endblock %}
 {% comment %} This removes the RSS link {% endcomment %}
@@ -14,26 +14,22 @@
       <div>
         <label for="timestamp">Enter a timestamp in ISO 8601 format:</label>
         <br>
-        <input type="text"
-               name="timestamp"
-               id="timestamp"
-               value="2024-01-01T00:00:00Z"
-               style="margin: 0.5em 0">
+        <input type="text" name="timestamp" id="timestamp" value="2024-01-01T00:00:00Z" style="margin: 0.5em 0">
       </div>
       <div>
         <label for="timezone" class="form-label">Enter a timezone to conver to:</label>
         <br>
-        <input type="text"
-               name="timezone"
-               id="timezone"
-               value="Pacific/Auckland"
-               style="margin: 0.5em 0">
+        <input type="text" name="timezone" id="timezone" value="Pacific/Auckland" style="margin: 0.5em 0">
       </div>
-      <button hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-              hx-post="{% url 'timezone_converter:convert' %}"
-              hx-params="timestamp, timezone"
-              hx-target="#converted"
-              type="button">Convert</button>
+      <button
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-post="{% url 'timezone_converter:convert' %}"
+        hx-params="timestamp, timezone"
+        hx-target="#converted"
+        type="button"
+      >
+        Convert
+      </button>
     </form>
     <div id="converted"></div>
   </div>
