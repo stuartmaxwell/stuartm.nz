@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     "markdown_editor",
     "shell",
     "spf_generator",
-    "contact_form",
     "home",
     "debugging_app",
     "djpress_blog_theme",
