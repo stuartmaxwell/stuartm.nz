@@ -79,7 +79,7 @@ startapp APPNAME:
     pdm run manage.py startapp {{APPNAME}}
 
 # Generic manage command
-@manage ARGS="":
+manage *ARGS:
     pdm run manage.py {{ARGS}}
 
 # Build the CSS from SCSS

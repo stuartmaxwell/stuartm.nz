@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     "home",
     "debugging_app",
     "djpress_blog_theme",
+    "djpress_tiptap",
 ]
 
 if DEBUG:
@@ -269,7 +270,7 @@ DJPRESS_SETTINGS = {
     "THEME": "djpress_blog_theme",
     "DATABASE_SETTINGS_ENABLED": True,
     "AUTHOR_ENABLED": True,
-    "MARKDOWN_RENDERER": "config.markdown_renderer.mistune_renderer",
+    "CONTENT_RENDERER": "djpress_tiptap.renderers.html_renderer",
     "PLUGINS": [
         "djpress_publish_mastodon",
         "djpress_publish_bluesky",
