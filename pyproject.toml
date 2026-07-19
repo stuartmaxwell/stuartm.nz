@@ -24,6 +24,7 @@ dependencies = [
   "django-storages[s3]~=1.14",
   "uvicorn[standard]~=0.49",
   "djpress-blog-theme~=0.4",
+  "djpress-tiptap~=0.2",
 ]
 authors = [
     {name = "Stuart Maxwell", email = "stuart@amanzi.nz"},
