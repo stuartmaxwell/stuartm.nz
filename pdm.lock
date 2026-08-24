@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default"]
+groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
-lock_version = "4.5.0"
-content_hash = "sha256:91875ff0e9c61e2f8dd8f8d8dc32caaa433bd7c46fa9b5175527e564e0b971fe"
+lock_version = "4.5.1"
+content_hash = "sha256:8acddb077b58771dd9a00d9c66a2f374847781ce3278e3369ca43170d80912e6"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -31,7 +31,7 @@ name = "asgiref"
 version = "3.11.1"
 requires_python = ">=3.9"
 summary = "ASGI specs, helper code, and adapters"
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "typing-extensions>=4; python_version < \"3.11\"",
 ]
@@ -192,7 +192,7 @@ name = "django"
 version = "6.0.7"
 requires_python = ">=3.12"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "asgiref>=3.9.1",
     "sqlparse>=0.5.0",
@@ -263,7 +263,7 @@ name = "djpress"
 version = "0.30.1"
 requires_python = ">=3.10"
 summary = "A blog application for Django sites, inspired by classic WordPress."
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "django<6.1,>=4.2.0",
     "markdown>=3.7",
@@ -319,18 +319,15 @@ files = [
 
 [[package]]
 name = "djpress-tiptap"
-version = "0.2.3"
+version = "0.3.0b1"
 requires_python = ">=3.14"
+path = "../../DJ_Press/djpress-tiptap"
 summary = "Rich text editor for DJ Press based on Tiptap."
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "djpress>=0.30.0",
     "pillow~=12.3",
     "puremagic~=2.2",
-]
-files = [
-    {file = "djpress_tiptap-0.2.3-py3-none-any.whl", hash = "sha256:ae36608e42ea30aa004dadb5e82b039b3246bcf621f48392998d8662258516f3"},
-    {file = "djpress_tiptap-0.2.3.tar.gz", hash = "sha256:56dddbd6d2f55d7e01d686ef317affe603eeb68264906e8b0addf5a94bbf6a98"},
 ]
 
 [[package]]
@@ -550,7 +547,7 @@ name = "markdown"
 version = "3.10.2"
 requires_python = ">=3.10"
 summary = "Python implementation of John Gruber's Markdown."
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "markdown-3.10.2-py3-none-any.whl", hash = "sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36"},
     {file = "markdown-3.10.2.tar.gz", hash = "sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950"},
@@ -815,7 +812,7 @@ name = "pillow"
 version = "12.3.0"
 requires_python = ">=3.10"
 summary = "Python Imaging Library (fork)"
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "pillow-12.3.0-cp314-cp314-ios_13_0_arm64_iphoneos.whl", hash = "sha256:9cf95fe4d0f84c82d282745d9bb08ad9f926efa00be4697e767b814ce40d4330"},
     {file = "pillow-12.3.0-cp314-cp314-ios_13_0_arm64_iphonesimulator.whl", hash = "sha256:8728f216dcdb6e6d555cf971cb34076139ad74b31fc2c14da4fafc741c5f6217"},
@@ -874,7 +871,7 @@ name = "puremagic"
 version = "2.2.0"
 requires_python = ">=3.12"
 summary = "Pure python implementation of magic file detection"
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "puremagic-2.2.0-py3-none-any.whl", hash = "sha256:c4f7ed7307f056c787199acfda839555921be1df13abba61e8e6db0c787ae1d0"},
     {file = "puremagic-2.2.0.tar.gz", hash = "sha256:eb4bddf07c177c4b434554b92165b67449f5a51e152b976202d6254498810eef"},
@@ -1055,7 +1052,7 @@ name = "sqlparse"
 version = "0.5.5"
 requires_python = ">=3.8"
 summary = "A non-validating SQL parser."
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "sqlparse-0.5.5-py3-none-any.whl", hash = "sha256:12a08b3bf3eec877c519589833aed092e2444e68240a3577e8e26148acc7b1ba"},
     {file = "sqlparse-0.5.5.tar.gz", hash = "sha256:e20d4a9b0b8585fdf63b10d30066c7c94c5d7a7ec47c889a2d83a3caa93ff28e"},
@@ -1077,7 +1074,7 @@ name = "tzdata"
 version = "2026.2"
 requires_python = ">=2"
 summary = "Provider of IANA time zone data"
-groups = ["default"]
+groups = ["default", "dev"]
 marker = "sys_platform == \"win32\""
 files = [
     {file = "tzdata-2026.2-py2.py3-none-any.whl", hash = "sha256:bbe9af844f658da81a5f95019480da3a89415801f6cc966806612cc7169bffe7"},

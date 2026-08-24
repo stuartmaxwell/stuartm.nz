@@ -270,7 +270,7 @@ DJPRESS_SETTINGS = {
     "THEME": "djpress_blog_theme",
     "DATABASE_SETTINGS_ENABLED": True,
     "AUTHOR_ENABLED": True,
-    "CONTENT_RENDERER": "djpress_tiptap.renderers.html_renderer",
+    "CONTENT_RENDERER": "config.markdown_renderer.mistune_renderer",
     "PLUGINS": [
         "djpress_publish_mastodon",
         "djpress_publish_bluesky",
