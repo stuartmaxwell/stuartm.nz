@@ -3,7 +3,7 @@
     "bootstrap": "^5.3.3",
     "highlight.js": "^11.11.1",
     "htmx.org": "^2.0.4",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.1"
   },
   "scripts": {
     "build-css": "sass build/scss/custom.scss build/css/bootstrap.custom.css",
