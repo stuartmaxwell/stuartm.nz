@@ -21,12 +21,15 @@ from config.sitemaps import StaticSitemap
 """Custom admin configuration."""
 admin.site.unregister(Post)
 
+
 @admin.register(Post)
 class TiptapPostAdmin(PostAdmin):
     """Over-ride the DJ Press PostAdmin."""
+
     def get_form(self, request, obj=None, change=False, **kwargs):  # noqa: ANN001, ANN003, ANN201, D102, FBT002
         kwargs["widgets"] = {"content": DjTiptapWidget()}
         return super().get_form(request, obj, change, **kwargs)
+
 
 sitemaps = {
     "posts": PostSitemap,
