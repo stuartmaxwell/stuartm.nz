@@ -47,8 +47,8 @@ check:
     pdm run manage.py check
 
 # Run pytest
-test:
-    pdm run pytest
+test *ARGS:
+    pdm run pytest {{ARGS}}
 
 # Upgrade pre-commit hooks
 pc-up:
