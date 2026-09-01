@@ -20,11 +20,6 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1"])
 SENTRY_DSN = env.str("SENTRY_DSN", "")
 SENTRY_ENVIRONMENT = env.str("SENTRY_ENVIRONMENT", "development")
 SENTRY_TRACES_SAMPLE_RATE = env.float("SENTRY_TRACES_SAMPLE_RATE", 0.0)
-EMAIL_HOST = env.str("EMAIL_HOST", "")
-EMAIL_PORT = env.str("EMAIL_PORT", "")
-EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", "")
 DB_ENGINE = env.str("DB_ENGINE", "django.db.backends.sqlite3")
 DB_NAME = env.str("DB_NAME", "db")
@@ -311,8 +306,18 @@ DJPRESS_SETTINGS = {
 }
 
 # Email configuration
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": env.str("EMAIL_HOST", ""),
+            "use_tls": env.bool("EMAIL_USE_TLS", True),
+            "port": env.str("EMAIL_PORT", ""),
+            "username": env.str("EMAIL_HOST_USER", ""),
+            "password": env.str("EMAIL_HOST_PASSWORD", ""),
+        },
+    },
+}
 # Securtiy settings
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
