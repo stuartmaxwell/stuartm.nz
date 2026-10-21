@@ -1,4 +1,4 @@
-ARG PYTHON_BASE=3.14-slim
+ARG PYTHON_BASE=3.15-slim
 
 # --- BUILD STAGE ---
 FROM python:$PYTHON_BASE AS builder
@@ -6,8 +6,8 @@ ENV PDM_CHECK_UPDATE=false
 
 # Install Infisical here just to get the binary
 RUN apt-get update && apt-get install -y curl --no-install-recommends \
-    && curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | bash \
-    && apt-get install -y infisical
+  && curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | bash \
+  && apt-get install -y infisical
 
 # install s5cmd
 COPY --from=peakcom/s5cmd:latest /s5cmd /usr/local/bin/s5cmd
